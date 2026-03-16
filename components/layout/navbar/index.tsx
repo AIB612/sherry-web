@@ -14,7 +14,7 @@ export function Navbar() {
   const menu = mockMenu;
 
   return (
-    <nav className="relative flex items-center justify-between p-4 lg:px-6">
+    <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md dark:bg-black/80 relative flex items-center justify-between p-4 lg:px-6">
       <div className="block flex-none md:hidden">
         <Suspense fallback={null}>
           <MobileMenu menu={menu} />
