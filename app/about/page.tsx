@@ -264,13 +264,76 @@ export default function AboutPage() {
               ))}
             </div>
           </motion.div>
+        </div>
+      </section>
 
-          {/* 右侧: 头像 + 简介 + 技能 + 联系方式 */}
+      {/* Section 2: Experience — Timeline */}
+      <section id="experience" className="min-h-screen flex items-center px-8 md:px-20 md:pl-36">
+        <div className="w-full grid md:grid-cols-[65%_35%] gap-12 items-center max-w-5xl">
+          
+          {/* 左侧: Timeline Chart */}
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.2 }}
+            transition={{ duration: 0.7 }}
+          >
+            <p className="text-[10px] tracking-[0.3em] text-neutral-400 mb-12">EXPERIENCE</p>
+            
+            {/* 浮动条形图 + 年份 */}
+            <div className="inline-flex flex-col items-start ml-5" style={{ width: '500px' }}>
+              {/* 条形 + 年份一体化 */}
+              <div className="flex justify-between w-full">
+                {timelineData.map((bar, i) => (
+                  <div key={i} className="flex flex-col items-center relative group cursor-pointer" onClick={() => setSelectedYear(bar)}>
+                    {/* Hover Tooltip */}
+                    <motion.div 
+                      className="absolute bottom-full mb-4 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 pointer-events-none z-10"
+                      initial={false}
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <motion.div 
+                        className="bg-black text-white text-[10px] rounded-lg px-4 py-3 whitespace-nowrap shadow-lg"
+                        initial={{ y: 5, opacity: 0 }}
+                        whileInView={{ y: 0, opacity: 1 }}
+                        transition={{ duration: 0.15 }}
+                      >
+                        <p className="font-bold text-[11px] mb-2 border-b border-white/20 pb-1">{bar.year}</p>
+                        <p><span className="text-neutral-400">工作：</span>{bar.work}</p>
+                        <p><span className="text-neutral-400">项目：</span>{bar.project}</p>
+                        <p><span className="text-neutral-400">生活：</span>{bar.life}</p>
+                      </motion.div>
+                      <div className="w-2 h-2 bg-black rotate-45 mx-auto -mt-1" />
+                    </motion.div>
+                    {/* 条形容器 */}
+                    <div className="h-[120px] flex items-end mb-2">
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        whileInView={{ height: bar.h, opacity: 1 }}
+                        whileHover={{ width: 9, backgroundColor: '#525252' }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: i * 0.08 }}
+                        className="w-[6px] bg-black rounded-full cursor-pointer transition-all duration-200"
+                      />
+                    </div>
+                    {/* 年份 */}
+                    <span className="text-[11px] text-neutral-400 font-mono mt-2 group-hover:text-black group-hover:font-semibold transition-all duration-200">{bar.year}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* X轴线 */}
+              <div className="w-full h-[1px] bg-neutral-300 -mt-[13px] mb-6" />
+            </div>
+          </motion.div>
+
+          {/* 右侧: 头像 + 简介 + 技能 + 联系方式 (从 Intro 复制) */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.3 }}
             className="flex flex-col items-center md:items-start"
           >
             {/* 头像 */}
@@ -307,93 +370,6 @@ export default function AboutPage() {
               <a href="https://ch.linkedin.com/in/princessbranny" target="_blank" rel="noopener noreferrer" className="text-[10px] tracking-[0.2em] text-neutral-400 hover:text-black transition-colors">
                 LINKEDIN ↗
               </a>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Section 2: Experience — Timeline */}
-      <section id="experience" className="min-h-screen flex items-center px-8 md:px-20 md:pl-36">
-        <div className="w-full grid md:grid-cols-[65%_35%] gap-12 items-center max-w-5xl">
-          
-          {/* 左侧: Timeline Chart */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-          >
-            <p className="text-[10px] tracking-[0.3em] text-neutral-400 mb-12">EXPERIENCE</p>
-            
-            {/* 浮动条形图 + 年份 */}
-            <div className="inline-flex flex-col items-start ml-5" style={{ width: '500px' }}>
-              {/* 条形 + 年份一体化 */}
-              <div className="flex justify-between w-full">
-                {timelineData.map((bar, i) => (
-                  <div key={i} className="flex flex-col items-center relative group cursor-pointer" onClick={() => setSelectedYear(bar)}>
-                    {/* Hover Tooltip */}
-                    <div className="absolute bottom-full mb-4 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-200 pointer-events-none z-10">
-                      <div className="bg-black text-white text-[10px] rounded-lg px-4 py-3 whitespace-nowrap shadow-lg">
-                        <p className="font-bold text-[11px] mb-2 border-b border-white/20 pb-1">{bar.year}</p>
-                        <p><span className="text-neutral-400">工作：</span>{bar.work}</p>
-                        <p><span className="text-neutral-400">项目：</span>{bar.project}</p>
-                        <p><span className="text-neutral-400">生活：</span>{bar.life}</p>
-                      </div>
-                      <div className="w-2 h-2 bg-black rotate-45 mx-auto -mt-1" />
-                    </div>
-                    {/* 条形容器 */}
-                    <div className="h-[120px] flex items-end mb-2">
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        whileInView={{ height: bar.h, opacity: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: i * 0.08 }}
-                        className="w-[4px] bg-black rounded-full cursor-pointer group-hover:w-[6px] group-hover:bg-neutral-600 transition-all duration-200"
-                      />
-                    </div>
-                    {/* 年份 */}
-                    <span className="text-[9px] text-neutral-400 font-mono mt-2 group-hover:text-black transition-colors duration-200">{bar.year}</span>
-                  </div>
-                ))}
-              </div>
-
-              {/* X轴线 */}
-              <div className="w-full h-[1px] bg-neutral-300 -mt-[13px] mb-6" />
-            </div>
-          </motion.div>
-
-          {/* 右侧: Profile */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.3 }}
-            className="flex flex-col items-center md:items-start"
-          >
-            {/* 头像 */}
-            <div className="w-24 h-24 rounded-full bg-neutral-100 border border-neutral-200 mb-6 flex items-center justify-center">
-              <span className="text-2xl font-bold text-neutral-300">CH</span>
-            </div>
-
-            {/* 名字 */}
-            <h2 className="text-xl font-bold tracking-tight mb-6">Chenxue Huang</h2>
-
-            {/* 联系信息 */}
-            <div className="space-y-2 text-sm w-full max-w-[220px]">
-              <div className="flex justify-between">
-                <span className="text-neutral-400">Location</span>
-                <span className="text-neutral-700">Switzerland</span>
-              </div>
-              <div className="w-full h-[1px] bg-neutral-100" />
-              <div className="flex justify-between">
-                <span className="text-neutral-400">E-mail</span>
-                <span className="text-neutral-700 text-xs">Sherryxuex@gmail.com</span>
-              </div>
-              <div className="w-full h-[1px] bg-neutral-100" />
-              <div className="flex justify-between">
-                <span className="text-neutral-400">Website</span>
-                <span className="text-neutral-700">sherry.dev</span>
-              </div>
             </div>
           </motion.div>
         </div>
