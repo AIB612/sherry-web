@@ -1,5 +1,6 @@
 import { CartProvider } from "components/cart/cart-context";
 import { Navbar } from "components/layout/navbar";
+import Footer from "components/layout/footer";
 import { WelcomeToast } from "components/welcome-toast";
 import { Cardo } from "next/font/google";
 import { ReactNode } from "react";
@@ -50,6 +51,7 @@ export default async function RootLayout({
             <Toaster closeButton />
             <WelcomeToast />
           </main>
+          <Footer />
         </CartProvider>
       </body>
     </html>
