@@ -208,35 +208,41 @@ export default function AboutPage() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="text-[10px] tracking-[0.3em] text-neutral-400 mb-12"
+            className="text-[10px] tracking-[0.3em] text-neutral-400 mb-16"
           >
             SKILLS & CERTIFICATES
           </motion.p>
 
-          <div className="space-y-10">
+          <div className="grid md:grid-cols-2 gap-x-16 gap-y-12">
             {skillCategories.map((cat, ci) => (
               <motion.div
                 key={cat.title}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: ci * 0.1 }}
+                transition={{ duration: 0.6, delay: ci * 0.12 }}
+                className="group"
               >
-                <div className="flex items-center gap-2 mb-4">
-                  <span className="text-[10px] tracking-[0.3em] text-neutral-400">{cat.title}</span>
-                  <div className="flex-1 h-[1px] bg-neutral-100" />
+                {/* 分类编号 + 标题 */}
+                <div className="flex items-baseline gap-3 mb-5">
+                  <span className="text-[40px] font-extralight text-neutral-200 leading-none group-hover:text-neutral-400 transition-colors">
+                    {String(ci + 1).padStart(2, '0')}
+                  </span>
+                  <span className="text-[11px] tracking-[0.25em] text-neutral-900 font-medium">{cat.title}</span>
                 </div>
-                <div className="flex flex-wrap gap-2">
+
+                {/* 技能列表 */}
+                <div className="pl-[52px] flex flex-wrap gap-x-4 gap-y-1">
                   {cat.items.map((item, i) => (
                     <motion.span
                       key={item}
-                      initial={{ opacity: 0, y: 10 }}
-                      whileInView={{ opacity: 1, y: 0 }}
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
                       viewport={{ once: true }}
-                      transition={{ duration: 0.3, delay: ci * 0.1 + i * 0.04 }}
-                      className="text-sm text-neutral-500 hover:text-black transition-colors duration-200 cursor-default"
+                      transition={{ duration: 0.3, delay: ci * 0.1 + i * 0.05 }}
+                      className="text-[13px] text-neutral-400 hover:text-black transition-colors duration-300 cursor-default leading-relaxed"
                     >
-                      #{item.replace(/\s+/g, '')}
+                      {item}
                     </motion.span>
                   ))}
                 </div>
