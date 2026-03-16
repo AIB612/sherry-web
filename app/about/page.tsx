@@ -216,18 +216,28 @@ export default function AboutPage() {
               {/* 条形 + 年份一体化 */}
               <div className="flex justify-between w-full">
                 {[
-                  { h: 30, mt: 60, year: '2017' },
-                  { h: 50, mt: 20, year: '2018' },
-                  { h: 40, mt: 40, year: '2019' },
-                  { h: 70, mt: 10, year: '2020' },
-                  { h: 55, mt: 25, year: '2021' },
-                  { h: 80, mt: 0, year: '2022' },
-                  { h: 65, mt: 15, year: '2023' },
-                  { h: 45, mt: 35, year: '2024' },
-                  { h: 75, mt: 5, year: '2025' },
-                  { h: 60, mt: 20, year: '2026' },
+                  { h: 30, year: '2017', work: 'Universität Studium', project: '-', life: 'Nach Schweiz gezogen' },
+                  { h: 50, year: '2018', work: 'Praktikum', project: '-', life: 'Deutsch lernen' },
+                  { h: 40, year: '2019', work: 'Junior Developer', project: 'First Web App', life: 'Basel entdecken' },
+                  { h: 70, year: '2020', work: 'Frontend Developer', project: 'E-Commerce Platform', life: 'Remote Work Start' },
+                  { h: 55, year: '2021', work: 'Full Stack Developer', project: 'SaaS Dashboard', life: 'Neue Wohnung' },
+                  { h: 80, year: '2022', work: 'Senior Developer', project: 'Cloud Migration', life: 'Reisen in Europa' },
+                  { h: 65, year: '2023', work: 'Tech Lead', project: 'AI Integration', life: 'Side Projects' },
+                  { h: 45, year: '2024', work: 'Solution Architect', project: 'SwissAzureAI', life: 'Konferenzen' },
+                  { h: 75, year: '2025', work: 'Freelance & Consulting', project: 'Malim Energy', life: 'Startup Gründung' },
+                  { h: 60, year: '2026', work: 'Building Products', project: 'Sherry-Web', life: 'Neue Abenteuer' },
                 ].map((bar, i) => (
-                  <div key={i} className="flex flex-col items-center">
+                  <div key={i} className="flex flex-col items-center relative group">
+                    {/* Hover Tooltip */}
+                    <div className="absolute bottom-full mb-4 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-200 pointer-events-none z-10">
+                      <div className="bg-black text-white text-[10px] rounded-lg px-4 py-3 whitespace-nowrap shadow-lg">
+                        <p className="font-bold text-[11px] mb-2 border-b border-white/20 pb-1">{bar.year}</p>
+                        <p><span className="text-neutral-400">工作：</span>{bar.work}</p>
+                        <p><span className="text-neutral-400">项目：</span>{bar.project}</p>
+                        <p><span className="text-neutral-400">生活：</span>{bar.life}</p>
+                      </div>
+                      <div className="w-2 h-2 bg-black rotate-45 mx-auto -mt-1" />
+                    </div>
                     {/* 条形容器 */}
                     <div className="h-[120px] flex items-end mb-2">
                       <motion.div
@@ -235,11 +245,11 @@ export default function AboutPage() {
                         whileInView={{ height: bar.h, opacity: 1 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.6, delay: i * 0.08 }}
-                        className="w-[4px] bg-black rounded-full"
+                        className="w-[4px] bg-black rounded-full cursor-pointer group-hover:w-[6px] group-hover:bg-neutral-600 transition-all duration-200"
                       />
                     </div>
                     {/* 年份 */}
-                    <span className="text-[9px] text-neutral-400 font-mono mt-2">{bar.year}</span>
+                    <span className="text-[9px] text-neutral-400 font-mono mt-2 group-hover:text-black transition-colors duration-200">{bar.year}</span>
                   </div>
                 ))}
               </div>
