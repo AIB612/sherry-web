@@ -213,42 +213,39 @@ export default function AboutPage() {
             
             {/* 浮动条形图 + 年份 */}
             <div className="inline-flex flex-col items-start ml-5" style={{ width: '500px' }}>
-              <div className="flex items-end justify-between mb-2 h-[120px] w-full">
+              {/* 条形 + 年份一体化 */}
+              <div className="flex justify-between w-full">
                 {[
-                  { h: 30, mt: 60 },
-                  { h: 50, mt: 20 },
-                  { h: 40, mt: 40 },
-                  { h: 70, mt: 10 },
-                  { h: 55, mt: 25 },
-                  { h: 80, mt: 0 },
-                  { h: 65, mt: 15 },
-                  { h: 45, mt: 35 },
-                  { h: 75, mt: 5 },
-                  { h: 60, mt: 20 },
+                  { h: 30, mt: 60, year: '2017' },
+                  { h: 50, mt: 20, year: '2018' },
+                  { h: 40, mt: 40, year: '2019' },
+                  { h: 70, mt: 10, year: '2020' },
+                  { h: 55, mt: 25, year: '2021' },
+                  { h: 80, mt: 0, year: '2022' },
+                  { h: 65, mt: 15, year: '2023' },
+                  { h: 45, mt: 35, year: '2024' },
+                  { h: 75, mt: 5, year: '2025' },
+                  { h: 60, mt: 20, year: '2026' },
                 ].map((bar, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ height: 0, opacity: 0 }}
-                    whileInView={{ height: bar.h, opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: i * 0.08 }}
-                    className="w-[4px] bg-black rounded-full shrink-0"
-                    style={{ marginTop: bar.mt }}
-                  />
+                  <div key={i} className="flex flex-col items-center">
+                    {/* 条形容器 */}
+                    <div className="h-[120px] flex items-end mb-2">
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        whileInView={{ height: bar.h, opacity: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: i * 0.08 }}
+                        className="w-[4px] bg-black rounded-full"
+                      />
+                    </div>
+                    {/* 年份 */}
+                    <span className="text-[9px] text-neutral-400 font-mono mt-2">{bar.year}</span>
+                  </div>
                 ))}
               </div>
 
               {/* X轴线 */}
-              <div className="w-full h-[1px] bg-neutral-300 mb-3" />
-
-              {/* 年份 */}
-              <div className="flex justify-between w-full">
-                {['2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025', '2026'].map((year) => (
-                  <span key={year} className="text-[9px] text-neutral-400 font-mono text-center">
-                    {year}
-                  </span>
-                ))}
-              </div>
+              <div className="w-full h-[1px] bg-neutral-300 -mt-[13px] mb-6" />
             </div>
           </motion.div>
 
