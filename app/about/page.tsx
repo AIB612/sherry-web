@@ -107,7 +107,7 @@ export default function AboutPage() {
       <VerticalIndicator activeIndex={activeIndex} />
 
       {/* Section 1: Intro — 左边介绍+跳转, 右边头像+简介+技能+联系 */}
-      <section id="intro" className="min-h-screen flex items-center px-8 md:px-20 md:pl-32">
+      <section id="intro" className="min-h-screen flex items-center px-8 md:px-20 md:pl-36">
         <div className="w-full grid md:grid-cols-2 gap-16 items-center">
           
           {/* 左侧: 大标题 + 简短介绍 + 页面跳转 */}
@@ -198,7 +198,7 @@ export default function AboutPage() {
       </section>
 
       {/* Section 2: Skills */}
-      <section id="skills" className="min-h-screen flex items-center px-8 md:px-20 md:pl-32">
+      <section id="skills" className="min-h-screen flex items-center px-8 md:px-20 md:pl-36">
         <div className="w-full max-w-4xl">
           <motion.p
             initial={{ opacity: 0 }}
@@ -249,7 +249,7 @@ export default function AboutPage() {
       </section>
 
       {/* Section 3: Projects */}
-      <section id="projects" className="min-h-screen flex items-center px-8 md:px-20 md:pl-32">
+      <section id="projects" className="min-h-screen flex items-center px-8 md:px-20 md:pl-36">
         <div className="w-full max-w-3xl">
           <motion.p
             initial={{ opacity: 0 }}
@@ -283,7 +283,7 @@ export default function AboutPage() {
       </section>
 
       {/* Section 4: Contact */}
-      <section id="contact" className="min-h-screen flex items-center px-8 md:px-20 md:pl-32">
+      <section id="contact" className="min-h-screen flex items-center px-8 md:px-20 md:pl-36">
         <div className="max-w-2xl">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
