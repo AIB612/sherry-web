@@ -211,40 +211,41 @@ export default function AboutPage() {
           >
             <p className="text-[10px] tracking-[0.3em] text-neutral-400 mb-12">EXPERIENCE</p>
             
-            {/* 浮动条形图 */}
-            <div className="flex items-end justify-between gap-1 mb-2 h-[120px] max-w-[400px]">
-              {[
-                { h: 10, mt: 80 },
-                { h: 10, mt: 60 },
-                { h: 10, mt: 50 },
-                { h: 10, mt: 40 },
-                { h: 10, mt: 30 },
-                { h: 10, mt: 20 },
-                { h: 10, mt: 15 },
-                { h: 10, mt: 10 },
-                { h: 10, mt: 5 },
-                { h: 10, mt: 0 },
-              ].map((bar, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ height: 0, opacity: 0 }}
-                  whileInView={{ height: bar.h, opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: i * 0.08 }}
-                  className="w-[4px] bg-black rounded-full"
-                  style={{ marginTop: bar.mt }}
-                />
-              ))}
-            </div>
+            {/* 浮动条形图 + 年份 */}
+            <div className="inline-flex flex-col items-start ml-5">
+              <div className="flex items-end gap-[4px] mb-2 h-[120px]">
+                {[
+                  { h: 10, mt: 80 },
+                  { h: 10, mt: 60 },
+                  { h: 10, mt: 50 },
+                  { h: 10, mt: 40 },
+                  { h: 10, mt: 30 },
+                  { h: 10, mt: 20 },
+                  { h: 10, mt: 15 },
+                  { h: 10, mt: 10 },
+                  { h: 10, mt: 5 },
+                  { h: 10, mt: 0 },
+                ].map((bar, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ height: 0, opacity: 0 }}
+                    whileInView={{ height: bar.h, opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: i * 0.08 }}
+                    className="w-[4px] bg-black rounded-full shrink-0"
+                    style={{ marginTop: bar.mt }}
+                  />
+                ))}
+              </div>
 
-            {/* X轴线 */}
-            <div className="w-full h-[1px] bg-neutral-300 mb-2 max-w-[400px]" />
+              {/* X轴线 */}
+              <div className="w-full h-[1px] bg-neutral-300 mb-3" />
 
-            {/* 年份 */}
-            <div className="flex justify-between max-w-[400px]">
-              {['2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025', '2026'].map((year) => (
-                <span key={year} className="text-[10px] text-neutral-400 font-mono">{year}</span>
-              ))}
+              {/* 年份 — 首尾 + 中间标注 */}
+              <div className="flex justify-between w-full">
+                <span className="text-[9px] text-neutral-400 font-mono">2017</span>
+                <span className="text-[9px] text-neutral-400 font-mono">2026</span>
+              </div>
             </div>
           </motion.div>
 
