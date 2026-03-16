@@ -27,31 +27,29 @@ const projects = [
 
 function VerticalIndicator({ activeIndex }: { activeIndex: number }) {
   return (
-    <div className="fixed left-6 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col items-center gap-1">
-      {/* 上方线 */}
-      <div className="w-[1px] h-12 bg-neutral-200" />
+    <div className="fixed left-6 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col items-start gap-0">
+      {/* 上方竖线 */}
+      <div className="w-[1px] h-8 bg-neutral-200 ml-0" />
 
       {sections.map((section, i) => (
         <a
           key={section.id}
           href={`#${section.id}`}
-          className="group flex items-center gap-3 py-2"
+          className="group flex items-center py-[6px]"
         >
-          {/* 刻度点 */}
-          <div className="relative flex items-center justify-center">
-            <motion.div
-              className="w-[3px] rounded-full bg-neutral-300"
-              animate={{
-                height: activeIndex === i ? 28 : 12,
-                backgroundColor: activeIndex === i ? '#000' : '#d4d4d4',
-              }}
-              transition={{ duration: 0.4, ease: [0.33, 1, 0.68, 1] }}
-            />
-          </div>
+          {/* 横向刻度线 */}
+          <motion.div
+            className="h-[1px] rounded-full bg-neutral-300"
+            animate={{
+              width: activeIndex === i ? 36 : 16,
+              backgroundColor: activeIndex === i ? '#000' : '#d4d4d4',
+            }}
+            transition={{ duration: 0.4, ease: [0.33, 1, 0.68, 1] }}
+          />
 
           {/* 标签 */}
           <motion.span
-            className="text-[10px] tracking-[0.2em] uppercase whitespace-nowrap"
+            className="text-[10px] tracking-[0.2em] uppercase whitespace-nowrap ml-3"
             animate={{
               opacity: activeIndex === i ? 1 : 0,
               x: activeIndex === i ? 0 : -8,
@@ -64,12 +62,12 @@ function VerticalIndicator({ activeIndex }: { activeIndex: number }) {
         </a>
       ))}
 
-      {/* 下方线 */}
-      <div className="w-[1px] h-12 bg-neutral-200" />
+      {/* 下方竖线 */}
+      <div className="w-[1px] h-8 bg-neutral-200 ml-0" />
 
       {/* 当前编号 */}
       <motion.div
-        className="mt-2 text-[10px] font-mono text-neutral-400"
+        className="mt-3 text-[10px] font-mono text-neutral-400"
         key={activeIndex}
         initial={{ opacity: 0, y: 5 }}
         animate={{ opacity: 1, y: 0 }}
