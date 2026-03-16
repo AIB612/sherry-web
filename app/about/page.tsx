@@ -203,9 +203,9 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.06 }}
-                className="border border-neutral-300 px-5 py-2.5 text-sm tracking-wider hover:bg-black hover:text-white hover:border-black transition-colors duration-200 cursor-default"
+                className="text-sm text-neutral-500 hover:text-black transition-colors duration-200 cursor-default"
               >
-                {skill}
+                #{skill}
               </motion.span>
             ))}
           </div>
