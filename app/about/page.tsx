@@ -12,28 +12,23 @@ const sections = [
 
 const skillCategories = [
   {
-    title: 'AI & DEVELOPMENT',
-    icon: '⚡',
+    title: 'DEVELOPMENT',
     items: ['React', 'Next.js', 'TypeScript', 'Node.js', 'Python', 'SQL', 'PostgreSQL', 'Docker', 'AWS', 'Azure', 'Git'],
   },
   {
-    title: 'ANALYSIS & AI/ML',
-    icon: '🧠',
+    title: 'ANALYSIS & AI',
     items: ['Business Analysis', 'Process Modelling', 'Generative AI/ML', 'Tableau', 'Figma'],
   },
   {
     title: 'CERTIFICATE',
-    icon: '📜',
     items: ['PMP'],
   },
   {
-    title: 'AGILE & STRATEGY',
-    icon: '🎯',
+    title: 'METHODOLOGY',
     items: ['Agile/Scrum', 'Digital Strategy'],
   },
   {
-    title: 'SPRACHEN',
-    icon: '🌍',
+    title: 'LANGUAGES',
     items: ['English — Fluent', '中文 — Native', 'Deutsch — B2'],
   },
 ];
@@ -228,8 +223,8 @@ export default function AboutPage() {
                 transition={{ duration: 0.5, delay: ci * 0.1 }}
               >
                 <div className="flex items-center gap-2 mb-4">
-                  <span className="text-base">{cat.icon}</span>
                   <span className="text-[10px] tracking-[0.3em] text-neutral-400">{cat.title}</span>
+                  <div className="flex-1 h-[1px] bg-neutral-100" />
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {cat.items.map((item, i) => (
