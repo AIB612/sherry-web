@@ -1,4 +1,7 @@
+'use client';
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Suspense } from "react";
 import MobileMenu from "./mobile-menu";
 import { Menu } from "lib/shopify/types";
@@ -12,6 +15,7 @@ const mockMenu: Menu[] = [
 
 export function Navbar() {
   const menu = mockMenu;
+  const pathname = usePathname();
 
   return (
     <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md dark:bg-black/80 relative flex items-center justify-between p-4 lg:px-6">
@@ -32,17 +36,24 @@ export function Navbar() {
           </Link>
           {menu.length ? (
             <ul className="hidden gap-6 text-sm md:flex md:items-center">
-              {menu.map((item: Menu) => (
-                <li key={item.title}>
-                  <Link
-                    href={item.path}
-                    prefetch={true}
-                    className="text-neutral-500 underline-offset-4 hover:text-black hover:underline dark:text-neutral-400 dark:hover:text-neutral-300"
-                  >
-                    {item.title}
-                  </Link>
-                </li>
-              ))}
+              {menu.map((item: Menu) => {
+                const isActive = pathname === item.path;
+                return (
+                  <li key={item.title}>
+                    <Link
+                      href={item.path}
+                      prefetch={true}
+                      className={`underline-offset-4 transition-colors ${
+                        isActive
+                          ? 'text-black underline dark:text-white'
+                          : 'text-neutral-500 hover:text-black hover:underline dark:text-neutral-400 dark:hover:text-neutral-300'
+                      }`}
+                    >
+                      {item.title}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           ) : null}
         </div>
