@@ -212,17 +212,17 @@ export default function AboutPage() {
             <p className="text-[10px] tracking-[0.3em] text-neutral-400 mb-12">EXPERIENCE</p>
             
             {/* 浮动条形图 */}
-            <div className="flex items-end justify-between gap-2 mb-2 h-[120px]">
+            <div className="flex items-end justify-between gap-4 mb-2 h-[120px] px-2">
               {[
-                { h: 30, mt: 60 },
-                { h: 50, mt: 20 },
-                { h: 40, mt: 40 },
-                { h: 70, mt: 10 },
-                { h: 55, mt: 25 },
-                { h: 80, mt: 0 },
-                { h: 65, mt: 15 },
-                { h: 45, mt: 35 },
-                { h: 75, mt: 5 },
+                { h: 10, mt: 80 },
+                { h: 10, mt: 60 },
+                { h: 10, mt: 50 },
+                { h: 10, mt: 40 },
+                { h: 10, mt: 30 },
+                { h: 10, mt: 20 },
+                { h: 10, mt: 15 },
+                { h: 10, mt: 10 },
+                { h: 10, mt: 5 },
               ].map((bar, i) => (
                 <motion.div
                   key={i}
@@ -230,7 +230,7 @@ export default function AboutPage() {
                   whileInView={{ height: bar.h, opacity: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: i * 0.08 }}
-                  className="flex-1 bg-black rounded-full"
+                  className="w-[4px] bg-black rounded-full"
                   style={{ marginTop: bar.mt }}
                 />
               ))}
