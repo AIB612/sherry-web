@@ -8,6 +8,8 @@ export default {
     inlineCss: true,
     useCache: true,
   },
+  // Allow useSearchParams without Suspense boundary during build
+  missingSuspenseWithCSRBailout: false,
   images: {
     formats: ["image/avif", "image/webp"],
     remotePatterns: [

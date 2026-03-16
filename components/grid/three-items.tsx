@@ -28,13 +28,6 @@ function ThreeItemGridItem({
       >
         <GridTileImage
           src={item.image}
-          fill
-          sizes={
-            size === "full"
-              ? "(min-width: 768px) 66vw, 100vw"
-              : "(min-width: 768px) 33vw, 100vw"
-          }
-          priority={priority}
           alt={item.name}
           label={{
             position: size === "full" ? "center" : "bottom",

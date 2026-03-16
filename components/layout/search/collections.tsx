@@ -4,8 +4,9 @@ import clsx from "clsx";
 import { products } from "lib/mock-data";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
-export default function Collections() {
+function CollectionsContent() {
   const searchParams = useSearchParams();
   const currentCategory = searchParams.get('category');
   
@@ -71,5 +72,13 @@ export default function Collections() {
         </select>
       </div>
     </nav>
+  );
+}
+
+export default function Collections() {
+  return (
+    <Suspense fallback={<div className="h-20" />}>
+      <CollectionsContent />
+    </Suspense>
   );
 }

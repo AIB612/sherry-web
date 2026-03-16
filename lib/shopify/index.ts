@@ -5,9 +5,7 @@ import {
 } from "lib/constants";
 import { isShopifyError } from "lib/type-guards";
 import { ensureStartsWith } from "lib/utils";
-// import {
-//   revalidateTag,om "next/cache";
-// import { cookies, headers } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import {
   addToCartMutation,

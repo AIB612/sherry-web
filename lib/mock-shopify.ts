@@ -28,6 +28,7 @@ function adaptProduct(product: typeof products[0]) {
     handle: product.id,
     title: product.name,
     description: product.description,
+    descriptionHtml: product.longDescription || `<p>${product.description}</p>`,
     featuredImage: {
       url: product.image,
       altText: product.name,

@@ -39,6 +39,7 @@ export default async function SearchPage(props: {
     handle: product.id,
     title: product.name,
     description: product.description,
+    descriptionHtml: product.longDescription || `<p>${product.description}</p>`,
     featuredImage: {
       url: product.image,
       altText: product.name,
@@ -57,34 +58,26 @@ export default async function SearchPage(props: {
     },
     availableForSale: true,
     options: [],
-    variants: {
-      edges: [
-        {
-          node: {
-            id: product.id,
-            title: 'Default',
-            availableForSale: true,
-            selectedOptions: [],
-            price: {
-              amount: product.price.toString(),
-              currencyCode: product.currency,
-            },
-          },
+    variants: [
+      {
+        id: product.id,
+        title: 'Default',
+        availableForSale: true,
+        selectedOptions: [],
+        price: {
+          amount: product.price.toString(),
+          currencyCode: product.currency,
         },
-      ],
-    },
-    images: {
-      edges: [
-        {
-          node: {
-            url: product.image,
-            altText: product.name,
-            width: 800,
-            height: 800,
-          },
-        },
-      ],
-    },
+      },
+    ],
+    images: [
+      {
+        url: product.image,
+        altText: product.name,
+        width: 800,
+        height: 800,
+      },
+    ],
     seo: {
       title: product.name,
       description: product.description,
