@@ -5,6 +5,7 @@ import { useRef, useState } from 'react';
 
 const sections = [
   { id: 'intro', label: 'Intro' },
+  { id: 'experience', label: 'Experience' },
   { id: 'skills', label: 'Skills' },
   { id: 'projects', label: 'Projects' },
   { id: 'contact', label: 'Contact' },
@@ -197,7 +198,93 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Section 2: Skills */}
+      {/* Section 2: Experience — Timeline */}
+      <section id="experience" className="min-h-screen flex items-center px-8 md:px-20 md:pl-36">
+        <div className="w-full grid md:grid-cols-[65%_35%] gap-12 items-center max-w-5xl">
+          
+          {/* 左侧: Timeline Chart */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+          >
+            <p className="text-[10px] tracking-[0.3em] text-neutral-400 mb-12">EXPERIENCE</p>
+            
+            {/* 浮动条形图 */}
+            <div className="flex items-end justify-between gap-2 mb-2 h-[120px]">
+              {[
+                { h: 30, mt: 60 },
+                { h: 50, mt: 20 },
+                { h: 40, mt: 40 },
+                { h: 70, mt: 10 },
+                { h: 55, mt: 25 },
+                { h: 80, mt: 0 },
+                { h: 65, mt: 15 },
+                { h: 45, mt: 35 },
+                { h: 75, mt: 5 },
+              ].map((bar, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ height: 0, opacity: 0 }}
+                  whileInView={{ height: bar.h, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: i * 0.08 }}
+                  className="flex-1 bg-black rounded-full"
+                  style={{ marginTop: bar.mt }}
+                />
+              ))}
+            </div>
+
+            {/* X轴线 */}
+            <div className="w-full h-[1px] bg-neutral-300 mb-2" />
+
+            {/* 年份 */}
+            <div className="flex justify-between">
+              {['2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025'].map((year) => (
+                <span key={year} className="text-[10px] text-neutral-400 font-mono">{year}</span>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* 右侧: Profile */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.3 }}
+            className="flex flex-col items-center md:items-start"
+          >
+            {/* 头像 */}
+            <div className="w-24 h-24 rounded-full bg-neutral-100 border border-neutral-200 mb-6 flex items-center justify-center">
+              <span className="text-2xl font-bold text-neutral-300">CH</span>
+            </div>
+
+            {/* 名字 */}
+            <h2 className="text-xl font-bold tracking-tight mb-6">Chenxue Huang</h2>
+
+            {/* 联系信息 */}
+            <div className="space-y-2 text-sm w-full max-w-[220px]">
+              <div className="flex justify-between">
+                <span className="text-neutral-400">Location</span>
+                <span className="text-neutral-700">Switzerland</span>
+              </div>
+              <div className="w-full h-[1px] bg-neutral-100" />
+              <div className="flex justify-between">
+                <span className="text-neutral-400">E-mail</span>
+                <span className="text-neutral-700 text-xs">Sherryxuex@gmail.com</span>
+              </div>
+              <div className="w-full h-[1px] bg-neutral-100" />
+              <div className="flex justify-between">
+                <span className="text-neutral-400">Website</span>
+                <span className="text-neutral-700">sherry.dev</span>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Section 3: Skills */}
       <section id="skills" className="min-h-screen flex items-center px-8 md:px-20 md:pl-36">
         <div className="w-full max-w-4xl">
           <motion.p
