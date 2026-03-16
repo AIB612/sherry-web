@@ -225,14 +225,14 @@ export default function AboutPage() {
               >
                 {/* 分类编号 + 标题 */}
                 <div className="flex items-baseline gap-3 mb-5">
-                  <span className="text-[40px] font-extralight text-neutral-200 leading-none group-hover:text-neutral-400 transition-colors">
+                  <span className="text-[40px] font-extralight text-neutral-300 leading-none group-hover:text-black transition-colors">
                     {String(ci + 1).padStart(2, '0')}
                   </span>
-                  <span className="text-[11px] tracking-[0.25em] text-neutral-900 font-medium">{cat.title}</span>
+                  <span className="text-xs tracking-[0.25em] text-black font-semibold">{cat.title}</span>
                 </div>
 
                 {/* 技能列表 */}
-                <div className="pl-[52px] flex flex-wrap gap-x-4 gap-y-1">
+                <div className="pl-[52px] flex flex-wrap gap-x-4 gap-y-2">
                   {cat.items.map((item, i) => (
                     <motion.span
                       key={item}
@@ -240,7 +240,7 @@ export default function AboutPage() {
                       whileInView={{ opacity: 1 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.3, delay: ci * 0.1 + i * 0.05 }}
-                      className="text-[13px] text-neutral-400 hover:text-black transition-colors duration-300 cursor-default leading-relaxed"
+                      className="text-sm text-neutral-600 hover:text-black transition-colors duration-300 cursor-default leading-relaxed"
                     >
                       {item}
                     </motion.span>
