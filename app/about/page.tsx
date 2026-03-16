@@ -17,19 +17,11 @@ const skillCategories = [
   },
   {
     title: 'ANALYSIS & AI',
-    items: ['Business Analysis', 'Process Modelling', 'Generative AI/ML', 'Tableau', 'Figma'],
+    items: ['Business Analysis', 'Process Modelling', 'Generative AI/ML', 'Enterprise Architecture', 'Tableau', 'Figma'],
   },
   {
-    title: 'ENTERPRISE ARCHITECTURE',
-    items: ['Enterprise Architecture', 'Solution Design', 'Cloud Infrastructure', 'System Integration'],
-  },
-  {
-    title: 'CERTIFICATE',
-    items: ['PMP'],
-  },
-  {
-    title: 'METHODOLOGY',
-    items: ['Agile/Scrum', 'Digital Strategy'],
+    title: 'METHODOLOGY & CERT',
+    items: ['PMP', 'Agile/Scrum', 'Digital Strategy'],
   },
   {
     title: 'LANGUAGES',
