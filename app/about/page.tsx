@@ -1,144 +1,201 @@
 'use client';
 
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-motion';
+import { useRef, useState } from 'react';
 
-const projects = [
-  { num: '01', title: 'KeyFlow', type: 'SOFTWARE', year: '2025' },
-  { num: '02', title: 'Malim', type: 'WEB APP', year: '2025' },
-  { num: '03', title: 'Shopimage', type: 'TOOL', year: '2024' },
-  { num: '04', title: 'EventMerch', type: 'PLATFORM', year: '2025' },
-  { num: '05', title: 'SwissAzureAI', type: 'INFRA', year: '2024' },
-  { num: '06', title: 'Pet Translator', type: 'APP', year: '2024' },
+const sections = [
+  { id: 'intro', label: 'Intro' },
+  { id: 'skills', label: 'Skills' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'contact', label: 'Contact' },
 ];
 
-function AnimatedTitle({ title, delay = 0 }: { title: string; delay?: number }) {
+const skills = [
+  'React', 'Next.js', 'TypeScript', 'Tailwind CSS',
+  'Node.js', 'Python', 'PostgreSQL', 'Docker',
+  'AWS', 'Azure', 'Figma', 'Git',
+];
+
+const projects = [
+  { title: 'KeyFlow', desc: 'Software license management system', type: 'FULLSTACK' },
+  { title: 'Malim Energy', desc: 'Swiss EV charging subsidy explorer', type: 'FRONTEND' },
+  { title: 'Shopimage', desc: 'Image optimization for e-commerce', type: 'FULLSTACK' },
+  { title: 'EventMerch', desc: 'AI-powered event merchandise', type: 'AI / FULLSTACK' },
+  { title: 'SwissAzureAI', desc: 'Swiss-compliant Azure RAG deployment', type: 'CLOUD / AI' },
+  { title: 'Pet Translator', desc: 'AI pet emotion translator', type: 'FRONTEND' },
+];
+
+function VerticalIndicator({ activeIndex }: { activeIndex: number }) {
   return (
-    <div className="flex overflow-hidden">
-      {title.split('').map((char, i) => (
-        <motion.span
-          key={i}
-          initial={{ y: '100%', opacity: 0 }}
-          whileInView={{ y: '0%', opacity: 1 }}
-          viewport={{ once: true, margin: '-10%' }}
-          transition={{
-            duration: 0.5,
-            delay: delay + i * 0.04,
-            ease: [0.33, 1, 0.68, 1],
-          }}
-          className="inline-block"
+    <div className="fixed left-6 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col items-center gap-1">
+      {/* 上方线 */}
+      <div className="w-[1px] h-12 bg-neutral-200" />
+
+      {sections.map((section, i) => (
+        <a
+          key={section.id}
+          href={`#${section.id}`}
+          className="group flex items-center gap-3 py-2"
         >
-          {char === ' ' ? '\u00A0' : char}
-        </motion.span>
+          {/* 刻度点 */}
+          <div className="relative flex items-center justify-center">
+            <motion.div
+              className="w-[3px] rounded-full bg-neutral-300"
+              animate={{
+                height: activeIndex === i ? 28 : 12,
+                backgroundColor: activeIndex === i ? '#000' : '#d4d4d4',
+              }}
+              transition={{ duration: 0.4, ease: [0.33, 1, 0.68, 1] }}
+            />
+          </div>
+
+          {/* 标签 */}
+          <motion.span
+            className="text-[10px] tracking-[0.2em] uppercase whitespace-nowrap"
+            animate={{
+              opacity: activeIndex === i ? 1 : 0,
+              x: activeIndex === i ? 0 : -8,
+              color: activeIndex === i ? '#000' : '#a3a3a3',
+            }}
+            transition={{ duration: 0.3 }}
+          >
+            {section.label}
+          </motion.span>
+        </a>
       ))}
-    </div>
-  );
-}
 
-function ProjectCard({ project, index }: { project: typeof projects[0]; index: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ['start end', 'end start'],
-  });
-  const y = useTransform(scrollYProgress, [0, 1], [60, -60]);
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+      {/* 下方线 */}
+      <div className="w-[1px] h-12 bg-neutral-200" />
 
-  return (
-    <motion.div
-      ref={ref}
-      style={{ opacity }}
-      className="h-screen flex flex-col justify-center px-10 md:px-16 relative"
-    >
-      {/* 编号 */}
-      <motion.div style={{ y }} className="mb-6">
-        <span className="text-[10px] tracking-[0.3em] text-neutral-400 font-mono">
-          {project.num}
-        </span>
-        <span className="text-[10px] tracking-[0.3em] text-neutral-300 ml-4">
-          / 06
-        </span>
-      </motion.div>
-
-      {/* 大标题 - 逐字动画 */}
-      <motion.div style={{ y }}>
-        <h2 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-none">
-          <AnimatedTitle title={project.title} delay={index * 0.05} />
-        </h2>
-      </motion.div>
-
-      {/* 详情 */}
-      <motion.div style={{ y }} className="mt-8 flex gap-8">
-        <div>
-          <span className="text-[10px] tracking-[0.3em] text-neutral-400 block mb-1">TYPE</span>
-          <span className="text-xs tracking-wider">{project.type}</span>
-        </div>
-        <div>
-          <span className="text-[10px] tracking-[0.3em] text-neutral-400 block mb-1">YEAR</span>
-          <span className="text-xs tracking-wider">{project.year}</span>
-        </div>
-      </motion.div>
-
-      {/* 分割线 */}
+      {/* 当前编号 */}
       <motion.div
-        initial={{ scaleX: 0 }}
-        whileInView={{ scaleX: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, delay: 0.3 }}
-        className="absolute bottom-0 left-10 right-10 md:left-16 md:right-16 h-[1px] bg-neutral-200 origin-left"
-      />
-    </motion.div>
+        className="mt-2 text-[10px] font-mono text-neutral-400"
+        key={activeIndex}
+        initial={{ opacity: 0, y: 5 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+      >
+        {String(activeIndex + 1).padStart(2, '0')}/{String(sections.length).padStart(2, '0')}
+      </motion.div>
+    </div>
   );
 }
 
 export default function AboutPage() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: containerRef });
-  const counterY = useTransform(scrollYProgress, [0, 1], ['0%', '-83.33%']);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useMotionValueEvent(scrollYProgress, 'change', (v) => {
+    const idx = Math.min(Math.floor(v * sections.length), sections.length - 1);
+    setActiveIndex(idx);
+  });
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="flex">
-        
-        {/* 左侧: 垂直滚动项目 */}
-        <div ref={containerRef} className="w-full md:w-1/2">
-          {projects.map((project, i) => (
-            <ProjectCard key={project.num} project={project} index={i} />
-          ))}
+    <div ref={containerRef} className="min-h-screen bg-white">
+      <VerticalIndicator activeIndex={activeIndex} />
+
+      {/* Section 1: Intro */}
+      <section id="intro" className="min-h-screen flex items-center justify-center px-8 md:px-20 md:pl-24">
+        <div className="max-w-2xl">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+          >
+            <h1 className="text-6xl md:text-8xl font-bold tracking-tighter mb-8">
+              About
+            </h1>
+            <div className="w-16 h-[1px] bg-black mb-8" />
+            <p className="text-lg text-neutral-600 leading-relaxed">
+              <span className="text-black font-semibold">Chenxue Branny</span> — developer 
+              and designer based in Switzerland. Building digital products that are clean, 
+              functional, and thoughtfully crafted.
+            </p>
+          </motion.div>
         </div>
+      </section>
 
-        {/* 右侧: 固定面板 */}
-        <div className="hidden md:flex md:w-1/2 h-screen sticky top-16 flex-col justify-between py-16 px-12 border-l border-neutral-100">
-          
-          {/* 上部: 大计数器 */}
-          <div className="flex-1 flex items-center justify-center">
-            <div className="text-[12rem] font-bold leading-none tracking-tighter text-neutral-100 overflow-hidden h-[12rem]">
-              <motion.div style={{ y: counterY }}>
-                {projects.map((p) => (
-                  <div key={p.num} className="h-[12rem] flex items-center justify-center">
-                    {p.num}
-                  </div>
-                ))}
-              </motion.div>
-            </div>
+      {/* Section 2: Skills */}
+      <section id="skills" className="min-h-screen flex items-center px-8 md:px-20 md:pl-24">
+        <div className="max-w-3xl">
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-[10px] tracking-[0.3em] text-neutral-400 mb-8"
+          >
+            SKILLS & TOOLS
+          </motion.p>
+          <div className="flex flex-wrap gap-3">
+            {skills.map((skill, i) => (
+              <motion.span
+                key={skill}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: i * 0.06 }}
+                className="border border-neutral-300 px-5 py-2.5 text-sm tracking-wider hover:bg-black hover:text-white hover:border-black transition-colors duration-200 cursor-default"
+              >
+                {skill}
+              </motion.span>
+            ))}
           </div>
+        </div>
+      </section>
 
-          {/* 下部: 个人信息 */}
-          <div>
-            <div className="mb-8">
-              <p className="text-xs tracking-[0.3em] text-neutral-400 mb-4">ABOUT</p>
-              <p className="text-sm text-neutral-600 leading-relaxed max-w-sm">
-                <span className="text-black font-medium">Chenxue Branny</span> is a developer 
-                and designer based in Switzerland, specializing in full-stack development 
-                and AI integration.
-              </p>
-            </div>
+      {/* Section 3: Projects */}
+      <section id="projects" className="min-h-screen flex items-center px-8 md:px-20 md:pl-24">
+        <div className="w-full max-w-3xl">
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-[10px] tracking-[0.3em] text-neutral-400 mb-10"
+          >
+            SELECTED PROJECTS
+          </motion.p>
+          <div className="space-y-0">
+            {projects.map((project, i) => (
+              <motion.div
+                key={project.title}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.08 }}
+                className="group border-b border-neutral-200 py-6 flex items-baseline justify-between hover:pl-2 transition-all duration-300"
+              >
+                <div>
+                  <h3 className="text-xl font-bold tracking-tight">{project.title}</h3>
+                  <p className="text-sm text-neutral-500 mt-1">{project.desc}</p>
+                </div>
+                <span className="text-[10px] tracking-[0.2em] text-neutral-400 shrink-0 ml-4">
+                  {project.type}
+                </span>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-            {/* 链接 */}
-            <div className="flex gap-6">
+      {/* Section 4: Contact */}
+      <section id="contact" className="min-h-screen flex items-center px-8 md:px-20 md:pl-24">
+        <div className="max-w-2xl">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+          >
+            <p className="text-[10px] tracking-[0.3em] text-neutral-400 mb-8">GET IN TOUCH</p>
+            <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-10">
+              Let's work<br />together.
+            </h2>
+            <div className="flex flex-col gap-4">
               <a
                 href="mailto:Sherryxuex@gmail.com"
-                className="text-[10px] tracking-[0.3em] text-neutral-400 hover:text-black transition-colors"
+                className="text-sm tracking-wider text-neutral-500 hover:text-black transition-colors"
               >
                 EMAIL ↗
               </a>
@@ -146,7 +203,7 @@ export default function AboutPage() {
                 href="https://github.com/AIB612"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[10px] tracking-[0.3em] text-neutral-400 hover:text-black transition-colors"
+                className="text-sm tracking-wider text-neutral-500 hover:text-black transition-colors"
               >
                 GITHUB ↗
               </a>
@@ -154,14 +211,14 @@ export default function AboutPage() {
                 href="https://ch.linkedin.com/in/princessbranny"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[10px] tracking-[0.3em] text-neutral-400 hover:text-black transition-colors"
+                className="text-sm tracking-wider text-neutral-500 hover:text-black transition-colors"
               >
                 LINKEDIN ↗
               </a>
             </div>
-          </div>
+          </motion.div>
         </div>
-      </div>
+      </section>
     </div>
   );
 }
