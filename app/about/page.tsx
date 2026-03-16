@@ -162,8 +162,8 @@ export default function AboutPage() {
             {/* 技能标签 */}
             <div className="flex flex-wrap gap-2 mb-8">
               {['React', 'Next.js', 'TypeScript', 'Node.js', 'Python', 'Azure', 'Docker'].map((skill) => (
-                <span key={skill} className="text-[11px] border border-neutral-200 px-3 py-1 text-neutral-500 hover:border-black hover:text-black transition-colors cursor-default">
-                  {skill}
+                <span key={skill} className="text-[11px] text-neutral-500 hover:text-black transition-colors cursor-default">
+                  #{skill}
                 </span>
               ))}
             </div>
