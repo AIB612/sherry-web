@@ -125,7 +125,7 @@ export default function AboutPage() {
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
           >
-            <h1 className="text-6xl md:text-8xl font-bold tracking-tighter mb-6">
+            <h1 className="text-4xl md:text-5xl font-bold tracking-tighter mb-6">
               About
             </h1>
             <div className="w-16 h-[1px] bg-black mb-8" />
