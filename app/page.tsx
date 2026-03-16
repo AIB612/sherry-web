@@ -15,16 +15,6 @@ export const metadata = {
 export default function HomePage() {
   return (
     <>
-      {/* Promo Banner */}
-      <div className="bg-red-50 text-[var(--color-airbnb-red)] py-3 px-4">
-        <div className="container mx-auto text-center">
-          <p className="text-sm md:text-base font-medium">
-            🎉 <strong>Spring Sale!</strong> Up to 33% OFF on selected software licenses
-            {' '}<Link href="/search" className="underline hover:no-underline">Shop Now →</Link>
-          </p>
-        </div>
-      </div>
-
       <ThreeItemGrid />
       <Carousel />
       
