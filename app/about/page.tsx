@@ -13,11 +13,15 @@ const sections = [
 const skillCategories = [
   {
     title: 'DEVELOPMENT',
-    items: ['React', 'Next.js', 'TypeScript', 'Node.js', 'Python', 'SQL', 'PostgreSQL', 'Docker', 'AWS', 'Azure', 'Git'],
+    items: ['React', 'Next.js', 'TypeScript', 'Node.js', 'Python', 'SQL', 'PostgreSQL', 'Docker', 'Azure', 'Git'],
   },
   {
     title: 'ANALYSIS & AI',
     items: ['Business Analysis', 'Process Modelling', 'Generative AI/ML', 'Tableau', 'Figma'],
+  },
+  {
+    title: 'ENTERPRISE ARCHITECTURE',
+    items: ['Enterprise Architecture', 'Solution Design', 'Cloud Infrastructure', 'System Integration'],
   },
   {
     title: 'CERTIFICATE',
