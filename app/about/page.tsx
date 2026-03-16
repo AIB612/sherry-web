@@ -223,6 +223,7 @@ export default function AboutPage() {
                 { h: 10, mt: 15 },
                 { h: 10, mt: 10 },
                 { h: 10, mt: 5 },
+                { h: 10, mt: 0 },
               ].map((bar, i) => (
                 <motion.div
                   key={i}
@@ -241,7 +242,7 @@ export default function AboutPage() {
 
             {/* 年份 */}
             <div className="flex justify-between">
-              {['2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025'].map((year) => (
+              {['2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025', '2026'].map((year) => (
                 <span key={year} className="text-[10px] text-neutral-400 font-mono">{year}</span>
               ))}
             </div>
