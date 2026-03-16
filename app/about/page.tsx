@@ -212,8 +212,8 @@ export default function AboutPage() {
             <p className="text-[10px] tracking-[0.3em] text-neutral-400 mb-12">EXPERIENCE</p>
             
             {/* 浮动条形图 + 年份 */}
-            <div className="inline-flex flex-col items-start ml-5">
-              <div className="flex items-end gap-[4px] mb-2 h-[120px]">
+            <div className="inline-flex flex-col items-start ml-5" style={{ width: '300px' }}>
+              <div className="flex items-end justify-between mb-2 h-[120px] w-full">
                 {[
                   { h: 30, mt: 60 },
                   { h: 50, mt: 20 },
@@ -241,10 +241,10 @@ export default function AboutPage() {
               {/* X轴线 */}
               <div className="w-full h-[1px] bg-neutral-300 mb-3" />
 
-              {/* 年份 — 每个对齐条形 */}
-              <div className="flex gap-[4px]">
+              {/* 年份 */}
+              <div className="flex justify-between w-full">
                 {['2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025', '2026'].map((year) => (
-                  <span key={year} className="text-[8px] text-neutral-400 font-mono w-[4px] text-center leading-none">
+                  <span key={year} className="text-[9px] text-neutral-400 font-mono text-center">
                     {`'${year.slice(2)}`}
                   </span>
                 ))}
