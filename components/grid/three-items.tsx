@@ -1,17 +1,13 @@
 import { GridTileImage } from "components/grid/tile";
-import { products } from "lib/mock-data";
+import { homepageProducts, HomepageProduct } from "lib/homepage-data";
 import Link from "next/link";
-
-type MockProduct = typeof products[0];
 
 function ThreeItemGridItem({
   item,
   size,
-  priority,
 }: {
-  item: MockProduct;
+  item: HomepageProduct;
   size: "full" | "half";
-  priority?: boolean;
 }) {
   return (
     <div
@@ -23,7 +19,7 @@ function ThreeItemGridItem({
     >
       <Link
         className="relative block aspect-square h-full w-full"
-        href={`/product/${item.id}`}
+        href={item.href}
         prefetch={true}
       >
         <GridTileImage
@@ -31,7 +27,7 @@ function ThreeItemGridItem({
           alt={item.name}
           label={{
             position: size === "full" ? "center" : "bottom",
-            title: item.name as string,
+            title: item.name,
             amount: item.price.toString(),
             currencyCode: item.currency,
             originalAmount: item.originalPrice?.toString(),
@@ -46,17 +42,15 @@ function ThreeItemGridItem({
 }
 
 export function ThreeItemGrid() {
-  const homepageItems = products.slice(0, 3);
+  if (homepageProducts.length < 3) return null;
 
-  if (!homepageItems[0] || !homepageItems[1] || !homepageItems[2]) return null;
-
-  const [firstProduct, secondProduct, thirdProduct] = homepageItems;
+  const [first, second, third] = homepageProducts;
 
   return (
     <section className="mx-auto grid max-w-screen-2xl gap-4 px-4 pb-4 md:grid-cols-6 md:grid-rows-2 lg:max-h-[calc(100vh-200px)]">
-      <ThreeItemGridItem size="full" item={firstProduct} priority={true} />
-      <ThreeItemGridItem size="half" item={secondProduct} priority={true} />
-      <ThreeItemGridItem size="half" item={thirdProduct} />
+      <ThreeItemGridItem size="full" item={first!} />
+      <ThreeItemGridItem size="half" item={second!} />
+      <ThreeItemGridItem size="half" item={third!} />
     </section>
   );
 }

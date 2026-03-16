@@ -1,7 +1,6 @@
 "use client";
 
-import clsx from "clsx";
-import { products } from "lib/mock-data";
+import { categories } from "lib/search-data";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
@@ -9,18 +8,6 @@ import { Suspense } from "react";
 function CollectionsContent() {
   const searchParams = useSearchParams();
   const currentCategory = searchParams.get('category');
-  
-  // Get unique categories from products
-  const categories = Array.from(new Set(products.map(p => p.category)));
-  
-  // Create collections
-  const collections = [
-    { handle: '', title: 'All' },
-    ...categories.map(category => ({
-      handle: category,
-      title: category.charAt(0).toUpperCase() + category.slice(1),
-    }))
-  ];
 
   return (
     <nav>
@@ -28,25 +15,25 @@ function CollectionsContent() {
         Collections
       </h3>
       <ul className="hidden md:block">
-        {collections.map((collection) => {
-          const isActive = currentCategory === collection.handle || 
-            (!currentCategory && collection.handle === '');
-          const href = collection.handle 
-            ? `/search?category=${collection.handle}` 
+        {categories.map((collection) => {
+          const isActive = currentCategory === collection.id || 
+            (!currentCategory && collection.id === '');
+          const href = collection.id 
+            ? `/search?category=${collection.id}` 
             : '/search';
           
           return (
-            <li key={collection.handle} className="mt-2 flex text-black dark:text-white">
+            <li key={collection.id} className="mt-2 flex text-black dark:text-white">
               {isActive ? (
                 <p className="w-full text-sm underline underline-offset-4">
-                  {collection.title}
+                  {collection.name}
                 </p>
               ) : (
                 <Link
                   href={href}
                   className="w-full text-sm underline-offset-4 hover:underline dark:hover:text-neutral-100"
                 >
-                  {collection.title}
+                  {collection.name}
                 </Link>
               )}
             </li>
@@ -64,9 +51,9 @@ function CollectionsContent() {
           }}
           className="w-full rounded border p-2 text-sm"
         >
-          {collections.map((collection) => (
-            <option key={collection.handle} value={collection.handle}>
-              {collection.title}
+          {categories.map((collection) => (
+            <option key={collection.id} value={collection.id}>
+              {collection.name}
             </option>
           ))}
         </select>

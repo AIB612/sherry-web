@@ -1,53 +1,42 @@
-import { products } from "lib/mock-data";
+import { searchProducts, categories } from "lib/search-data";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import Grid from "components/grid";
 import ProductGridItems from "components/layout/product-grid-items";
 
-const categoryNames: Record<string, string> = {
-  creative: 'Creative',
-  productivity: 'Productivity',
-  security: 'Security',
-  entertainment: 'Entertainment',
-  development: 'Development',
-};
-
 export async function generateMetadata(props: {
   params: Promise<{ collection: string }>;
 }): Promise<Metadata> {
   const params = await props.params;
-  const categoryName = categoryNames[params.collection];
+  const category = categories.find(c => c.id === params.collection);
 
-  if (!categoryName) return notFound();
+  if (!category) return notFound();
 
   return {
-    title: categoryName,
-    description: `${categoryName} products`,
+    title: category.name,
+    description: `${category.name} products`,
   };
 }
 
 export default async function CategoryPage(props: {
   params: Promise<{ collection: string }>;
-  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const params = await props.params;
-  const categoryName = categoryNames[params.collection];
+  const category = categories.find(c => c.id === params.collection);
 
-  if (!categoryName) return notFound();
+  if (!category) return notFound();
 
-  // Filter products by category
-  const filteredProducts = products.filter(
+  const filteredProducts = searchProducts.filter(
     (p) => p.category.toLowerCase() === params.collection.toLowerCase()
   );
 
-  // Convert to Shopify format
   const shopifyProducts = filteredProducts.map((product) => ({
     id: product.id,
     handle: product.id,
     title: product.name,
     description: product.description,
-    descriptionHtml: product.longDescription || `<p>${product.description}</p>`,
+    descriptionHtml: `<p>${product.description}</p>`,
     featuredImage: {
       url: product.image,
       altText: product.name,
@@ -96,7 +85,7 @@ export default async function CategoryPage(props: {
 
   return (
     <section>
-      <h1 className="mb-4 text-3xl font-bold">{categoryName}</h1>
+      <h1 className="mb-4 text-3xl font-bold">{category.name}</h1>
       {shopifyProducts.length === 0 ? (
         <p className="py-3 text-lg">{`No products found in this collection`}</p>
       ) : (

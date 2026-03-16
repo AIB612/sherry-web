@@ -1,7 +1,6 @@
 import Grid from "components/grid";
 import ProductGridItems from "components/layout/product-grid-items";
-import { defaultSort, sorting } from "lib/constants";
-import { products } from "lib/mock-data";
+import { searchProducts, categories } from "lib/search-data";
 
 export const metadata = {
   title: "Search",
@@ -14,15 +13,12 @@ export default async function SearchPage(props: {
   const searchParams = await props.searchParams;
   const { sort, q: searchValue, category } = searchParams as { [key: string]: string };
 
-  // Filter products based on search query and category
-  let filteredProducts = products;
-  
-  // Filter by category
+  let filteredProducts = searchProducts;
+
   if (category) {
     filteredProducts = filteredProducts.filter((p) => p.category === category);
   }
-  
-  // Filter by search query
+
   if (searchValue) {
     const query = searchValue.toLowerCase();
     filteredProducts = filteredProducts.filter(
@@ -33,13 +29,12 @@ export default async function SearchPage(props: {
     );
   }
 
-  // Convert to Shopify format
   const shopifyProducts = filteredProducts.map((product) => ({
     id: product.id,
     handle: product.id,
     title: product.name,
     description: product.description,
-    descriptionHtml: product.longDescription || `<p>${product.description}</p>`,
+    descriptionHtml: `<p>${product.description}</p>`,
     featuredImage: {
       url: product.image,
       altText: product.name,
