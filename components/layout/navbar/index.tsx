@@ -6,7 +6,7 @@ import { Menu } from "lib/shopify/types";
 
 // Mock menu data
 const mockMenu: Menu[] = [
-  { title: 'All', path: '/search' },
+  { title: 'All work', path: '/search' },
   { title: 'Protocol', path: '/faq' },
 ];
 
