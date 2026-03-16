@@ -2,13 +2,13 @@ import { GridTileImage } from "components/grid/tile";
 import Footer from "components/layout/footer";
 import { ProductDescription } from "components/product/product-description";
 import { ProductModal } from "components/product/product-modal";
-import { products } from "lib/mock-data";
+import { productDetails } from "lib/product-details";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
-function adaptProduct(product: typeof products[0]) {
+function adaptProduct(product: typeof productDetails[0]) {
   return {
     id: product.id,
     handle: product.id,
@@ -68,7 +68,7 @@ export async function generateMetadata(props: {
   params: Promise<{ handle: string }>;
 }): Promise<Metadata> {
   const params = await props.params;
-  const mockProduct = products.find((p) => p.id === params.handle);
+  const mockProduct = productDetails.find((p) => p.id === params.handle);
   if (!mockProduct) return notFound();
 
   const product = adaptProduct(mockProduct);
@@ -90,13 +90,13 @@ export default async function ProductPage(props: {
   params: Promise<{ handle: string }>;
 }) {
   const params = await props.params;
-  const mockProduct = products.find((p) => p.id === params.handle);
+  const mockProduct = productDetails.find((p) => p.id === params.handle);
   if (!mockProduct) return notFound();
 
   const product = adaptProduct(mockProduct);
   
   // Get other products (exclude current product)
-  const otherProducts = products.filter((p) => p.id !== params.handle).slice(0, 4);
+  const otherProducts = productDetails.filter((p) => p.id !== params.handle).slice(0, 4);
 
   const productJsonLd = {
     "@context": "https://schema.org",
