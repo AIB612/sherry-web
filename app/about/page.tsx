@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-motion';
+import { motion, useScroll, useTransform, useMotionValueEvent, AnimatePresence } from 'framer-motion';
 import { useRef, useState } from 'react';
 
 const sections = [
@@ -9,6 +9,119 @@ const sections = [
   { id: 'skills', label: 'Skills' },
   { id: 'projects', label: 'Projects' },
   { id: 'contact', label: 'Contact' },
+];
+
+const timelineData = [
+  { 
+    h: 30, year: '2017', 
+    work: 'Universität Studium', project: '-', life: 'Nach Schweiz gezogen',
+    details: {
+      title: '2017 — Anfang',
+      subtitle: 'Universität Studium',
+      description: 'Beginn des Studiums in der Schweiz. Erste Schritte in einem neuen Land, neue Kultur und Sprache entdecken.',
+      highlights: ['Universität Einschreibung', 'Erste Programmierkurse', 'Schweizer Kultur kennenlernen'],
+      tags: ['Studium', 'Schweiz', 'Neuanfang'],
+    }
+  },
+  { 
+    h: 50, year: '2018', 
+    work: 'Praktikum', project: '-', life: 'Deutsch lernen',
+    details: {
+      title: '2018 — Wachstum',
+      subtitle: 'Praktikum',
+      description: 'Erstes Praktikum in der Tech-Branche. Intensives Deutsch lernen und erste professionelle Erfahrungen sammeln.',
+      highlights: ['Erstes Tech-Praktikum', 'Deutsch B1 erreicht', 'Netzwerk aufbauen'],
+      tags: ['Praktikum', 'Deutsch', 'Erfahrung'],
+    }
+  },
+  { 
+    h: 40, year: '2019', 
+    work: 'Junior Developer', project: 'First Web App', life: 'Basel entdecken',
+    details: {
+      title: '2019 — Einstieg',
+      subtitle: 'Junior Developer',
+      description: 'Erste Vollzeitstelle als Junior Developer. Entwicklung der ersten eigenen Web-Applikation.',
+      highlights: ['Erste Vollzeitstelle', 'React & Node.js gelernt', 'Erste Web App veröffentlicht'],
+      tags: ['React', 'Node.js', 'Web Development'],
+    }
+  },
+  { 
+    h: 70, year: '2020', 
+    work: 'Frontend Developer', project: 'E-Commerce Platform', life: 'Remote Work Start',
+    details: {
+      title: '2020 — Remote',
+      subtitle: 'Frontend Developer',
+      description: 'Aufstieg zum Frontend Developer. Arbeit an einer E-Commerce-Plattform während der Remote-Work-Ära.',
+      highlights: ['E-Commerce Platform gebaut', 'Remote Work Workflow', 'TypeScript Migration'],
+      tags: ['E-Commerce', 'TypeScript', 'Remote'],
+    }
+  },
+  { 
+    h: 55, year: '2021', 
+    work: 'Full Stack Developer', project: 'SaaS Dashboard', life: 'Neue Wohnung',
+    details: {
+      title: '2021 — Full Stack',
+      subtitle: 'Full Stack Developer',
+      description: 'Erweiterung der Skills auf Backend-Entwicklung. SaaS Dashboard mit komplexer Datenvisualisierung.',
+      highlights: ['Full Stack Transition', 'SaaS Dashboard', 'PostgreSQL & APIs'],
+      tags: ['Full Stack', 'SaaS', 'PostgreSQL'],
+    }
+  },
+  { 
+    h: 80, year: '2022', 
+    work: 'Senior Developer', project: 'Cloud Migration', life: 'Reisen in Europa',
+    details: {
+      title: '2022 — Senior',
+      subtitle: 'Senior Developer',
+      description: 'Beförderung zum Senior Developer. Leitung einer Cloud-Migration und Architektur-Entscheidungen.',
+      highlights: ['Cloud Migration geleitet', 'Azure & Docker', 'Team Mentoring'],
+      tags: ['Cloud', 'Azure', 'Leadership'],
+    }
+  },
+  { 
+    h: 65, year: '2023', 
+    work: 'Tech Lead', project: 'AI Integration', life: 'Side Projects',
+    details: {
+      title: '2023 — AI Era',
+      subtitle: 'Tech Lead',
+      description: 'Tech Lead Rolle mit Fokus auf AI-Integration. Erste Erfahrungen mit LLMs und generativer KI.',
+      highlights: ['AI/ML Integration', 'Tech Lead Rolle', 'LangChain & OpenAI'],
+      tags: ['AI', 'Tech Lead', 'LLM'],
+    }
+  },
+  { 
+    h: 45, year: '2024', 
+    work: 'Solution Architect', project: 'SwissAzureAI', life: 'Konferenzen',
+    details: {
+      title: '2024 — Architektur',
+      subtitle: 'Solution Architect',
+      description: 'SwissAzureAI — Swiss-compliant RAG-Deployment auf Azure. Konferenzen und Knowledge Sharing.',
+      highlights: ['SwissAzureAI Projekt', 'Azure RAG Architecture', 'FADP/FINMA Compliance'],
+      tags: ['Architecture', 'Azure', 'Compliance'],
+    }
+  },
+  { 
+    h: 75, year: '2025', 
+    work: 'Freelance & Consulting', project: 'Malim Energy', life: 'Startup Gründung',
+    details: {
+      title: '2025 — Startup',
+      subtitle: 'Freelance & Consulting',
+      description: 'Gründung von Malim Energy — Swiss EV Charging Subsidy Explorer. Freelance Consulting und eigene Produkte.',
+      highlights: ['Malim Energy gegründet', 'EV Charging Platform', 'Freelance Consulting'],
+      tags: ['Startup', 'Energy', 'Freelance'],
+    }
+  },
+  { 
+    h: 60, year: '2026', 
+    work: 'Building Products', project: 'Sherry-Web', life: 'Neue Abenteuer',
+    details: {
+      title: '2026 — Produkte',
+      subtitle: 'Building Products',
+      description: 'Fokus auf eigene digitale Produkte. Sherry-Web Portfolio und neue Projekte.',
+      highlights: ['Sherry-Web Portfolio', 'Neue Produkte', 'Wachstum'],
+      tags: ['Products', 'Portfolio', 'Growth'],
+    }
+  },
 ];
 
 const skillCategories = [
@@ -97,6 +210,7 @@ export default function AboutPage() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: containerRef });
   const [activeIndex, setActiveIndex] = useState(0);
+  const [selectedYear, setSelectedYear] = useState<typeof timelineData[0] | null>(null);
 
   useMotionValueEvent(scrollYProgress, 'change', (v) => {
     const idx = Math.min(Math.floor(v * sections.length), sections.length - 1);
@@ -215,19 +329,8 @@ export default function AboutPage() {
             <div className="inline-flex flex-col items-start ml-5" style={{ width: '500px' }}>
               {/* 条形 + 年份一体化 */}
               <div className="flex justify-between w-full">
-                {[
-                  { h: 30, year: '2017', work: 'Universität Studium', project: '-', life: 'Nach Schweiz gezogen' },
-                  { h: 50, year: '2018', work: 'Praktikum', project: '-', life: 'Deutsch lernen' },
-                  { h: 40, year: '2019', work: 'Junior Developer', project: 'First Web App', life: 'Basel entdecken' },
-                  { h: 70, year: '2020', work: 'Frontend Developer', project: 'E-Commerce Platform', life: 'Remote Work Start' },
-                  { h: 55, year: '2021', work: 'Full Stack Developer', project: 'SaaS Dashboard', life: 'Neue Wohnung' },
-                  { h: 80, year: '2022', work: 'Senior Developer', project: 'Cloud Migration', life: 'Reisen in Europa' },
-                  { h: 65, year: '2023', work: 'Tech Lead', project: 'AI Integration', life: 'Side Projects' },
-                  { h: 45, year: '2024', work: 'Solution Architect', project: 'SwissAzureAI', life: 'Konferenzen' },
-                  { h: 75, year: '2025', work: 'Freelance & Consulting', project: 'Malim Energy', life: 'Startup Gründung' },
-                  { h: 60, year: '2026', work: 'Building Products', project: 'Sherry-Web', life: 'Neue Abenteuer' },
-                ].map((bar, i) => (
-                  <div key={i} className="flex flex-col items-center relative group">
+                {timelineData.map((bar, i) => (
+                  <div key={i} className="flex flex-col items-center relative group cursor-pointer" onClick={() => setSelectedYear(bar)}>
                     {/* Hover Tooltip */}
                     <div className="absolute bottom-full mb-4 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-200 pointer-events-none z-10">
                       <div className="bg-black text-white text-[10px] rounded-lg px-4 py-3 whitespace-nowrap shadow-lg">
@@ -421,6 +524,130 @@ export default function AboutPage() {
           </motion.div>
         </div>
       </section>
+
+      {/* Year Detail Drawer */}
+      <AnimatePresence>
+        {selectedYear && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.5 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="fixed inset-0 bg-black z-50"
+              onClick={() => setSelectedYear(null)}
+            />
+            {/* Drawer */}
+            <motion.div
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ duration: 0.3, ease: [0.33, 1, 0.68, 1] }}
+              className="fixed right-0 top-0 h-full w-full md:w-1/2 bg-white shadow-2xl z-50 overflow-y-auto"
+            >
+              {/* Close button */}
+              <button
+                onClick={() => setSelectedYear(null)}
+                className="sticky top-4 left-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 shadow-lg backdrop-blur-sm transition-all hover:scale-110 hover:bg-white"
+                aria-label="Close"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="h-5 w-5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+
+              <div className="px-6 pb-8 pt-2">
+                {/* Header */}
+                <div className="flex items-start justify-between gap-4 mb-6">
+                  <div className="flex items-center gap-4">
+                    <div className="h-14 w-14 flex-shrink-0 overflow-hidden rounded-xl border border-neutral-200 bg-neutral-50 flex items-center justify-center">
+                      <span className="text-xl font-bold text-neutral-800">{selectedYear.year.slice(2)}</span>
+                    </div>
+                    <div>
+                      <h1 className="text-xl font-bold">{selectedYear.details.title}</h1>
+                      <p className="text-sm text-neutral-500">{selectedYear.details.subtitle}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Description */}
+                <div className="space-y-6">
+                  <p className="text-sm leading-relaxed text-neutral-600">
+                    {selectedYear.details.description}
+                  </p>
+
+                  {/* Info Grid */}
+                  <div className="rounded-xl border border-neutral-200 bg-neutral-50/80 p-4">
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className="flex h-7 w-7 items-center justify-center rounded-full bg-neutral-100 text-sm">📋</span>
+                      <span className="text-sm font-bold text-neutral-800">Übersicht</span>
+                    </div>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between">
+                        <span className="text-neutral-400">工作</span>
+                        <span className="text-neutral-700 font-medium">{selectedYear.work}</span>
+                      </div>
+                      <div className="w-full h-[1px] bg-neutral-200" />
+                      <div className="flex justify-between">
+                        <span className="text-neutral-400">项目</span>
+                        <span className="text-neutral-700 font-medium">{selectedYear.project}</span>
+                      </div>
+                      <div className="w-full h-[1px] bg-neutral-200" />
+                      <div className="flex justify-between">
+                        <span className="text-neutral-400">生活</span>
+                        <span className="text-neutral-700 font-medium">{selectedYear.life}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Highlights */}
+                  <div className="rounded-xl border border-green-200 bg-green-50/80 p-4">
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className="flex h-7 w-7 items-center justify-center rounded-full bg-green-100 text-sm">✨</span>
+                      <span className="text-sm font-bold text-green-800">Highlights</span>
+                    </div>
+                    <div className="grid grid-cols-1 gap-1.5 text-xs text-green-700">
+                      {selectedYear.details.highlights.map((h, i) => (
+                        <div key={i} className="flex items-center gap-1.5">
+                          <span className="text-green-500">✓</span>
+                          <span>{h}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-2">
+                    {selectedYear.details.tags.map((tag, i) => (
+                      <span key={i} className="text-xs text-neutral-500 border border-neutral-200 rounded-full px-3 py-1">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Navigation to other years */}
+                  <div className="border-t pt-4">
+                    <h2 className="text-sm font-bold mb-3 text-neutral-800">Andere Jahre</h2>
+                    <div className="flex gap-2 overflow-x-auto pb-2">
+                      {timelineData.filter(t => t.year !== selectedYear.year).map((t) => (
+                        <button
+                          key={t.year}
+                          onClick={() => setSelectedYear(t)}
+                          className="border rounded-lg px-4 py-2 hover:border-black transition-colors flex-shrink-0"
+                        >
+                          <span className="text-sm font-bold">{t.year}</span>
+                          <p className="text-[10px] text-neutral-400 mt-0.5">{t.work}</p>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
