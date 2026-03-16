@@ -93,24 +93,93 @@ export default function AboutPage() {
     <div ref={containerRef} className="min-h-screen bg-white">
       <VerticalIndicator activeIndex={activeIndex} />
 
-      {/* Section 1: Intro */}
-      <section id="intro" className="min-h-screen flex items-center justify-center px-8 md:px-20 md:pl-24">
-        <div className="max-w-2xl">
+      {/* Section 1: Intro — 左边介绍+跳转, 右边头像+简介+技能+联系 */}
+      <section id="intro" className="min-h-screen flex items-center px-8 md:px-20 md:pl-24">
+        <div className="w-full grid md:grid-cols-2 gap-16 items-center">
+          
+          {/* 左侧: 大标题 + 简短介绍 + 页面跳转 */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
           >
-            <h1 className="text-6xl md:text-8xl font-bold tracking-tighter mb-8">
+            <h1 className="text-6xl md:text-8xl font-bold tracking-tighter mb-6">
               About
             </h1>
             <div className="w-16 h-[1px] bg-black mb-8" />
-            <p className="text-lg text-neutral-600 leading-relaxed">
-              <span className="text-black font-semibold">Chenxue Branny</span> — developer 
-              and designer based in Switzerland. Building digital products that are clean, 
-              functional, and thoughtfully crafted.
+            <p className="text-neutral-500 leading-relaxed mb-12">
+              Developer and designer based in Switzerland. 
+              Building digital products that are clean, functional, 
+              and thoughtfully crafted.
             </p>
+
+            {/* 跳转链接 */}
+            <div className="space-y-4">
+              {[
+                { label: 'Skills & Tools', href: '#skills' },
+                { label: 'Selected Projects', href: '#projects' },
+                { label: 'Get in Touch', href: '#contact' },
+              ].map((link, i) => (
+                <motion.a
+                  key={link.label}
+                  href={link.href}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: 0.3 + i * 0.1 }}
+                  className="group flex items-center justify-between border-b border-neutral-200 pb-3 hover:border-black transition-colors"
+                >
+                  <span className="text-sm tracking-wider">{link.label}</span>
+                  <span className="text-neutral-400 group-hover:text-black group-hover:translate-x-1 transition-all text-sm">→</span>
+                </motion.a>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* 右侧: 头像 + 简介 + 技能 + 联系方式 */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="flex flex-col items-center md:items-start"
+          >
+            {/* 头像 */}
+            <div className="w-28 h-28 rounded-full bg-neutral-100 border border-neutral-200 mb-6 flex items-center justify-center overflow-hidden">
+              <span className="text-3xl font-bold text-neutral-300">CB</span>
+            </div>
+
+            {/* 名字 + 简介 */}
+            <h2 className="text-2xl font-bold tracking-tight mb-1">Chenxue Branny</h2>
+            <p className="text-sm text-neutral-400 tracking-wider mb-6">FULLSTACK DEVELOPER · SWITZERLAND</p>
+            <p className="text-sm text-neutral-500 leading-relaxed mb-8 max-w-sm">
+              Specializing in full-stack development and AI integration. 
+              From software licensing to EV charging platforms and 
+              Swiss-compliant AI infrastructure.
+            </p>
+
+            {/* 技能标签 */}
+            <div className="flex flex-wrap gap-2 mb-8">
+              {['React', 'Next.js', 'TypeScript', 'Node.js', 'Python', 'Azure', 'Docker'].map((skill) => (
+                <span key={skill} className="text-[11px] border border-neutral-200 px-3 py-1 text-neutral-500 hover:border-black hover:text-black transition-colors cursor-default">
+                  {skill}
+                </span>
+              ))}
+            </div>
+
+            {/* 联系方式 */}
+            <div className="flex gap-5">
+              <a href="mailto:Sherryxuex@gmail.com" className="text-[10px] tracking-[0.2em] text-neutral-400 hover:text-black transition-colors">
+                EMAIL ↗
+              </a>
+              <a href="https://github.com/AIB612" target="_blank" rel="noopener noreferrer" className="text-[10px] tracking-[0.2em] text-neutral-400 hover:text-black transition-colors">
+                GITHUB ↗
+              </a>
+              <a href="https://ch.linkedin.com/in/princessbranny" target="_blank" rel="noopener noreferrer" className="text-[10px] tracking-[0.2em] text-neutral-400 hover:text-black transition-colors">
+                LINKEDIN ↗
+              </a>
+            </div>
           </motion.div>
         </div>
       </section>
