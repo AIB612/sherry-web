@@ -13,7 +13,7 @@ export default async function Footer() {
         <div className="flex items-center gap-6">
           {/* GitHub */}
           <Link
-            href="https://github.com"
+            href="https://github.com/AIB612"
             target="_blank"
             rel="noopener noreferrer"
             className="text-neutral-500 hover:text-black dark:hover:text-white transition-colors"
@@ -35,7 +35,7 @@ export default async function Footer() {
           </Link>
           {/* LinkedIn */}
           <Link
-            href="https://linkedin.com"
+            href="https://ch.linkedin.com/in/princessbranny"
             target="_blank"
             rel="noopener noreferrer"
             className="text-neutral-500 hover:text-black dark:hover:text-white transition-colors"
