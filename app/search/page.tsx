@@ -1,6 +1,7 @@
 import Grid from "components/grid";
 import ProductGridItems from "components/layout/product-grid-items";
 import { searchProducts, categories } from "lib/search-data";
+import { uniqueProducts } from "lib/all-products";
 
 export const metadata = {
   title: "Search",
@@ -13,15 +14,17 @@ export default async function SearchPage(props: {
   const searchParams = await props.searchParams;
   const { sort, q: searchValue, category } = searchParams as { [key: string]: string };
 
-  let filteredProducts = searchProducts;
+  // Wenn Suchbegriff vorhanden: globale Suche
+  // Sonst: nur Search-Seite Produkte anzeigen
+  let filteredProducts = searchValue ? uniqueProducts : searchProducts;
 
-  if (category) {
-    filteredProducts = filteredProducts.filter((p) => p.category === category);
+  if (category && !searchValue) {
+    filteredProducts = searchProducts.filter((p) => p.category === category);
   }
 
   if (searchValue) {
     const query = searchValue.toLowerCase();
-    filteredProducts = filteredProducts.filter(
+    filteredProducts = uniqueProducts.filter(
       (p) =>
         p.name.toLowerCase().includes(query) ||
         p.description.toLowerCase().includes(query) ||
@@ -77,7 +80,7 @@ export default async function SearchPage(props: {
       title: product.name,
       description: product.description,
     },
-    tags: [product.category, product.type],
+    tags: [product.category],
     updatedAt: new Date().toISOString(),
   }));
 
