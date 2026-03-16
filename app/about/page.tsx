@@ -1,62 +1,33 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
-
-const skills = [
-  'React', 'Next.js', 'TypeScript', 'Tailwind CSS',
-  'Node.js', 'Python', 'PostgreSQL', 'Docker',
-  'AWS', 'Azure', 'Figma', 'Git',
-  'GraphQL', 'REST API', 'CI/CD', 'Kubernetes',
-  'Framer Motion', 'Three.js', 'Prisma', 'Drizzle',
-  'Redis', 'MongoDB', 'Vercel', 'Terraform',
-];
-
-function ScrollColumn({ items, direction = 'up', duration = 25 }: { items: string[]; direction?: 'up' | 'down'; duration?: number }) {
-  const doubled = [...items, ...items];
-  const yFrom = direction === 'up' ? 0 : -50;
-  const yTo = direction === 'up' ? -50 : 0;
-
-  return (
-    <div className="relative h-full overflow-hidden">
-      {/* Top fade */}
-      <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-white to-transparent z-10 pointer-events-none" />
-      {/* Bottom fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white to-transparent z-10 pointer-events-none" />
-      
-      <motion.div
-        animate={{ y: [`${yFrom}%`, `${yTo}%`] }}
-        transition={{ duration, repeat: Infinity, ease: 'linear' }}
-        className="flex flex-col gap-3"
-      >
-        {doubled.map((skill, i) => (
-          <div
-            key={`${skill}-${i}`}
-            className="border border-neutral-300 rounded-full px-4 py-2 text-sm font-medium text-neutral-800 whitespace-nowrap text-center hover:bg-black hover:text-white hover:border-black transition-colors duration-200 cursor-default"
-          >
-            {skill}
-          </div>
-        ))}
-      </motion.div>
-    </div>
-  );
-}
 
 export default function AboutPage() {
-  const col1 = skills.slice(0, 8);
-  const col2 = skills.slice(8, 16);
-  const col3 = skills.slice(16, 24);
+  const lines = Array.from({ length: 12 });
 
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-6 py-20">
-        <div className="grid md:grid-cols-2 gap-16 items-start">
+        <div className="grid md:grid-cols-2 gap-16 items-center min-h-[70vh]">
           
-          {/* 左侧: 垂直滚动技能标签 */}
-          <div className="h-[70vh] flex gap-4">
-            <ScrollColumn items={col1} direction="up" duration={20} />
-            <ScrollColumn items={col2} direction="down" duration={25} />
-            <ScrollColumn items={col3} direction="up" duration={22} />
+          {/* 左侧: 垂直线条装饰 */}
+          <div className="flex items-center justify-center gap-3 h-[60vh]">
+            {lines.map((_, i) => (
+              <motion.div
+                key={i}
+                initial={{ scaleY: 0, opacity: 0 }}
+                animate={{ scaleY: 1, opacity: 1 }}
+                transition={{
+                  duration: 0.6,
+                  delay: i * 0.08,
+                  ease: 'easeOut',
+                }}
+                className="w-[2px] bg-black origin-bottom"
+                style={{
+                  height: `${30 + Math.sin(i * 0.8) * 25 + Math.random() * 10}%`,
+                }}
+              />
+            ))}
           </div>
 
           {/* 右侧: 个人介绍 */}
@@ -64,7 +35,7 @@ export default function AboutPage() {
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.6, delay: 0.8 }}
             >
               <h1 className="text-5xl font-bold mb-6 tracking-tight">
                 About
@@ -75,7 +46,7 @@ export default function AboutPage() {
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{ duration: 0.6, delay: 1.0 }}
               className="space-y-6 text-neutral-600 leading-relaxed"
             >
               <p className="text-lg">
@@ -96,7 +67,7 @@ export default function AboutPage() {
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
+              transition={{ duration: 0.6, delay: 1.2 }}
               className="mt-10 flex gap-4"
             >
               <a
