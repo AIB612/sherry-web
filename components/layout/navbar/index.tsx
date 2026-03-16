@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { Suspense } from "react";
 import MobileMenu from "./mobile-menu";
-import Search, { SearchSkeleton } from "./search";
 import { Menu } from "lib/shopify/types";
 
 // Mock menu data
@@ -20,12 +19,13 @@ export function Navbar() {
           <MobileMenu menu={menu} />
         </Suspense>
       </div>
-      <div className="flex w-full items-center">
-        <div className="flex w-full md:w-1/3 items-center">
+      <div className="flex w-full items-center justify-between">
+        {/* 左侧: Logo + 菜单 */}
+        <div className="flex items-center gap-6">
           <Link
             href="/"
             prefetch={true}
-            className="mr-2 flex items-center md:mr-6"
+            className="flex items-center"
           >
             <span className="text-lg"><span className="font-normal">Chenxue</span> <span className="font-bold">Branny</span></span>
           </Link>
@@ -45,16 +45,15 @@ export function Navbar() {
             </ul>
           ) : null}
         </div>
-        <div className="hidden md:flex md:w-1/3">
-          {/* 搜索框已隐藏 */}
-        </div>
-        <div className="flex justify-end items-center gap-4 md:w-1/3">
+
+        {/* 右侧: 外部链接 + 社交图标 */}
+        <div className="flex items-center gap-6">
           {/* Software.it Link */}
           <Link
             href="https://software.it"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1.5 text-base text-neutral-500 hover:text-black dark:hover:text-white transition-colors"
+            className="hidden md:flex items-center gap-1.5 text-base text-neutral-500 hover:text-black dark:hover:text-white transition-colors"
           >
             <span>Software.it</span>
             <svg
