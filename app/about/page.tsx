@@ -10,10 +10,32 @@ const sections = [
   { id: 'contact', label: 'Contact' },
 ];
 
-const skills = [
-  'React', 'Next.js', 'TypeScript', 'Tailwind CSS',
-  'Node.js', 'Python', 'PostgreSQL', 'Docker',
-  'AWS', 'Azure', 'Figma', 'Git',
+const skillCategories = [
+  {
+    title: 'AI & DEVELOPMENT',
+    icon: '⚡',
+    items: ['React', 'Next.js', 'TypeScript', 'Node.js', 'Python', 'SQL', 'PostgreSQL', 'Docker', 'AWS', 'Azure', 'Git'],
+  },
+  {
+    title: 'ANALYSIS & AI/ML',
+    icon: '🧠',
+    items: ['Business Analysis', 'Process Modelling', 'Generative AI/ML', 'Tableau', 'Figma'],
+  },
+  {
+    title: 'CERTIFICATE',
+    icon: '📜',
+    items: ['PMP'],
+  },
+  {
+    title: 'AGILE & STRATEGY',
+    icon: '🎯',
+    items: ['Agile/Scrum', 'Digital Strategy'],
+  },
+  {
+    title: 'SPRACHEN',
+    icon: '🌍',
+    items: ['English — Fluent', '中文 — Native', 'Deutsch — B2'],
+  },
 ];
 
 const projects = [
@@ -186,27 +208,44 @@ export default function AboutPage() {
 
       {/* Section 2: Skills */}
       <section id="skills" className="min-h-screen flex items-center px-8 md:px-20 md:pl-32">
-        <div className="max-w-3xl">
+        <div className="w-full max-w-4xl">
           <motion.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="text-[10px] tracking-[0.3em] text-neutral-400 mb-8"
+            className="text-[10px] tracking-[0.3em] text-neutral-400 mb-12"
           >
-            SKILLS & TOOLS
+            SKILLS & CERTIFICATES
           </motion.p>
-          <div className="flex flex-wrap gap-3">
-            {skills.map((skill, i) => (
-              <motion.span
-                key={skill}
+
+          <div className="space-y-10">
+            {skillCategories.map((cat, ci) => (
+              <motion.div
+                key={cat.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.06 }}
-                className="text-sm text-neutral-500 hover:text-black transition-colors duration-200 cursor-default"
+                transition={{ duration: 0.5, delay: ci * 0.1 }}
               >
-                #{skill}
-              </motion.span>
+                <div className="flex items-center gap-2 mb-4">
+                  <span className="text-base">{cat.icon}</span>
+                  <span className="text-[10px] tracking-[0.3em] text-neutral-400">{cat.title}</span>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {cat.items.map((item, i) => (
+                    <motion.span
+                      key={item}
+                      initial={{ opacity: 0, y: 10 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.3, delay: ci * 0.1 + i * 0.04 }}
+                      className="text-sm text-neutral-500 hover:text-black transition-colors duration-200 cursor-default"
+                    >
+                      #{item.replace(/\s+/g, '')}
+                    </motion.span>
+                  ))}
+                </div>
+              </motion.div>
             ))}
           </div>
         </div>
