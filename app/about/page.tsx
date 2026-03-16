@@ -213,7 +213,7 @@ export default function AboutPage() {
             
             {/* 浮动条形图 + 年份 */}
             <div className="inline-flex flex-col items-start ml-5">
-              <div className="flex items-end gap-[4px] mb-2 h-[120px]">
+              <div className="flex items-end gap-[20px] mb-2 h-[120px]">
                 {[
                   { h: 10, mt: 80 },
                   { h: 10, mt: 60 },
@@ -241,10 +241,13 @@ export default function AboutPage() {
               {/* X轴线 */}
               <div className="w-full h-[1px] bg-neutral-300 mb-3" />
 
-              {/* 年份 — 首尾 + 中间标注 */}
-              <div className="flex justify-between w-full">
-                <span className="text-[9px] text-neutral-400 font-mono">2017</span>
-                <span className="text-[9px] text-neutral-400 font-mono">2026</span>
+              {/* 年份 — 每个对齐条形 */}
+              <div className="flex gap-[20px]">
+                {['2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025', '2026'].map((year) => (
+                  <span key={year} className="text-[8px] text-neutral-400 font-mono w-[4px] text-center leading-none">
+                    {`'${year.slice(2)}`}
+                  </span>
+                ))}
               </div>
             </div>
           </motion.div>
