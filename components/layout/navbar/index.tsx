@@ -7,7 +7,7 @@ import { Menu } from "lib/shopify/types";
 // Mock menu data
 const mockMenu: Menu[] = [
   { title: 'All', path: '/search' },
-  { title: 'Resource', path: '/faq' },
+  { title: 'Protocol', path: '/faq' },
 ];
 
 export function Navbar() {
