@@ -215,16 +215,16 @@ export default function AboutPage() {
             <div className="inline-flex flex-col items-start ml-5">
               <div className="flex items-end gap-[20px] mb-2 h-[120px]">
                 {[
-                  { h: 10, mt: 80 },
-                  { h: 10, mt: 60 },
-                  { h: 10, mt: 50 },
-                  { h: 10, mt: 40 },
-                  { h: 10, mt: 30 },
-                  { h: 10, mt: 20 },
-                  { h: 10, mt: 15 },
-                  { h: 10, mt: 10 },
-                  { h: 10, mt: 5 },
-                  { h: 10, mt: 0 },
+                  { h: 30, mt: 60 },
+                  { h: 50, mt: 20 },
+                  { h: 40, mt: 40 },
+                  { h: 70, mt: 10 },
+                  { h: 55, mt: 25 },
+                  { h: 80, mt: 0 },
+                  { h: 65, mt: 15 },
+                  { h: 45, mt: 35 },
+                  { h: 75, mt: 5 },
+                  { h: 60, mt: 20 },
                 ].map((bar, i) => (
                   <motion.div
                     key={i}
