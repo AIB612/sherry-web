@@ -27,7 +27,7 @@ export function Navbar() {
             prefetch={true}
             className="mr-2 flex items-center md:mr-6"
           >
-            <span className="text-lg font-bold">Software.pro</span>
+            <span className="text-lg font-bold">Chenxue Branny</span>
           </Link>
           {menu.length ? (
             <ul className="hidden gap-6 text-sm md:flex md:items-center">

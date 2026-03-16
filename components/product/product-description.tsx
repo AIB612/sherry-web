@@ -58,7 +58,7 @@ export function ProductDescription({ product }: { product: Product & { productTy
         <div className="rounded-xl border border-green-200 bg-green-50/80 p-4 dark:border-green-800 dark:bg-green-900/20">
           <div className="flex items-center gap-2 mb-3">
             <span className="flex h-7 w-7 items-center justify-center rounded-full bg-green-100 text-sm dark:bg-green-900/40">🔑</span>
-            <span className="text-sm font-bold text-green-800 dark:text-green-300">Software.pro Exclusive</span>
+            <span className="text-sm font-bold text-green-800 dark:text-green-300">Chenxue Branny Exclusive</span>
           </div>
           <div className="grid grid-cols-2 gap-1.5 text-xs text-green-700 dark:text-green-400">
             <div className="flex items-center gap-1.5">
