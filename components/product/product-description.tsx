@@ -1,41 +1,20 @@
 'use client';
 
-import { AddToCart } from "components/cart/add-to-cart";
 import Price from "components/price";
 import Prose from "components/prose";
 import { Product } from "lib/shopify/types";
-import { VariantSelector } from "./variant-selector";
-import { useState } from "react";
-import { products } from "lib/mock-data";
+import { productDetails } from "lib/product-details";
 import Link from "next/link";
 
 export function ProductDescription({ product }: { product: Product & { productType?: string; category?: string } }) {
   const price = parseFloat(product.priceRange.maxVariantPrice.amount);
   const currencyCode = product.priceRange.maxVariantPrice.currencyCode;
-  const requiresAccount = product.productType === 'account' || product.tags?.includes('account');
-  const [email, setEmail] = useState('');
-  
+
   // Get other products (exclude current product)
   const currentCategory = product.category;
-  
-  // Debug: log current product and category
-  console.log('=== Product Recommendation Debug ===');
-  console.log('Current Product ID:', product.id);
-  console.log('Current Product Title:', product.title);
-  console.log('Current Category:', currentCategory);
-  console.log('All products:', products.map(p => ({ id: p.id, name: p.name, category: p.category })));
-  
-  // Filter by same category first, then others
-  let sameCategory = products.filter((p) => p.id !== product.id && p.category === currentCategory);
-  let otherCategory = products.filter((p) => p.id !== product.id && p.category !== currentCategory);
-  
-  console.log('Same category products:', sameCategory.map(p => p.name));
-  console.log('Other category products:', otherCategory.map(p => p.name));
-  
-  // Combine: same category first, then others, max 4
+  let sameCategory = productDetails.filter((p) => p.id !== product.id && p.category === currentCategory);
+  let otherCategory = productDetails.filter((p) => p.id !== product.id && p.category !== currentCategory);
   let otherProducts = [...sameCategory, ...otherCategory].slice(0, 4);
-  
-  console.log('Final recommendations:', otherProducts.map(p => p.name));
 
   return (
     <div className="flex flex-col gap-5">
@@ -67,8 +46,8 @@ export function ProductDescription({ product }: { product: Product & { productTy
         </div>
       </div>
 
-      {/* Row 2: Long Description - Fixed 400px height */}
-      <div className="h-[400px] overflow-y-auto space-y-4">
+      {/* Row 2: Long Description */}
+      <div className="space-y-4">
         {product.descriptionHtml ? (
           <Prose
             className="text-sm leading-relaxed text-neutral-600 dark:text-neutral-400"
@@ -79,7 +58,7 @@ export function ProductDescription({ product }: { product: Product & { productTy
         <div className="rounded-xl border border-green-200 bg-green-50/80 p-4 dark:border-green-800 dark:bg-green-900/20">
           <div className="flex items-center gap-2 mb-3">
             <span className="flex h-7 w-7 items-center justify-center rounded-full bg-green-100 text-sm dark:bg-green-900/40">🔑</span>
-            <span className="text-sm font-bold text-green-800 dark:text-green-300">Swisspro.it Exclusive</span>
+            <span className="text-sm font-bold text-green-800 dark:text-green-300">Software.pro Exclusive</span>
           </div>
           <div className="grid grid-cols-2 gap-1.5 text-xs text-green-700 dark:text-green-400">
             <div className="flex items-center gap-1.5">
@@ -147,30 +126,6 @@ export function ProductDescription({ product }: { product: Product & { productTy
             </div>
           </div>
         )}
-      </div>
-
-      {/* Variant Selector */}
-      <VariantSelector options={product.options} variants={product.variants} />
-
-      {/* Email + Add To Cart Row */}
-      <div className="flex items-end gap-4">
-        {requiresAccount && (
-          <div className="flex-1">
-            <label className="block text-sm text-gray-500 mb-1">
-              Authorization Account {requiresAccount && <span className="text-[var(--color-airbnb-red)]">*</span>}
-            </label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="your@email.com"
-              className="w-full border-b border-gray-300 bg-transparent py-2 px-1 text-sm focus:outline-none focus:border-black hover:border-gray-500 transition-colors"
-            />
-          </div>
-        )}
-        <div className="flex-shrink-0">
-          <AddToCart product={product} email={requiresAccount ? email : undefined} requiresEmail={requiresAccount} />
-        </div>
       </div>
     </div>
   );
