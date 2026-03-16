@@ -56,13 +56,13 @@ export function Navbar() {
             href="https://software.it"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1.5 text-sm text-neutral-500 hover:text-black dark:hover:text-white transition-colors"
+            className="flex items-center gap-1.5 text-base text-neutral-500 hover:text-black dark:hover:text-white transition-colors"
           >
             <span>Software.it</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="14"
-              height="14"
+              width="16"
+              height="16"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -85,8 +85,8 @@ export function Navbar() {
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
+              width="22"
+              height="22"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -107,8 +107,8 @@ export function Navbar() {
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
+              width="22"
+              height="22"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
