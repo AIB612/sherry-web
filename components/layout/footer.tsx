@@ -7,6 +7,9 @@ export default async function Footer() {
         <div className="text-center md:text-left">
           Software.pro © 2024. All rights reserved.
         </div>
+        <div className="text-center">
+          Contact: <a href="mailto:Sherryxuex@gmail.com" className="hover:text-black dark:hover:text-white transition-colors">Sherryxuex@gmail.com</a>
+        </div>
         <div className="flex items-center gap-6">
           {/* GitHub */}
           <Link
