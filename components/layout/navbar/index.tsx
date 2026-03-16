@@ -45,10 +45,8 @@ export function Navbar() {
             </ul>
           ) : null}
         </div>
-        <div className="hidden justify-center md:flex md:w-1/3">
-          <Suspense fallback={<SearchSkeleton />}>
-            <Search />
-          </Suspense>
+        <div className="hidden md:flex md:w-1/3">
+          {/* 搜索框已隐藏 */}
         </div>
         <div className="flex justify-end items-center gap-4 md:w-1/3">
           {/* Software.it Link */}
