@@ -1,6 +1,6 @@
 "use client";
 
-import { categories } from "lib/search-data";
+import { portfolioCategories } from "lib/portfolio-data";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
@@ -12,10 +12,10 @@ function CollectionsContent() {
   return (
     <nav>
       <h3 className="hidden text-xs text-neutral-500 md:block dark:text-neutral-400">
-        Collections
+        Categories
       </h3>
       <ul className="hidden md:block">
-        {categories.map((collection) => {
+        {portfolioCategories.map((collection) => {
           const isActive = currentCategory === collection.id || 
             (!currentCategory && collection.id === '');
           const href = collection.id 
@@ -26,14 +26,14 @@ function CollectionsContent() {
             <li key={collection.id} className="mt-2 flex text-black dark:text-white">
               {isActive ? (
                 <p className="w-full text-sm underline underline-offset-4">
-                  {collection.name}
+                  {collection.name} <span className="text-neutral-400">({collection.count})</span>
                 </p>
               ) : (
                 <Link
                   href={href}
                   className="w-full text-sm underline-offset-4 hover:underline dark:hover:text-neutral-100"
                 >
-                  {collection.name}
+                  {collection.name} <span className="text-neutral-400">({collection.count})</span>
                 </Link>
               )}
             </li>
@@ -51,9 +51,9 @@ function CollectionsContent() {
           }}
           className="w-full rounded border p-2 text-sm"
         >
-          {categories.map((collection) => (
+          {portfolioCategories.map((collection) => (
             <option key={collection.id} value={collection.id}>
-              {collection.name}
+              {collection.name} ({collection.count})
             </option>
           ))}
         </select>

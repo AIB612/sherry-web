@@ -1,24 +1,36 @@
 'use client';
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 import MobileMenu from "./mobile-menu";
 import { Menu } from "lib/shopify/types";
 
-// Mock menu data
-const mockMenu: Menu[] = [
-  { title: 'All work', path: '/search' },
+const defaultMenu: Menu[] = [
+  { title: 'Track Record', path: '/search?view=track-record' },
+  { title: 'My Methodology', path: '/protocol' },
   { title: 'About', path: '/about' },
-  { title: 'Protocol', path: '/faq' },
 ];
 
-export function Navbar() {
-  const menu = mockMenu;
+function NavbarContent() {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const view = searchParams.get('view');
+  
+  const menu = defaultMenu;
+
+  const isActiveLink = (path: string) => {
+    if (path.includes('?')) {
+      const [basePath, query] = path.split('?');
+      const params = new URLSearchParams(query);
+      const viewParam = params.get('view');
+      return pathname === basePath && view === viewParam;
+    }
+    return pathname === path && !view;
+  };
 
   return (
-    <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md dark:bg-black/80 relative flex items-center justify-between p-4 lg:px-6">
+    <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md relative flex items-center justify-between px-5 md:px-8 lg:px-20 py-3 md:py-4">
       <div className="block flex-none md:hidden">
         <Suspense fallback={null}>
           <MobileMenu menu={menu} />
@@ -37,19 +49,22 @@ export function Navbar() {
           {menu.length ? (
             <ul className="hidden gap-6 text-sm md:flex md:items-center">
               {menu.map((item: Menu) => {
-                const isActive = pathname === item.path;
+                const isActive = isActiveLink(item.path);
                 return (
                   <li key={item.title}>
                     <Link
                       href={item.path}
                       prefetch={true}
-                      className={`underline-offset-4 transition-colors ${
+                      className={`relative underline-offset-4 transition-colors pb-1 group ${
                         isActive
-                          ? 'text-black underline dark:text-white'
-                          : 'text-neutral-500 hover:text-black hover:underline dark:text-neutral-400 dark:hover:text-neutral-300'
+                          ? 'text-black dark:text-white'
+                          : 'text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-neutral-300'
                       }`}
                     >
                       {item.title}
+                      <span className={`absolute bottom-0 left-0 h-[1px] bg-black dark:bg-white transition-all duration-300 ${
+                        isActive ? 'w-full' : 'w-0 group-hover:w-full'
+                      }`} />
                     </Link>
                   </li>
                 );
@@ -133,5 +148,13 @@ export function Navbar() {
         </div>
       </div>
     </nav>
+  );
+}
+
+export function Navbar() {
+  return (
+    <Suspense fallback={<nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md h-14" />}>
+      <NavbarContent />
+    </Suspense>
   );
 }

@@ -1,6 +1,6 @@
-import Footer from "components/layout/footer";
 import Collections from "components/layout/search/collections";
 import FilterList from "components/layout/search/filter";
+import DribbbleCard from "components/layout/search/dribbble-card";
 import { sorting } from "lib/constants";
 import ChildrenWrapper from "./children-wrapper";
 import { Suspense } from "react";
@@ -10,22 +10,11 @@ export default function SearchLayout({
 }: {
   children: React.ReactNode;
 }) {
+  // 新的 Track Record / Business Impact 页面不需要侧边栏
+  // 直接返回 children，让页面自己控制布局
   return (
-    <>
-      <div className="mx-auto flex max-w-screen-2xl flex-col gap-8 px-4 pb-4 text-black md:flex-row dark:text-white">
-        <div className="order-first w-full flex-none md:max-w-[125px]">
-          <Collections />
-        </div>
-        <div className="order-last min-h-screen w-full md:order-none">
-          <Suspense fallback={null}>
-            <ChildrenWrapper>{children}</ChildrenWrapper>
-          </Suspense>
-        </div>
-        <div className="order-none flex-none md:order-last md:w-[125px]">
-          <FilterList list={sorting} title="Sort by" />
-        </div>
-      </div>
-      <Footer />
-    </>
+    <Suspense fallback={null}>
+      <ChildrenWrapper>{children}</ChildrenWrapper>
+    </Suspense>
   );
 }

@@ -2,10 +2,10 @@ import Link from "next/link";
 
 export default async function Footer() {
   return (
-    <footer className="text-sm text-neutral-500 dark:text-neutral-400 py-8 border-t border-neutral-200 dark:border-neutral-800">
+    <footer className="text-sm text-neutral-500 dark:text-neutral-400 py-3 md:py-4 border-t border-neutral-200 dark:border-neutral-800">
       <div className="mx-auto max-w-7xl px-4 flex flex-col md:flex-row items-center justify-between gap-4">
         <div className="text-center md:text-left">
-          Chenxue Branny © 2026. All rights reserved.
+          Chenxue Branny © 2021. All rights reserved.
         </div>
         <div className="text-center">
           Contact: <a href="mailto:Sherryxuex@gmail.com" className="hover:text-black dark:hover:text-white transition-colors">Sherryxuex@gmail.com</a>

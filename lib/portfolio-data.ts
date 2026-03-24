@@ -1,0 +1,245 @@
+// Portfolio/作品集数据 — 标准化格式
+
+export interface PortfolioItem {
+  id: string;
+  no: string; // 内部编号: D01, P01, W01
+  title: string;
+  subtitle: string;
+  description: string;
+  category: string;
+  subCategory?: string; // Design 子分类: UI, UX, Art, Personal
+  tags: string[];
+  year: string;
+  company: string;
+  location: string;
+  image: string;
+  link?: string;
+  featured?: boolean;
+}
+
+export const portfolioItems: PortfolioItem[] = [
+  // Design — UI/UX 作品、设计系统
+  {
+    id: 'lazada-ued',
+    no: 'D01',
+    title: 'Lazada Seller Center UED',
+    subtitle: 'E-commerce Design System',
+    description: 'Refined seller center design system for both administration and seller-facing CRM system. Improved process efficiency by 30%.',
+    category: 'design',
+    subCategory: 'UI/UX',
+    tags: ['UI/UX', 'Design System', 'CRM', 'User Research'],
+    year: '2016-2020',
+    company: 'Lazada Tech',
+    location: 'China',
+    image: '/portfolio/lazada-ued.jpg',
+    featured: true,
+  },
+  {
+    id: 'user-growth-coins',
+    no: 'D02',
+    title: 'User Growth Coins System',
+    subtitle: 'Gamification Dashboard',
+    description: 'Designed UI/UX for a user growth coins system and dashboard, driving user engagement and retention.',
+    category: 'design',
+    subCategory: 'UI/UX',
+    tags: ['UI/UX', 'Dashboard', 'Gamification', 'User Growth'],
+    year: '2019',
+    company: 'Lazada Tech',
+    location: 'China',
+    image: '/portfolio/growth-coins.jpg',
+  },
+  {
+    id: 'tcl-app-design',
+    no: 'D03',
+    title: 'TCL Smart Home App',
+    subtitle: 'iOS/Android App Design',
+    description: 'Led the design of TCL smart home application for iOS and Android, increasing new users by 20%.',
+    category: 'design',
+    subCategory: 'UI/UX',
+    tags: ['Mobile App', 'UI/UX', 'Smart Home', 'IoT'],
+    year: '2020-2022',
+    company: 'TCL New Tech',
+    location: 'China',
+    image: '/portfolio/tcl-app.jpg',
+    featured: true,
+  },
+  {
+    id: 'tcl-kitchen',
+    no: 'D04',
+    title: 'Smart Kitchen Appliances',
+    subtitle: 'Digital Integration Design',
+    description: 'Integrated electrical kitchen appliances into the digital strategy and mobile application solution.',
+    category: 'design',
+    subCategory: 'UI/UX',
+    tags: ['IoT', 'Kitchen', 'Mobile App', 'Digital Strategy'],
+    year: '2021',
+    company: 'TCL New Tech',
+    location: 'China',
+    image: '/portfolio/tcl-kitchen.jpg',
+  },
+
+  // Product — 产品管理项目
+  {
+    id: 'weiju-saas',
+    no: 'P01',
+    title: 'E-commerce SaaS Platform',
+    subtitle: 'Dropshipping System',
+    description: 'Managed the development of an E-commerce SaaS dropshipping system from 0-1, defining KPIs across dimensions.',
+    category: 'product',
+    tags: ['SaaS', 'E-commerce', 'Dropshipping', 'Product Management'],
+    year: '2022-2024',
+    company: 'Weiju Tech',
+    location: 'China',
+    image: '/portfolio/weiju-saas.jpg',
+    featured: true,
+  },
+  {
+    id: 'brazil-erp',
+    no: 'P02',
+    title: 'Brazil Logistics ERP',
+    subtitle: 'Supply Chain Management',
+    description: 'Built Brazil logistics ERP system from scratch, implementing NPS user growth strategies.',
+    category: 'product',
+    tags: ['ERP', 'Logistics', 'Supply Chain', 'NPS'],
+    year: '2023',
+    company: 'Weiju Tech',
+    location: 'China',
+    image: '/portfolio/brazil-erp.jpg',
+  },
+  {
+    id: 'goldoak-ecommerce',
+    no: 'P03',
+    title: 'Goldoak E-commerce',
+    subtitle: 'Dutch Market Expansion',
+    description: 'Analyzed Dutch market trends and customer behavior, boosting product visibility with Power BI KPI management.',
+    category: 'product',
+    tags: ['E-commerce', 'Market Analysis', 'Power BI', 'Marketing'],
+    year: '2024-2025',
+    company: 'Goldoak GmbH',
+    location: 'Switzerland',
+    image: '/portfolio/goldoak.jpg',
+  },
+  {
+    id: 'tcl-iot',
+    no: 'P04',
+    title: 'TCL AIxIoT Platform',
+    subtitle: 'Smart Home Ecosystem',
+    description: 'Led AIxIoT and smart home product development, integrating R&D for electrical kitchen appliances.',
+    category: 'product',
+    tags: ['AIxIoT', 'Smart Home', 'Product Strategy', 'R&D'],
+    year: '2020-2022',
+    company: 'TCL New Tech',
+    location: 'China',
+    image: '/portfolio/tcl-iot.jpg',
+    featured: true,
+  },
+  {
+    id: 'malim-consulting',
+    no: 'P05',
+    title: 'Malim Mobility',
+    subtitle: 'IT Solution Consulting',
+    description: 'Business strategy planning, competitor analysis, website development from design to deployment.',
+    category: 'product',
+    tags: ['Consulting', 'Strategy', 'EV Charging', 'Web'],
+    year: '2025',
+    company: 'Malim Mobility',
+    location: 'Switzerland',
+    image: '/portfolio/malim-consulting.jpg',
+  },
+
+  // Development — 开发项目
+  {
+    id: 'swissazureai',
+    no: 'W01',
+    title: 'SwissAzureAI',
+    subtitle: 'Swiss-compliant RAG Deployment',
+    description: 'Swiss-compliant Azure RAG deployment with FADP/FINMA compliance. Enterprise AI infrastructure.',
+    category: 'development',
+    tags: ['Azure', 'RAG', 'AI/ML', 'Compliance'],
+    year: '2024',
+    company: 'Personal Project',
+    location: 'Switzerland',
+    image: '/portfolio/swissazureai.jpg',
+    link: 'https://github.com/AIB612/SwissAzureAI',
+    featured: true,
+  },
+  {
+    id: 'malim-energy',
+    no: 'W02',
+    title: 'Malim Energy',
+    subtitle: 'Swiss EV Charging Explorer',
+    description: 'Swiss EV charging subsidy explorer with interactive map and ROI calculator.',
+    category: 'development',
+    tags: ['Next.js', 'React', 'TypeScript', 'Tailwind'],
+    year: '2025',
+    company: 'Malim Mobility',
+    location: 'Switzerland',
+    image: '/portfolio/malim.jpg',
+    link: 'https://malim.energy',
+    featured: true,
+  },
+  {
+    id: 'keyflow',
+    no: 'W03',
+    title: 'KeyFlow',
+    subtitle: 'License Management System',
+    description: 'Software license management system with real-time status updates and admin dashboard.',
+    category: 'development',
+    tags: ['React', 'Node.js', 'WebSocket', 'SQLite'],
+    year: '2025',
+    company: 'Personal Project',
+    location: 'Switzerland',
+    image: '/portfolio/keyflow.jpg',
+  },
+  {
+    id: 'sherry-web',
+    no: 'W04',
+    title: 'Sherry-Web Portfolio',
+    subtitle: 'Personal Portfolio',
+    description: 'Personal portfolio website with modern design, animations, and interactive elements.',
+    category: 'development',
+    tags: ['Next.js', 'React', 'TypeScript', 'Framer Motion'],
+    year: '2026',
+    company: 'Personal Project',
+    location: 'Switzerland',
+    image: '/portfolio/sherry-web.jpg',
+  },
+  {
+    id: 'shopimage',
+    no: 'W05',
+    title: 'Shopimage',
+    subtitle: 'Image Optimization Tool',
+    description: 'Image optimization tool for e-commerce with Chrome extension and Shopify integration.',
+    category: 'development',
+    tags: ['Chrome Extension', 'Shopify', 'Image Processing'],
+    year: '2025',
+    company: 'Personal Project',
+    location: 'Switzerland',
+    image: '/portfolio/shopimage.jpg',
+    link: 'https://shopimage.dropking.ch',
+  },
+  {
+    id: 'ai-thesis',
+    no: 'W06',
+    title: 'Generative AI in E-Commerce',
+    subtitle: 'Master Thesis',
+    description: 'Master thesis on Generative AI-Assistant in E-Commerce Business at FHNW.',
+    category: 'development',
+    tags: ['Generative AI', 'E-commerce', 'Research', 'LLM'],
+    year: '2024',
+    company: 'FHNW',
+    location: 'Switzerland',
+    image: '/portfolio/ai-thesis.jpg',
+  },
+];
+
+// 分类
+export const portfolioCategories = [
+  { id: '', name: 'All', count: portfolioItems.length },
+  { id: 'design', name: 'Design', count: portfolioItems.filter(p => p.category === 'design').length },
+  { id: 'product', name: 'IT Products', count: portfolioItems.filter(p => p.category === 'product').length },
+  { id: 'development', name: 'Website', count: portfolioItems.filter(p => p.category === 'development').length },
+];
+
+// 获取 featured 作品
+export const featuredItems = portfolioItems.filter(p => p.featured);
