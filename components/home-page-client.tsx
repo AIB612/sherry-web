@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { StaggerContainer, StaggerItem, FadeInView } from "components/animations";
 import Link from "next/link";
 import TrackRecord from "components/track-record";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 const services = [
   {
@@ -113,8 +113,193 @@ const services = [
 
 export default function HomePageClient() {
   const [expandedId, setExpandedId] = useState<number | null>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let animId: number;
+    const resize = () => {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    };
+    resize();
+    window.addEventListener('resize', resize);
+
+    const N = 90;
+    const particles = Array.from({ length: N }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      vx: (Math.random() - 0.5) * 0.4,
+      vy: (Math.random() - 0.5) * 0.4,
+    }));
+
+    const draw = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (const p of particles) {
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < 0) p.x = canvas.width;
+        if (p.x > canvas.width) p.x = 0;
+        if (p.y < 0) p.y = canvas.height;
+        if (p.y > canvas.height) p.y = 0;
+      }
+      for (let i = 0; i < N; i++) {
+        for (let j = i + 1; j < N; j++) {
+          const dx = particles[i]!.x - particles[j]!.x;
+          const dy = particles[i]!.y - particles[j]!.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 130) {
+            ctx.beginPath();
+            ctx.moveTo(particles[i]!.x, particles[i]!.y);
+            ctx.lineTo(particles[j]!.x, particles[j]!.y);
+            ctx.strokeStyle = `rgba(255,255,255,${(1 - dist / 130) * 0.25})`;
+            ctx.lineWidth = 0.6;
+            ctx.stroke();
+          }
+        }
+      }
+      for (const p of particles) {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 1.5, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255,255,255,0.5)';
+        ctx.fill();
+      }
+      animId = requestAnimationFrame(draw);
+    };
+    draw();
+    return () => { cancelAnimationFrame(animId); window.removeEventListener('resize', resize); };
+  }, []);
   return (
     <>
+      {/* Tech Banner - Black, particle network, scan line */}
+      <section className="w-full bg-black text-white overflow-hidden relative" style={{ minHeight: '100vh' }}>
+        {/* Canvas particle network */}
+        <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
+
+        {/* Perspective grid overlay */}
+        <div className="absolute inset-0 z-[1]" style={{
+          backgroundImage: 'linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)',
+          backgroundSize: '60px 60px',
+        }} />
+
+        {/* Scan line */}
+        <motion.div
+          animate={{ y: ['0vh', '100vh'] }}
+          transition={{ duration: 5, repeat: Infinity, ease: 'linear', repeatDelay: 2 }}
+          className="absolute left-0 w-full z-[2] pointer-events-none"
+          style={{ height: '2px', background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent)', boxShadow: '0 0 30px rgba(255,255,255,0.1)' }}
+        />
+
+        {/* Corner decorations */}
+        <div className="absolute top-8 left-5 md:left-8 lg:left-20 z-10">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
+            <div className="w-6 h-6 border-l border-t border-white/20" />
+          </motion.div>
+        </div>
+        <div className="absolute top-8 right-5 md:right-8 lg:right-20 z-10">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
+            <div className="w-6 h-6 border-r border-t border-white/20" />
+          </motion.div>
+        </div>
+        <div className="absolute bottom-8 left-5 md:left-8 lg:left-20 z-10">
+          <div className="w-6 h-6 border-l border-b border-white/20" />
+        </div>
+        <div className="absolute bottom-8 right-5 md:right-8 lg:right-20 z-10">
+          <div className="w-6 h-6 border-r border-b border-white/20" />
+        </div>
+
+        {/* Meta labels */}
+        <div className="absolute top-10 left-0 right-0 flex items-center justify-between px-5 md:px-8 lg:px-20 z-10">
+          <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-[9px] tracking-[0.4em] text-white/30 font-mono">ZÜRICH · SWITZERLAND</motion.span>
+          <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.3 }}
+            className="text-[9px] tracking-[0.4em] text-white/30 font-mono">EST. 2015</motion.span>
+        </div>
+
+        {/* Main content - centered */}
+        <div className="relative z-10 flex flex-col items-start justify-center h-screen px-5 md:px-8 lg:px-20">
+          {/* Label */}
+          <div className="overflow-hidden mb-8">
+            <motion.p
+              initial={{ y: '100%' }}
+              animate={{ y: 0 }}
+              transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1], delay: 0.3 }}
+              className="text-[9px] tracking-[0.5em] text-white/40 font-mono"
+            >
+              DIGITAL CONSULTING · AI ENGINEERING · PRODUCT DESIGN
+            </motion.p>
+          </div>
+
+          {/* Philosophy headline */}
+          {[
+            { text: 'Good technology', color: 'text-white' },
+            { text: 'should feel', color: 'text-white/60' },
+            { text: 'inevitable.', color: 'text-white' },
+          ].map(({ text, color }, i) => (
+            <div key={text} className="overflow-hidden">
+              <motion.h1
+                initial={{ y: '110%' }}
+                animate={{ y: 0 }}
+                transition={{ duration: 0.85, ease: [0.76, 0, 0.24, 1], delay: 0.4 + i * 0.12 }}
+                className={`font-bold leading-[1.0] tracking-[-0.03em] ${color}`}
+                style={{ fontSize: 'clamp(3rem, 8.5vw, 9.5rem)' }}
+              >
+                {text}
+              </motion.h1>
+            </div>
+          ))}
+
+          {/* Bottom row */}
+          <div className="flex items-end justify-between w-full mt-16">
+            <motion.p
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.9 }}
+              className="text-white/30 text-[12px] leading-relaxed max-w-[260px] font-mono"
+            >
+              From strategy to execution —{' '}<br />digital transformation across Europe.
+            </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1.0 }}
+            >
+              <a
+                href="/search?view=track-record"
+                className="group flex items-center gap-3 border border-white/20 px-6 py-3 hover:bg-white hover:text-black transition-all duration-300"
+              >
+                <span className="text-[10px] tracking-[0.3em] font-mono">VIEW ALL WORK</span>
+                <motion.svg
+                  className="w-3.5 h-3.5"
+                  animate={{ x: [0, 4, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+                  fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </motion.svg>
+              </a>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Scroll indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 1.2 }}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10"
+        >
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+            className="w-px h-10 bg-gradient-to-b from-white/20 to-transparent"
+          />
+        </motion.div>
+      </section>
+
       {/* Hero Section - Refined */}
       <section className="min-h-[45vh] md:min-h-[55vh] flex items-center relative overflow-hidden bg-white pt-8 md:pt-0">
         {/* Subtle animated gradient mesh */}
@@ -378,66 +563,87 @@ export default function HomePageClient() {
       </section>
 
 {/* Services Section */}
-      <section id="services" className="px-5 md:px-8 lg:px-20 py-12 md:py-20">
+      <section id="services" className="px-5 md:px-8 lg:px-20 py-20 md:py-32">
         <FadeInView>
-          <p className="text-[10px] tracking-[0.3em] text-neutral-400 mb-4">SERVICES</p>
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tighter mb-8 md:mb-12">
-            What I Offer
-          </h2>
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-14 md:mb-20">
+            <div>
+              <p className="text-[10px] tracking-[0.35em] text-neutral-400 mb-4 font-medium">SERVICES</p>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-[-0.03em] leading-[1.05]">
+                What I Offer
+              </h2>
+            </div>
+            <p className="text-neutral-400 text-sm max-w-[280px] leading-relaxed hidden md:block">
+              End-to-end digital solutions — from strategy to deployment.
+            </p>
+          </div>
         </FadeInView>
 
-        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-          {services.map((service) => (
-            <StaggerItem key={service.id}>
+        <div className="border-t border-neutral-100">
+          {services.map((service, index) => (
+            <motion.div
+              key={service.id}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.45, delay: index * 0.07, ease: [0.25, 0.1, 0.25, 1] }}
+              className={`group relative flex items-center gap-4 md:gap-8 py-6 md:py-8 border-b border-neutral-100 cursor-pointer transition-colors duration-200 ${
+                expandedId === service.id ? 'bg-neutral-50/60' : 'hover:bg-neutral-50/60'
+              }`}
+              onClick={() => setExpandedId(expandedId === service.id ? null : service.id)}
+            >
+              {/* Left accent bar */}
               <motion.div
-                whileHover={{ y: -4 }}
+                className="absolute left-0 top-0 bottom-0 w-[2px] bg-black origin-top"
+                animate={{ scaleY: expandedId === service.id ? 1 : 0 }}
+                initial={{ scaleY: 0 }}
                 transition={{ duration: 0.2 }}
-                className={`group border rounded-xl p-6 transition-all duration-300 h-full flex flex-col cursor-pointer ${
-                  expandedId === service.id ? 'border-black shadow-lg' : 'border-neutral-200 hover:border-black hover:shadow-lg'
-                }`}
-                onClick={() => setExpandedId(expandedId === service.id ? null : service.id)}
-              >
-                {/* Icon + Duration */}
-                <div className="flex items-start justify-between mb-4">
-                  <div className="text-neutral-700 group-hover:text-black transition-colors">
-                    {service.icon}
-                  </div>
-                  <span className="text-[10px] tracking-wider text-neutral-400 bg-neutral-100 px-2 py-1 rounded">
-                    {service.duration}
-                  </span>
+              />
+
+              {/* Number */}
+              <span className="text-[11px] tracking-widest text-neutral-300 font-mono w-6 flex-shrink-0 pl-3">
+                {String(index + 1).padStart(2, '0')}
+              </span>
+
+              {/* Icon */}
+              <div className="text-neutral-400 group-hover:text-black transition-colors duration-200 flex-shrink-0 hidden md:block">
+                {service.icon}
+              </div>
+
+              {/* Title + Tags */}
+              <div className="flex-1 min-w-0">
+                <div className="flex items-baseline gap-3 flex-wrap">
+                  <h3 className="text-base md:text-lg font-bold group-hover:translate-x-0.5 transition-transform duration-200">
+                    {service.title}
+                  </h3>
+                  <span className="text-[10px] text-neutral-400 hidden md:block">{service.titleDe}</span>
                 </div>
-
-                {/* Title */}
-                <h3 className="text-lg font-bold mb-1">{service.title}</h3>
-                <p className="text-xs text-neutral-400 mb-3">{service.titleDe}</p>
-
-                {/* Description */}
-                <p className="text-sm text-neutral-600 leading-relaxed mb-4 flex-grow">
-                  {service.desc}
-                </p>
-
-                {/* Tags */}
-                <div className="flex flex-wrap gap-2">
-                  {service.tags.map((tag) => (
-                    <span 
-                      key={tag} 
-                      className="text-[10px] text-neutral-500 border border-neutral-200 rounded-full px-2 py-0.5"
-                    >
+                <div className="flex flex-wrap gap-1.5 mt-2">
+                  {service.tags.slice(0, 3).map((tag) => (
+                    <span key={tag} className="text-[9px] tracking-wide text-neutral-400 border border-neutral-200 rounded-full px-2 py-0.5">
                       {tag}
                     </span>
                   ))}
                 </div>
+              </div>
 
-                {/* Arrow indicator */}
-                <div className="mt-4 flex items-center justify-end">
-                  <svg className="w-4 h-4 text-neutral-300 group-hover:text-black transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </div>
+              {/* Duration */}
+              <span className="text-[10px] tracking-wider text-neutral-400 flex-shrink-0 hidden lg:block">
+                {service.duration}
+              </span>
+
+              {/* Arrow */}
+              <motion.div
+                className="flex-shrink-0 pr-2"
+                animate={{ x: expandedId === service.id ? 4 : 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                <svg className="w-4 h-4 text-neutral-300 group-hover:text-black transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
+                </svg>
               </motion.div>
-            </StaggerItem>
+            </motion.div>
           ))}
-        </StaggerContainer>
+        </div>
 
         {/* Right Slide Panel */}
         <AnimatePresence>
@@ -551,21 +757,28 @@ export default function HomePageClient() {
 
       {/* CTA Section */}
       <FadeInView>
-        <section className="px-5 md:px-8 lg:px-20 py-12 md:py-20 bg-neutral-50">
-          <div className="max-w-2xl mx-auto text-center">
-            <p className="text-[10px] tracking-[0.3em] text-neutral-400 mb-4">GET STARTED</p>
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tighter mb-6">
-              Ready to transform<br />your business?
-            </h2>
-            <p className="text-neutral-500 mb-8">
-              Let's discuss your project and find the right solution together.
-            </p>
-            <Link 
-              href="/about#contact" 
-              className="inline-block px-8 py-4 bg-black text-white text-sm tracking-wider hover:bg-neutral-800 transition-colors"
+        <section className="px-5 md:px-8 lg:px-20 py-20 md:py-32 bg-black text-white">
+          <div className="max-w-3xl mx-auto text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
             >
-              GET IN TOUCH
-            </Link>
+              <p className="text-[10px] tracking-[0.35em] text-neutral-500 mb-6 font-medium">GET STARTED</p>
+              <h2 className="text-3xl md:text-5xl font-bold tracking-[-0.03em] mb-6 leading-[1.1]">
+                Ready to transform<br />your business?
+              </h2>
+              <p className="text-neutral-400 text-sm md:text-base mb-10 max-w-md mx-auto leading-relaxed">
+                Let's discuss your project and find the right solution together.
+              </p>
+              <Link 
+                href="/about#contact" 
+                className="inline-block px-10 py-4 bg-white text-black text-[11px] tracking-[0.15em] font-medium hover:bg-neutral-200 transition-colors"
+              >
+                GET IN TOUCH
+              </Link>
+            </motion.div>
           </div>
         </section>
       </FadeInView>

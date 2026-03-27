@@ -7,8 +7,9 @@ import MobileMenu from "./mobile-menu";
 import { Menu } from "lib/shopify/types";
 
 const defaultMenu: Menu[] = [
-  { title: 'Track Record', path: '/search?view=track-record' },
+  { title: 'All Work', path: '/search?view=track-record' },
   { title: 'My Methodology', path: '/protocol' },
+  { title: 'Digital Tool', path: '/digital-tool' },
   { title: 'About', path: '/about' },
 ];
 

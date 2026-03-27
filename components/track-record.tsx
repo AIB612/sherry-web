@@ -13,68 +13,135 @@ interface TrackItem {
   videoUrl?: string;
   thumbnailBg: string;
   tags: string[];
+  description?: string[];
 }
 
 const trackItems: TrackItem[] = [
   {
-    id: 'lazada-growth',
+    id: 'malim-mobility',
     no: '01',
-    title: 'Lazada Seller Center',
-    subtitle: 'Design System & UED',
-    year: '2016–2020',
-    category: 'UX DESIGN',
-    thumbnailBg: 'from-orange-900/40 to-orange-950',
-    tags: ['Design System', 'UX Research', 'CRM'],
+    title: 'Malim Mobility Website',
+    subtitle: 'EV Subsidy Tracker & Consulting Platform',
+    year: 'Jun 2025 – Present',
+    category: 'SWISS PROJECTS',
+    thumbnailBg: 'from-emerald-900/40 to-emerald-950',
+    tags: ['Next.js', 'EV Subsidy', 'Lead Gen'],
+    description: [
+      'Engineered an integrated EV subsidy tracker and ROI calculator for the official site to drive lead generation.',
+      'Architected and deployed a cloud-based mobility consulting platform based on comprehensive competitor analysis and charging tech research.',
+    ],
   },
+  {
+    id: 'hampelmann',
+    no: '02',
+    title: 'Hampelmann',
+    subtitle: "Sustainable Children's Toys Platform",
+    year: 'Mar 2024 – Mar 2025',
+    category: 'SWISS PROJECTS',
+    thumbnailBg: 'from-amber-900/40 to-amber-950',
+    tags: ['Shopify', 'E-Commerce', 'Dutch Market'],
+    description: [
+      "Contributed to the expansion of the Hampelmann sustainable children's toys platform by optimizing product listings and enhancing customer engagement.",
+      'Analyzed Dutch market and order data to optimize operational workflows; reactivated legacy users through holiday events and email marketing, improving payment conversion by 20%.',
+    ],
+  },
+  {
+    id: 'oppo-mobile',
+    no: '03',
+    title: 'OPPO Mobile',
+    subtitle: 'IT Product Consulting & Analysis',
+    year: 'Sep 2021 – Mar 2022',
+    category: 'IT CONSULTING',
+    thumbnailBg: 'from-red-900/40 to-red-950',
+    tags: ['NPS Analysis', 'Product Strategy', 'UX Research'],
+    description: [
+      'Provided strategic guidance to OPPO mobile phone digital product teams, enhancing user engagement through NPS analysis and data dashboard tracking.',
+      'Organized workshops and synthesized results from quantitative/qualitative research; developed user cases for Cloud and NFC service integration.',
+    ],
+  },
+  {
+    id: 'anjun-express',
+    no: '04',
+    title: 'Anjun Express',
+    subtitle: 'Brazil Logistics System',
+    year: 'Mar 2022 – Jan 2023',
+    category: 'E-COMMERCE & LOGISTICS',
+    thumbnailBg: 'from-blue-900/40 to-blue-950',
+    tags: ['API Integration', 'Mercado', 'Data Modeling'],
+    description: [
+      'Architected data modeling and API integrations with Mercado Ecommerce platform and last-mile service Correios; designed prototypes for backend systems and mobile operational software.',
+      'Analyzed logistics status data to monitor lead times from order to last-mile delivery, achieving a 60% increase in overall operational efficiency.',
+    ],
+  },
+  {
+    id: 'lazada',
+    no: '05',
+    title: 'Lazada Seller Center',
+    subtitle: 'UED Design System & Operating Center',
+    year: 'Sep 2016 – Mar 2020',
+    category: 'E-COMMERCE & LOGISTICS',
+    thumbnailBg: 'from-orange-900/40 to-orange-950',
+    tags: ['Design System', 'Gamification', 'CRM'],
+    description: [
+      'Refined the UED design system for both admin and seller-facing CRMs; designed a "User Growth Coins" gamification system that increased engagement among 1 million sellers by 60%.',
+    ],
+  },
+  {
+    id: 'rucy',
+    no: '06',
+    title: 'Rucy',
+    subtitle: 'Korean Fashion E-Commerce App',
+    year: 'Jul 2019 – Mar 2020',
+    category: 'E-COMMERCE & LOGISTICS',
+    thumbnailBg: 'from-pink-900/40 to-pink-950',
+    tags: ['iOS/Android', 'Fashion Tech', 'A/B Testing'],
+    description: [
+      'Co-defined a fashion recommendation strategy with the Korean team; led UI/UX design and prototyping for iOS/Android platforms.',
+      'Managed agile development and A/B testing to launch the app within 4 months.',
+    ],
+  },
+
   {
     id: 'tcl-smart-home',
-    no: '02',
+    no: '07',
     title: 'TCL Smart Home App',
-    subtitle: 'iOS & Android Design',
-    year: '2020–2022',
-    category: 'PRODUCT DESIGN',
-    thumbnailBg: 'from-blue-900/40 to-blue-950',
-    tags: ['Mobile App', 'IoT', 'Smart Home'],
+    subtitle: 'IoT UX & Hardware-Software Integration',
+    year: 'Mar 2020 – Sep 2022',
+    category: 'END-TO-END PROJECTS',
+    thumbnailBg: 'from-sky-900/40 to-sky-950',
+    tags: ['IoT', 'Smart Home', 'Hardware-Software'],
+    description: [
+      'Defined feature roadmaps for "White Goods" to improve UX; designed provisioning and pairing workflows across LAN/PAN, LPWAN, and Cellular networks based on specific user scenarios.',
+      'Leveraged product usage data to iteratively optimize the interaction and security protocols between digital interfaces and physical hardware.',
+    ],
   },
   {
-    id: 'malim-energy',
-    no: '03',
-    title: 'Malim Energy',
-    subtitle: 'Swiss EV Subsidy Explorer',
-    year: '2025',
-    category: 'WEB DEVELOPMENT',
-    thumbnailBg: 'from-emerald-900/40 to-emerald-950',
-    tags: ['Next.js', 'Framer Motion', 'Data Viz'],
+    id: 'weiyun-agri',
+    no: '08',
+    title: 'WeiYun Agricultural Software',
+    subtitle: 'Smart Planting Control System',
+    year: 'Jan 2018 – Jun 2019',
+    category: 'END-TO-END PROJECTS',
+    thumbnailBg: 'from-green-900/40 to-green-950',
+    tags: ['IoT Sensors', 'Agriculture Tech', 'Real-time Data'],
+    description: [
+      'Designed and implemented a real-time data acquisition system based on multi-dimensional sensors (temp/humidity, soil EC, light intensity) with anomaly trigger mechanism for second-level crop disaster alerting.',
+      'Led deep optimization of the mobile control interface, simplifying remote irrigation and ventilation control into one-click interactions for non-technical growers.',
+    ],
   },
   {
-    id: 'azure-rag',
-    no: '04',
-    title: 'SwissAzureAI',
-    subtitle: 'FINMA-Compliant RAG System',
-    year: '2024',
-    category: 'AI ENGINEERING',
-    thumbnailBg: 'from-violet-900/40 to-violet-950',
-    tags: ['Azure OpenAI', 'pgvector', 'Terraform'],
-  },
-  {
-    id: 'shopimage',
-    no: '05',
-    title: 'Shopimage',
-    subtitle: 'E-Commerce Image Optimizer',
-    year: '2025',
-    category: 'PRODUCT',
-    thumbnailBg: 'from-rose-900/40 to-rose-950',
-    tags: ['Chrome Extension', 'Shopify', 'SaaS'],
-  },
-  {
-    id: 'ai-thesis',
-    no: '06',
-    title: 'Generative AI in E-Commerce',
-    subtitle: 'FHNW Master Thesis',
-    year: '2024',
-    category: 'RESEARCH',
-    thumbnailBg: 'from-neutral-700/40 to-neutral-900',
-    tags: ['LLM', 'Research', 'E-Commerce'],
+    id: 'master-wan',
+    no: '09',
+    title: 'Master Wan × IKEA O2O',
+    subtitle: 'Home Repair & Installation Platform',
+    year: 'Jan 2018 – Jun 2019',
+    category: 'END-TO-END PROJECTS',
+    thumbnailBg: 'from-yellow-900/40 to-yellow-950',
+    tags: ['O2O', 'Service Design', 'IKEA'],
+    description: [
+      'Spearheaded UI/UX for Master Wan and IKEA O2O platforms; implemented service rating systems, "Gold Coin" rewards, and voice-ordering strategies to enhance platform experience.',
+      'Iteratively improved platform performance through in-depth user interviews and Customer Journey Mapping.',
+    ],
   },
 ];
 
@@ -111,8 +178,20 @@ function VideoModal({ item, onClose }: { item: TrackItem; onClose: () => void })
             allowFullScreen
           />
         ) : (
-          <div className={`w-full h-full bg-gradient-to-br ${item.thumbnailBg} flex items-center justify-center`}>
-            <p className="text-white/30 text-[11px] tracking-[0.3em] uppercase">No video available</p>
+          <div className={`w-full h-full bg-gradient-to-br ${item.thumbnailBg} flex flex-col items-start justify-end p-8`}>
+            <p className="text-white/40 text-[10px] tracking-[0.25em] uppercase mb-4">{item.category}</p>
+            <h3 className="text-white text-xl font-bold mb-2">{item.title}</h3>
+            <p className="text-white/60 text-sm mb-4">{item.year}</p>
+            {item.description && (
+              <ul className="space-y-2 max-w-xl">
+                {item.description.map((point, i) => (
+                  <li key={i} className="text-white/70 text-[13px] leading-relaxed flex gap-2">
+                    <span className="text-white/30 mt-1">—</span>
+                    <span>{point}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         )}
         <button
@@ -139,26 +218,29 @@ function TrackCard({ item, index }: { item: TrackItem; index: number }) {
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 16 }}
         transition={{ duration: 0.4, delay: index * 0.06, ease: [0.33, 1, 0.68, 1] }}
-        className="relative group bg-[#0a0a0a] cursor-pointer"
+        className="relative group bg-white cursor-pointer"
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
         onClick={() => setModalOpen(true)}
       >
         {/* Thumbnail */}
         <div className="relative aspect-video overflow-hidden">
-          <div className={`absolute inset-0 bg-gradient-to-br ${item.thumbnailBg} transition-transform duration-700 group-hover:scale-105`} />
+          <div className={`absolute inset-0 bg-gradient-to-br ${item.thumbnailBg} transition-transform duration-[800ms] ease-[0.25,1,0.5,1] group-hover:scale-105`} />
+          
+          {/* Black Overlay - appears on hover (like All Work page) */}
+          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/75 transition-all duration-[600ms] ease-out" />
 
-          <span className="absolute top-4 left-4 text-[10px] tracking-[0.25em] text-white/30 font-mono">
+          <span className="absolute top-4 left-4 text-[10px] tracking-[0.25em] text-white/30 font-mono z-10 transition-opacity duration-300 group-hover:text-white/90">
             {item.no}
           </span>
-          <span className="absolute top-4 right-4 text-[9px] tracking-[0.2em] text-white/40 font-medium">
+          <span className="absolute top-4 right-4 text-[9px] tracking-[0.2em] text-white/40 font-medium z-10 transition-opacity duration-300 group-hover:text-white/90">
             {item.category}
           </span>
 
           <motion.div
             animate={{ opacity: hovered ? 1 : 0, scale: hovered ? 1 : 0.8 }}
             transition={{ duration: 0.2 }}
-            className="absolute inset-0 flex items-center justify-center"
+            className="absolute inset-0 flex items-center justify-center z-10"
           >
             <div className="w-14 h-14 rounded-full bg-white/15 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white">
               <PlayIcon />
@@ -169,19 +251,19 @@ function TrackCard({ item, index }: { item: TrackItem; index: number }) {
         </div>
 
         {/* Info */}
-        <div className="p-5 border-t border-neutral-800/60">
-          <div className="flex items-start justify-between gap-3 mb-2">
+        <div className="p-6 border-t border-neutral-800/60 transition-colors duration-500 group-hover:bg-neutral-900/40">
+          <div className="flex items-start justify-between gap-3 mb-3">
             <div>
-              <h3 className="text-white text-[15px] font-semibold tracking-tight leading-snug">
+              <h3 className="text-white text-base md:text-[17px] font-semibold tracking-tight leading-snug group-hover:translate-x-1 transition-transform duration-300">
                 {item.title}
               </h3>
-              <p className="text-neutral-500 text-[12px] mt-0.5">{item.subtitle}</p>
+              <p className="text-neutral-500 text-[12px] mt-1 group-hover:text-neutral-400 transition-colors duration-300">{item.subtitle}</p>
             </div>
-            <span className="text-neutral-600 text-[11px] font-mono shrink-0 mt-0.5">{item.year}</span>
+            <span className="text-neutral-600 text-[11px] font-mono shrink-0 mt-1">{item.year}</span>
           </div>
-          <div className="flex flex-wrap gap-1.5 mt-3">
+          <div className="flex flex-wrap gap-1.5 mt-4">
             {item.tags.map(tag => (
-              <span key={tag} className="text-[9px] tracking-[0.15em] text-neutral-500 border border-neutral-800 px-2 py-0.5">
+              <span key={tag} className="text-[9px] tracking-[0.15em] text-neutral-500 border border-neutral-800 px-2.5 py-1 transition-colors duration-300 group-hover:border-neutral-600 group-hover:text-neutral-400">
                 {tag}
               </span>
             ))}
@@ -190,8 +272,9 @@ function TrackCard({ item, index }: { item: TrackItem; index: number }) {
 
         <motion.div
           animate={{ scaleX: hovered ? 1 : 0 }}
-          transition={{ duration: 0.3 }}
-          className="absolute bottom-0 left-0 right-0 h-[1px] bg-white/30 origin-left"
+          initial={{ scaleX: 0 }}
+          transition={{ duration: 0.4, ease: [0.33, 1, 0.68, 1] }}
+          className="absolute bottom-0 left-0 right-0 h-[2px] bg-white/40 origin-left"
         />
       </motion.div>
 
@@ -202,27 +285,64 @@ function TrackCard({ item, index }: { item: TrackItem; index: number }) {
   );
 }
 
+const CATEGORIES = [
+  { key: 'ALL', label: 'All Projects' },
+  { key: 'SWISS PROJECTS', label: 'Swiss Projects' },
+  { key: 'IT CONSULTING', label: 'IT Product Consulting & Analysis' },
+  { key: 'E-COMMERCE & LOGISTICS', label: 'E-commerce & Logistics' },
+  { key: 'END-TO-END PROJECTS', label: 'End-to-End Projects' },
+];
+
 export default function TrackRecord() {
   const [expanded, setExpanded] = useState(false);
-  const visibleItems = expanded ? trackItems : trackItems.slice(0, 1);
+  const [activeCategory, setActiveCategory] = useState('ALL');
+
+  const filteredItems = activeCategory === 'ALL'
+    ? trackItems
+    : trackItems.filter(item => item.category === activeCategory);
+
+  const visibleItems = activeCategory === 'ALL' && !expanded
+    ? filteredItems.slice(0, 3)
+    : filteredItems;
+
+  const handleCategoryChange = (key: string) => {
+    setActiveCategory(key);
+    setExpanded(false);
+  };
 
   return (
-    <section className="bg-[#0a0a0a] px-5 md:px-8 lg:px-20 py-16 md:py-28">
+    <section className="bg-white px-5 md:px-8 lg:px-20 py-16 md:py-28">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-12 md:mb-16">
+      <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10 md:mb-12">
         <div>
           <p className="text-[10px] tracking-[0.35em] text-neutral-500 mb-4 font-medium">SELECTED WORK</p>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-[-0.03em] text-white leading-[1.05]">
+          <h2 className="text-3xl md:text-5xl font-bold tracking-[-0.03em] text-black leading-[1.05] mb-6">
             Track Record
           </h2>
+          {/* Category Filters */}
+          <div className="flex flex-wrap gap-2">
+            {CATEGORIES.map(cat => (
+              <button
+                key={cat.key}
+                onClick={() => handleCategoryChange(cat.key)}
+                className={`text-[9px] tracking-[0.25em] px-4 py-2 transition-all duration-200 ${
+                  activeCategory === cat.key
+                    ? 'text-black border border-black/30 bg-black/[0.06]'
+                    : 'text-neutral-500 border border-neutral-300 hover:text-neutral-800 hover:border-neutral-600'
+                }`}
+              >
+                {cat.label.toUpperCase()}
+              </button>
+            ))}
+          </div>
         </div>
-        <p className="text-neutral-500 text-sm max-w-xs leading-relaxed">
+        <p className="text-neutral-600 text-sm max-w-xs leading-relaxed self-start">
           A decade of product design, AI engineering, and digital transformation across Asia and Europe.
         </p>
       </div>
 
       {/* Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-neutral-800/40">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-neutral-200/40">
         <AnimatePresence mode="popLayout">
           {visibleItems.map((item, index) => (
             <TrackCard key={item.id} item={item} index={index} />
@@ -230,17 +350,26 @@ export default function TrackRecord() {
         </AnimatePresence>
       </div>
 
-      {/* Show More / Less */}
-      <div className="mt-10 flex items-center justify-center">
-        <button
-          onClick={() => setExpanded(prev => !prev)}
-          className="group flex items-center gap-3 text-[10px] tracking-[0.3em] text-neutral-500 hover:text-white transition-colors duration-300"
-        >
-          <span className="h-px w-8 bg-neutral-700 group-hover:bg-white transition-colors duration-300" />
-          {expanded ? 'SHOW LESS' : `VIEW ALL ${trackItems.length} PROJECTS`}
-          <span className="h-px w-8 bg-neutral-700 group-hover:bg-white transition-colors duration-300" />
-        </button>
-      </div>
+      {/* Show More / Less — only shown when ALL and not all visible */}
+      {activeCategory === 'ALL' && (
+        <div className="mt-16 flex items-center justify-center">
+          <button
+            onClick={() => setExpanded(prev => !prev)}
+            className="group relative overflow-hidden flex items-center gap-4 text-[11px] tracking-[0.25em] text-black border border-neutral-300 hover:border-black px-10 py-4 transition-all duration-500"
+          >
+            <span className="relative z-10 flex items-center gap-3">
+              {expanded ? 'SHOW LESS' : `VIEW ALL ${trackItems.length} PROJECTS`}
+              <svg 
+                className={`w-3.5 h-3.5 transition-transform duration-500 ${expanded ? 'rotate-180' : 'group-hover:translate-y-1'}`} 
+                fill="none" stroke="currentColor" viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
+              </svg>
+            </span>
+            <div className="absolute inset-0 bg-white translate-y-[100%] group-hover:translate-y-0 transition-transform duration-500 ease-[0.33,1,0.68,1] opacity-10" />
+          </button>
+        </div>
+      )}
     </section>
   );
 }

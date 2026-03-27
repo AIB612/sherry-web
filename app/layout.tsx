@@ -46,7 +46,7 @@ export default async function RootLayout({
       <body className="text-black selection:bg-teal-300 dark:bg-neutral-900 dark:text-white dark:selection:bg-pink-500 dark:selection:text-white" style={{ fontFamily: 'var(--font-cardo), serif', backgroundColor: 'white' }}>
         <CartProvider cartPromise={mockCart}>
           <Navbar />
-          <main>
+          <main className="mt-0 pt-0">
             {children}
             <Toaster closeButton />
             <WelcomeToast />
