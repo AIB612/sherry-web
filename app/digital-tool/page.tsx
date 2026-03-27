@@ -539,6 +539,17 @@ export default function DigitalToolPage() {
               <div className="lg:col-span-3 p-10 md:p-14 flex flex-col justify-center">
                 {(() => {
                   const { totalScore, maxTotalScore, overallPercentage, maturityLevel } = calculateFinalResults();
+                  
+                  // Calculate dynamic strengths and weaknesses
+                  const categoryPerformance = assessmentCategories.map((cat, idx) => ({
+                    title: cat.title,
+                    score: categoryScores[idx] || 0
+                  }));
+                  
+                  categoryPerformance.sort((a, b) => b.score - a.score);
+                  const strongest = categoryPerformance[0] || { title: 'N/A', score: 0 };
+                  const weakest = categoryPerformance[categoryPerformance.length - 1] || { title: 'N/A', score: 0 };
+
                   return (
                     <div className="space-y-10">
                       <div className="flex justify-between items-end border-b border-neutral-100 pb-8">
@@ -567,7 +578,47 @@ export default function DigitalToolPage() {
                           {maturityLevel.level === 'Optimizing' && ' You are a digital leader. Focus on creating entirely new value spaces and thought leadership in your industry.'}
                         </p>
 
-                        <div className="bg-neutral-50 border border-neutral-200 rounded-sm p-6 mt-8">
+                        <div className="mt-8 space-y-4">
+                          <h4 className="text-[11px] font-bold tracking-[0.1em] uppercase text-black font-sans mb-3">Your Digital Profile Analysis</h4>
+                          
+                          <div className="bg-white border border-neutral-200 rounded-sm p-5 space-y-4">
+                            <div>
+                              <div className="flex justify-between items-center mb-2">
+                                <span className="text-sm font-medium text-black font-sans flex items-center gap-2">
+                                  <span>🌟</span> Strongest Area
+                                </span>
+                                <span className="text-sm font-bold text-black font-sans">{strongest.title} ({strongest.score}/15)</span>
+                              </div>
+                              <div className="w-full bg-neutral-100 rounded-full h-1.5">
+                                <motion.div 
+                                  initial={{ width: 0 }}
+                                  animate={{ width: `${(strongest.score/15)*100}%` }}
+                                  transition={{ duration: 1, delay: 0.5 }}
+                                  className="bg-black h-1.5 rounded-full" 
+                                />
+                              </div>
+                            </div>
+                            
+                            <div className="pt-2">
+                              <div className="flex justify-between items-center mb-2">
+                                <span className="text-sm font-medium text-black font-sans flex items-center gap-2">
+                                  <span>⚠️</span> Needs Attention
+                                </span>
+                                <span className="text-sm font-bold text-black font-sans">{weakest.title} ({weakest.score}/15)</span>
+                              </div>
+                              <div className="w-full bg-neutral-100 rounded-full h-1.5">
+                                <motion.div 
+                                  initial={{ width: 0 }}
+                                  animate={{ width: `${(weakest.score/15)*100}%` }}
+                                  transition={{ duration: 1, delay: 0.7 }}
+                                  className="bg-neutral-400 h-1.5 rounded-full" 
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="bg-neutral-50 border border-neutral-200 rounded-sm p-6 mt-6">
                           <h4 className="text-[11px] font-bold tracking-[0.1em] uppercase text-black mb-3 font-sans">Product & UX Philosophy</h4>
                           <p className="text-neutral-600 text-sm leading-relaxed font-sans">
                             True <b className="font-serif text-black">Product-Market Fit (PMF)</b> requires moving beyond basic PULSE metrics. By implementing the <b className="font-serif text-black">HEART</b> framework and measuring <b className="font-serif text-black">NPS/CES</b>, you ensure your digital transformation actually delivers value to the end-user.
