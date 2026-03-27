@@ -543,21 +543,29 @@ export default function DigitalToolPage() {
                   // Calculate dynamic strengths and weaknesses
                   const categoryPerformance = assessmentCategories.map((cat, idx) => ({
                     title: cat.title,
-                    score: categoryScores[idx] || 0
+                    score: categoryScores[idx] || 0,
+                    percentage: Math.round(((categoryScores[idx] || 0) / 15) * 100)
                   }));
                   
                   categoryPerformance.sort((a, b) => b.score - a.score);
-                  const strongest = categoryPerformance[0] || { title: 'N/A', score: 0 };
-                  const weakest = categoryPerformance[categoryPerformance.length - 1] || { title: 'N/A', score: 0 };
+                  const strongest = categoryPerformance[0] || { title: 'N/A', score: 0, percentage: 0 };
+                  const weakest = categoryPerformance[categoryPerformance.length - 1] || { title: 'N/A', score: 0, percentage: 0 };
 
                   return (
                     <div className="space-y-10">
                       <div className="flex justify-between items-end border-b border-neutral-100 pb-8">
                         <div>
-                          <p className="text-[10px] text-neutral-400 uppercase tracking-[0.3em] font-semibold mb-3 font-sans">Final Score</p>
+                          <div className="flex items-center gap-3 mb-3">
+                            <p className="text-[10px] text-neutral-400 uppercase tracking-[0.3em] font-semibold font-sans">Digital Maturity Index</p>
+                            <span className="text-[9px] px-2 py-0.5 bg-neutral-100 text-neutral-500 rounded-sm font-sans tracking-widest uppercase">DMI</span>
+                          </div>
                           <div className="flex items-baseline gap-2">
-                            <span className="text-6xl font-bold tracking-[-0.03em] text-black">{totalScore}</span>
-                            <span className="text-xl text-neutral-300 font-medium font-sans">/ {maxTotalScore}</span>
+                            <span className="text-6xl font-bold tracking-[-0.03em] text-black">{overallPercentage}</span>
+                            <span className="text-xl text-neutral-300 font-medium font-sans">/ 100</span>
+                          </div>
+                          <div className="mt-2 text-xs font-sans text-neutral-500 flex items-center gap-2">
+                            <div className="w-1.5 h-1.5 rounded-full bg-neutral-300"></div>
+                            Industry Average: 58
                           </div>
                         </div>
                         <div className="text-right">
@@ -585,14 +593,14 @@ export default function DigitalToolPage() {
                             <div>
                               <div className="flex justify-between items-center mb-2">
                                 <span className="text-sm font-medium text-black font-sans flex items-center gap-2">
-                                  <span>🌟</span> Strongest Area
+                                  <span>🌟</span> Core Strength
                                 </span>
-                                <span className="text-sm font-bold text-black font-sans">{strongest.title} ({strongest.score}/15)</span>
+                                <span className="text-sm font-bold text-black font-sans">{strongest.title} <span className="text-neutral-400 font-normal">({strongest.percentage}%)</span></span>
                               </div>
                               <div className="w-full bg-neutral-100 rounded-full h-1.5">
                                 <motion.div 
                                   initial={{ width: 0 }}
-                                  animate={{ width: `${(strongest.score/15)*100}%` }}
+                                  animate={{ width: `${strongest.percentage}%` }}
                                   transition={{ duration: 1, delay: 0.5 }}
                                   className="bg-black h-1.5 rounded-full" 
                                 />
@@ -602,14 +610,14 @@ export default function DigitalToolPage() {
                             <div className="pt-2">
                               <div className="flex justify-between items-center mb-2">
                                 <span className="text-sm font-medium text-black font-sans flex items-center gap-2">
-                                  <span>⚠️</span> Needs Attention
+                                  <span>⚠️</span> Critical Gap
                                 </span>
-                                <span className="text-sm font-bold text-black font-sans">{weakest.title} ({weakest.score}/15)</span>
+                                <span className="text-sm font-bold text-black font-sans">{weakest.title} <span className="text-neutral-400 font-normal">({weakest.percentage}%)</span></span>
                               </div>
                               <div className="w-full bg-neutral-100 rounded-full h-1.5">
                                 <motion.div 
                                   initial={{ width: 0 }}
-                                  animate={{ width: `${(weakest.score/15)*100}%` }}
+                                  animate={{ width: `${weakest.percentage}%` }}
                                   transition={{ duration: 1, delay: 0.7 }}
                                   className="bg-neutral-400 h-1.5 rounded-full" 
                                 />
