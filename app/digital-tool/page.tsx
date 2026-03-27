@@ -542,14 +542,15 @@ export default function DigitalToolPage() {
                   
                   // Calculate dynamic strengths and weaknesses
                   const categoryPerformance = assessmentCategories.map((cat, idx) => ({
+                    id: cat.id,
                     title: cat.title,
                     score: categoryScores[idx] || 0,
                     percentage: Math.round(((categoryScores[idx] || 0) / 15) * 100)
                   }));
                   
                   categoryPerformance.sort((a, b) => b.score - a.score);
-                  const strongest = categoryPerformance[0] || { title: 'N/A', score: 0, percentage: 0 };
-                  const weakest = categoryPerformance[categoryPerformance.length - 1] || { title: 'N/A', score: 0, percentage: 0 };
+                  const strongest = categoryPerformance[0] || { id: 'none', title: 'N/A', score: 0, percentage: 0 };
+                  const weakest = categoryPerformance[categoryPerformance.length - 1] || { id: 'none', title: 'N/A', score: 0, percentage: 0 };
 
                   return (
                     <div className="space-y-10">
@@ -578,13 +579,55 @@ export default function DigitalToolPage() {
                       <div className="space-y-6">
                         <h3 className="text-[1.5rem] md:text-[2rem] font-bold tracking-[-0.03em] text-black">Strategic Recommendations</h3>
                         <p className="text-neutral-600 text-sm leading-relaxed font-sans">
-                          {maturityLevel.description}. 
-                          {maturityLevel.level === 'Initial' && ' Start by establishing a basic digital strategy, mapping your core user journeys, and setting up initial UX metrics.'}
-                          {maturityLevel.level === 'Developing' && ' Focus on cloud migration, breaking down data silos, and starting to track active user engagement (NPS).'}
-                          {maturityLevel.level === 'Defined' && ' Time to scale agile methodologies, implement automated CI/CD pipelines, and use HEART metrics for UX tracking.'}
-                          {maturityLevel.level === 'Managed' && ' Leverage AI for process automation and integrate predictive UX analytics into your cross-functional product teams.'}
-                          {maturityLevel.level === 'Optimizing' && ' You are a digital leader. Focus on creating entirely new value spaces and thought leadership in your industry.'}
+                          Based on your Digital Maturity Index, your organization is at the <span className="font-semibold text-black">{maturityLevel.level}</span> stage ({maturityLevel.description.toLowerCase()}). 
+                          To accelerate your transformation and maximize ROI, we recommend prioritizing specific interventions in your critical gap area: <span className="font-semibold text-black">{weakest.title}</span>.
                         </p>
+
+                        <div className="bg-neutral-50 border border-neutral-200 rounded-sm p-6 mt-6">
+                          <h4 className="text-[11px] font-bold tracking-[0.1em] uppercase text-black mb-4 font-sans">Priority Action Plan: {weakest.title}</h4>
+                          {weakest.id === 'strategy' && (
+                            <ul className="text-sm text-neutral-600 font-sans space-y-3 list-disc pl-4 marker:text-black">
+                              <li><b className="font-medium text-black">Establish Governance:</b> Form a cross-functional digital steering committee to align your vision across all departments.</li>
+                              <li><b className="font-medium text-black">Define Metrics:</b> Set 3-5 clear, measurable KPIs tying digital initiatives directly to core business outcomes.</li>
+                              <li><b className="font-medium text-black">Transparent Roadmap:</b> Communicate the transformation strategy openly to ensure organizational buy-in.</li>
+                            </ul>
+                          )}
+                          {weakest.id === 'technology' && (
+                            <ul className="text-sm text-neutral-600 font-sans space-y-3 list-disc pl-4 marker:text-black">
+                              <li><b className="font-medium text-black">Cloud Audit:</b> Evaluate existing legacy systems to identify urgent and high-impact cloud migration candidates.</li>
+                              <li><b className="font-medium text-black">Data Lakes:</b> Establish a centralized data architecture to break down silos and enable cross-departmental analytics.</li>
+                              <li><b className="font-medium text-black">Security Posture:</b> Implement a Zero-Trust architecture to secure expanded and remote digital perimeters.</li>
+                            </ul>
+                          )}
+                          {weakest.id === 'process' && (
+                            <ul className="text-sm text-neutral-600 font-sans space-y-3 list-disc pl-4 marker:text-black">
+                              <li><b className="font-medium text-black">Value Stream Mapping:</b> Map core operational flows to identify high-ROI bottlenecks suitable for automation.</li>
+                              <li><b className="font-medium text-black">RPA Implementation:</b> Deploy Robotic Process Automation for repetitive, high-volume manual workflows.</li>
+                              <li><b className="font-medium text-black">Agile Transition:</b> Shift from traditional waterfall project management to iterative, enterprise-scale Agile frameworks.</li>
+                            </ul>
+                          )}
+                          {weakest.id === 'people' && (
+                            <ul className="text-sm text-neutral-600 font-sans space-y-3 list-disc pl-4 marker:text-black">
+                              <li><b className="font-medium text-black">Upskilling Programs:</b> Launch continuous digital literacy training targeted specifically at non-technical staff.</li>
+                              <li><b className="font-medium text-black">Innovation Culture:</b> Create an internal "Innovation Lab" or hackathon series to foster a fail-fast, experimental mindset.</li>
+                              <li><b className="font-medium text-black">Incentivize Adoption:</b> Revise performance metrics to explicitly reward digital tool adoption and cross-team collaboration.</li>
+                            </ul>
+                          )}
+                          {weakest.id === 'product-ux' && (
+                            <ul className="text-sm text-neutral-600 font-sans space-y-3 list-disc pl-4 marker:text-black">
+                              <li><b className="font-medium text-black">HEART Metrics:</b> Adopt the Google HEART framework to measure user experience beyond basic operational metrics.</li>
+                              <li><b className="font-medium text-black">Continuous Discovery:</b> Integrate user feedback loops into weekly development sprints rather than post-launch.</li>
+                              <li><b className="font-medium text-black">Outcome Roadmaps:</b> Transition from output-based roadmaps (features shipped) to outcome-based roadmaps (problems solved).</li>
+                            </ul>
+                          )}
+                          {(weakest.id === 'none' || !['strategy', 'technology', 'process', 'people', 'product-ux'].includes(weakest.id)) && (
+                            <ul className="text-sm text-neutral-600 font-sans space-y-3 list-disc pl-4 marker:text-black">
+                              <li><b className="font-medium text-black">Holistic Review:</b> Conduct a comprehensive audit of your digital ecosystem to identify hidden bottlenecks.</li>
+                              <li><b className="font-medium text-black">Cross-Functional Alignment:</b> Ensure your IT, Product, and Business teams are working toward the same digital KPIs.</li>
+                              <li><b className="font-medium text-black">Continuous Optimization:</b> Keep pushing the envelope with AI integration and automated performance tracking.</li>
+                            </ul>
+                          )}
+                        </div>
 
                         <div className="mt-8 space-y-4">
                           <h4 className="text-[11px] font-bold tracking-[0.1em] uppercase text-black font-sans mb-3">Your Digital Profile Analysis</h4>
