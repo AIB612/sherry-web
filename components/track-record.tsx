@@ -167,7 +167,7 @@ function VideoModal({ item, onClose }: { item: TrackItem; onClose: () => void })
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.95, opacity: 0 }}
         transition={{ duration: 0.25, ease: [0.33, 1, 0.68, 1] }}
-        className="relative w-full max-w-4xl aspect-video bg-black rounded-sm overflow-hidden"
+        className="relative w-full max-w-4xl aspect-[2/1] bg-black rounded-sm overflow-hidden"
         onClick={e => e.stopPropagation()}
       >
         {item.videoUrl ? (
@@ -218,58 +218,71 @@ function TrackCard({ item, index }: { item: TrackItem; index: number }) {
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 16 }}
         transition={{ duration: 0.4, delay: index * 0.06, ease: [0.33, 1, 0.68, 1] }}
-        className="relative group bg-white cursor-pointer"
+        className="relative group bg-white cursor-pointer rounded-[40px] overflow-hidden"
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
         onClick={() => setModalOpen(true)}
       >
-        {/* Thumbnail */}
-        <div className="relative aspect-video overflow-hidden">
+        {/* 统一为单一体块卡片，像 All Work 页面一样 */}
+        <div className="relative h-[400px] overflow-hidden">
           <div className={`absolute inset-0 bg-gradient-to-br ${item.thumbnailBg} transition-transform duration-[800ms] ease-[0.25,1,0.5,1] group-hover:scale-105`} />
           
-          {/* Black Overlay - appears on hover (like All Work page) */}
+          {/* Black Overlay - appears on hover */}
           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/75 transition-all duration-[600ms] ease-out" />
 
-          <span className="absolute top-4 left-4 text-[10px] tracking-[0.25em] text-white/30 font-mono z-10 transition-opacity duration-300 group-hover:text-white/90">
+          {/* Corner Number */}
+          <span className="absolute top-3 left-4 text-[9px] tracking-[0.25em] font-mono text-white/50 z-10 transition-opacity duration-300 group-hover:text-white/90">
             {item.no}
           </span>
-          <span className="absolute top-4 right-4 text-[9px] tracking-[0.2em] text-white/40 font-medium z-10 transition-opacity duration-300 group-hover:text-white/90">
+          
+          {/* Category Tag */}
+          <span className="absolute top-3 right-4 text-[8px] tracking-[0.2em] text-white/50 z-10 transition-opacity duration-300 group-hover:text-white/90">
             {item.category}
           </span>
 
+          {/* Play Icon - appears on hover */}
           <motion.div
             animate={{ opacity: hovered ? 1 : 0, scale: hovered ? 1 : 0.8 }}
             transition={{ duration: 0.2 }}
             className="absolute inset-0 flex items-center justify-center z-10"
           >
-            <div className="w-14 h-14 rounded-full bg-white/15 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white">
+            <div className="w-8 h-8 rounded-full bg-white/15 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white">
               <PlayIcon />
             </div>
           </motion.div>
 
+          {/* Content - appears on hover (像 All Work 页面) */}
+          <div className="absolute inset-0 flex flex-col justify-end p-4 md:p-6 lg:p-8 z-10">
+            <div className="translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-[500ms] ease-[0.33,1,0.68,1]">
+              <div className="flex items-center gap-2 mb-2">
+                <p className="text-[9px] tracking-[0.2em] text-white/70 font-mono">{item.year}</p>
+                <span className="h-px w-4 bg-white/30" />
+                <p className="text-[9px] tracking-[0.2em] text-white/50">Switzerland</p>
+              </div>
+
+              <h3 className="font-bold text-white mb-2 tracking-tight leading-tight text-lg md:text-2xl">
+                {item.title}
+              </h3>
+              
+              <p className="text-white/70 leading-relaxed mb-4 line-clamp-2 text-xs max-w-[90%]">
+                {item.subtitle}
+              </p>
+              
+              {/* Tags */}
+              <div className="flex flex-wrap gap-1.5 mb-4">
+                {item.tags.slice(0, 3).map(tag => (
+                  <span key={tag} className="text-[8px] tracking-[0.15em] text-white/60 border border-white/20 px-2 py-1 backdrop-blur-sm">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+
           <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/60 to-transparent" />
         </div>
 
-        {/* Info */}
-        <div className="p-6 border-t border-neutral-800/60 transition-colors duration-500 group-hover:bg-neutral-900/40">
-          <div className="flex items-start justify-between gap-3 mb-3">
-            <div>
-              <h3 className="text-white text-base md:text-[17px] font-semibold tracking-tight leading-snug group-hover:translate-x-1 transition-transform duration-300">
-                {item.title}
-              </h3>
-              <p className="text-neutral-500 text-[12px] mt-1 group-hover:text-neutral-400 transition-colors duration-300">{item.subtitle}</p>
-            </div>
-            <span className="text-neutral-600 text-[11px] font-mono shrink-0 mt-1">{item.year}</span>
-          </div>
-          <div className="flex flex-wrap gap-1.5 mt-4">
-            {item.tags.map(tag => (
-              <span key={tag} className="text-[9px] tracking-[0.15em] text-neutral-500 border border-neutral-800 px-2.5 py-1 transition-colors duration-300 group-hover:border-neutral-600 group-hover:text-neutral-400">
-                {tag}
-              </span>
-            ))}
-          </div>
-        </div>
-
+        {/* Bottom line indicator */}
         <motion.div
           animate={{ scaleX: hovered ? 1 : 0 }}
           initial={{ scaleX: 0 }}
@@ -342,7 +355,7 @@ export default function TrackRecord() {
       </div>
 
       {/* Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-neutral-200/40">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <AnimatePresence mode="popLayout">
           {visibleItems.map((item, index) => (
             <TrackCard key={item.id} item={item} index={index} />

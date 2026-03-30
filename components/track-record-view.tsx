@@ -173,7 +173,7 @@ function VideoThumbnail({ item, onClick }: { item: CaseItem; onClick: () => void
 
   return (
     <div
-      className="relative w-full lg:w-[52%] aspect-video overflow-hidden cursor-pointer shrink-0 rounded-2xl"
+      className="relative w-full lg:w-[52%] h-[400px] overflow-hidden cursor-pointer shrink-0 rounded-2xl"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={onClick}
@@ -255,7 +255,7 @@ function DetailModal({ item, onClose, onNavigate }: { item: CaseItem; onClose: (
 
           {/* Block 1: Image full-width */}
           <div className="px-10 mb-10">
-            <div className={`w-full aspect-[16/8] rounded-2xl bg-gradient-to-br ${item.thumbnailBg} overflow-hidden relative`}>
+            <div className={`w-full aspect-[2/1] rounded-2xl bg-gradient-to-br ${item.thumbnailBg} overflow-hidden relative`}>
               {item.previewUrl && (
                 <video src={item.previewUrl} autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover opacity-80" />
               )}
@@ -275,7 +275,7 @@ function DetailModal({ item, onClose, onNavigate }: { item: CaseItem; onClose: (
 
           {/* Block 2: Image full-width */}
           <div className="px-10 mb-10">
-            <div className={`w-full aspect-[16/8] rounded-2xl bg-gradient-to-tl ${item.thumbnailBg} overflow-hidden opacity-80`} />
+            <div className={`w-full aspect-[2/1] rounded-2xl bg-gradient-to-tl ${item.thumbnailBg} overflow-hidden opacity-80`} />
           </div>
           
           <div className="flex justify-center mb-10 px-8 md:px-14 lg:px-20">
@@ -425,8 +425,8 @@ export function TrackRecordView() {
                 style={{ WebkitMaskImage: '-webkit-radial-gradient(white, black)', willChange: 'transform' }}
                 className={`group relative cursor-pointer overflow-hidden ${cornerClasses} ${
                   isFullWidth 
-                    ? 'md:col-span-2 aspect-square md:aspect-square' 
-                    : 'md:col-span-1 aspect-square md:aspect-square'
+                    ? 'md:col-span-2 h-[400px]' 
+                    : 'md:col-span-1 h-[400px]'
                 }`}
                 onClick={() => setSelectedCase(item)}
               >
@@ -437,49 +437,49 @@ export function TrackRecordView() {
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/75 transition-all duration-[600ms] ease-out" />
                 
                 {/* Corner Number - always visible */}
-                <span className="absolute top-5 left-6 text-[11px] tracking-[0.3em] font-mono text-white/50 z-10 transition-opacity duration-300 group-hover:text-white/90">
+                <span className="absolute top-3 left-4 text-[9px] tracking-[0.25em] font-mono text-white/50 z-10 transition-opacity duration-300 group-hover:text-white/90">
                   {item.no}
                 </span>
                 
                 {/* Category Tag - always visible */}
-                <span className="absolute top-5 right-6 text-[9px] tracking-[0.25em] text-white/50 z-10 transition-opacity duration-300 group-hover:text-white/90">
+                <span className="absolute top-3 right-4 text-[8px] tracking-[0.2em] text-white/50 z-10 transition-opacity duration-300 group-hover:text-white/90">
                   {item.category}
                 </span>
 
                 {/* Content - appears on hover */}
-                <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-8 lg:p-12 z-10">
+                <div className="absolute inset-0 flex flex-col justify-end p-4 md:p-6 lg:p-8 z-10">
                   {/* Title & Subtitle - slide up on hover */}
-                  <div className="translate-y-12 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-[600ms] ease-[0.33,1,0.68,1]">
-                    <div className="flex items-center gap-3 mb-3">
-                      <p className="text-[10px] tracking-[0.25em] text-white/70 font-mono">{item.year}</p>
-                      <span className="h-px w-6 bg-white/30" />
-                      <p className="text-[10px] tracking-[0.25em] text-white/50">{item.location}</p>
+                  <div className="translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-[500ms] ease-[0.33,1,0.68,1]">
+                    <div className="flex items-center gap-2 mb-2">
+                      <p className="text-[9px] tracking-[0.2em] text-white/70 font-mono">{item.year}</p>
+                      <span className="h-px w-4 bg-white/30" />
+                      <p className="text-[9px] tracking-[0.2em] text-white/50">{item.location}</p>
                     </div>
 
-                    <h3 className={`font-bold text-white mb-3 tracking-tight leading-tight ${isFullWidth ? 'text-3xl md:text-5xl' : 'text-2xl md:text-3xl'}`}>
+                    <h3 className={`font-bold text-white mb-2 tracking-tight leading-tight ${isFullWidth ? 'text-xl md:text-3xl' : 'text-lg md:text-2xl'}`}>
                       {item.title}
                     </h3>
                     
-                    <p className={`text-white/70 leading-relaxed mb-6 line-clamp-2 ${isFullWidth ? 'text-base md:text-lg max-w-2xl' : 'text-sm max-w-[90%]'}`}>
+                    <p className={`text-white/70 leading-relaxed mb-4 line-clamp-2 ${isFullWidth ? 'text-sm md:text-base max-w-2xl' : 'text-xs max-w-[90%]'}`}>
                       {item.subtitle}
                     </p>
                     
                     {/* Tags */}
-                    <div className="flex flex-wrap gap-2 mb-8">
+                    <div className="flex flex-wrap gap-1.5 mb-4">
                       {item.tags.slice(0, 3).map(tag => (
-                        <span key={tag} className="text-[9px] tracking-[0.2em] text-white/60 border border-white/20 px-3 py-1.5 backdrop-blur-sm">
+                        <span key={tag} className="text-[8px] tracking-[0.15em] text-white/60 border border-white/20 px-2 py-1 backdrop-blur-sm">
                           {tag}
                         </span>
                       ))}
                     </div>
 
                     {/* View Details Link */}
-                    <div className="flex items-center justify-between border-t border-white/10 pt-5 mt-auto">
-                      <span className="text-[10px] tracking-[0.2em] text-white/50 uppercase">{item.role}</span>
-                      <div className="flex items-center gap-3 text-[10px] tracking-[0.25em] font-medium text-white/80 group-hover:text-white transition-colors">
+                    <div className="flex items-center justify-between border-t border-white/10 pt-3 mt-auto">
+                      <span className="text-[9px] tracking-[0.15em] text-white/50 uppercase">{item.role}</span>
+                      <div className="flex items-center gap-2 text-[9px] tracking-[0.2em] font-medium text-white/80 group-hover:text-white transition-colors">
                         <span>VIEW PROJECT</span>
-                        <div className="w-8 h-8 rounded-full border border-white/30 flex items-center justify-center transition-transform duration-[600ms] ease-[0.33,1,0.68,1] group-hover:translate-x-2 group-hover:bg-white group-hover:text-black">
-                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div className="w-6 h-6 rounded-full border border-white/30 flex items-center justify-center transition-transform duration-[500ms] ease-[0.33,1,0.68,1] group-hover:translate-x-1.5 group-hover:bg-white group-hover:text-black">
+                          <svg className="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                           </svg>
                         </div>
