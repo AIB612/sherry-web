@@ -3,33 +3,36 @@ name: Deploy to ChemiCloud
 on:
   push:
     branches:
-      - main # 每次推送到 main 分支时触发自动部署
+      - main # 确保你的主分支名字是 main，如果是 master 请修改这里
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    env:
+      # 强制使用最新的 Node 24 运行环境
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true 
 
     steps:
       - name: 检出代码 (Code auschecken)
         uses: actions/checkout@v4
 
       - name: 安装 pnpm (pnpm installieren)
-        uses: pnpm/action-setup@v3
+        uses: pnpm/action-setup@v4
         with:
           version: 9
 
       - name: 设置 Node.js (Node.js einrichten)
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
           cache: 'pnpm'
 
       - name: 安装依赖 (Abhängigkeiten installieren)
         run: pnpm install
 
       - name: 打包静态文件 (Statische Dateien bauen)
+        # 注入必要的虚拟环境变量，防止 Shopify 模板因为缺少 Key 而在构建时报错
         env:
-          # 注入虚拟环境变量以绕过构建时的报错
           COMPANY_NAME: "Sherry Web"
           SITE_NAME: "Sherry Portfolio"
           SHOPIFY_REVALIDATION_SECRET: "123456"
@@ -43,6 +46,7 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
+          # 告诉 GitHub 去搬运刚刚生成的 out 文件夹
           local-dir: ./out/ 
-          # ⚠️ 极其关键：因为这个 FTP 账号已经直接绑定了你的展厅目录，所以这里填 ./ 即可，不能填 public_html
+          # 告诉 GitHub 搬运到 FTP 账号默认锁定的根目录
           server-dir: ./
