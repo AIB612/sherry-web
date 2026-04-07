@@ -1,0 +1,48 @@
+name: Deploy to ChemiCloud
+
+on:
+  push:
+    branches:
+      - main # 每次推送到 main 分支时触发自动部署
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 检出代码 (Code auschecken)
+        uses: actions/checkout@v4
+
+      - name: 安装 pnpm (pnpm installieren)
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9
+
+      - name: 设置 Node.js (Node.js einrichten)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: 安装依赖 (Abhängigkeiten installieren)
+        run: pnpm install
+
+      - name: 打包静态文件 (Statische Dateien bauen)
+        env:
+          # 注入虚拟环境变量以绕过构建时的报错
+          COMPANY_NAME: "Sherry Web"
+          SITE_NAME: "Sherry Portfolio"
+          SHOPIFY_REVALIDATION_SECRET: "123456"
+          SHOPIFY_STORE_DOMAIN: "test.myshopify.com"
+          SHOPIFY_STOREFRONT_ACCESS_TOKEN: "123456"
+        run: pnpm build
+
+      - name: 通过 FTP 部署 (Bereitstellung über FTP)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./out/ 
+          # ⚠️ 极其关键：因为这个 FTP 账号已经直接绑定了你的展厅目录，所以这里填 ./ 即可，不能填 public_html
+          server-dir: ./
