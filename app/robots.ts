@@ -1,3 +1,4 @@
+export const dynamic = 'force-static';
 import { baseUrl } from "lib/utils";
 
 export default function robots() {
