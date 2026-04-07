@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
+import Image from 'next/image';
 
 interface TrackItem {
   id: string;
@@ -12,6 +13,8 @@ interface TrackItem {
   category: string;
   videoUrl?: string;
   thumbnailBg: string;
+  image?: string;
+  isFullWidth?: boolean;
   tags: string[];
   description?: string[];
 }
@@ -24,7 +27,7 @@ const trackItems: TrackItem[] = [
     subtitle: 'EV Subsidy Tracker & Consulting Platform',
     year: 'Jun 2025 – Present',
     category: 'SWISS PROJECTS',
-    thumbnailBg: 'from-emerald-900/40 to-emerald-950',
+    thumbnailBg: 'from-emerald-900/40 to-emerald-950', image: '/images/work/Malim.png', isFullWidth: true,
     tags: ['Next.js', 'EV Subsidy', 'Lead Gen'],
     description: [
       'Engineered an integrated EV subsidy tracker and ROI calculator for the official site to drive lead generation.',
@@ -38,7 +41,7 @@ const trackItems: TrackItem[] = [
     subtitle: "Sustainable Children's Toys Platform",
     year: 'Mar 2024 – Mar 2025',
     category: 'SWISS PROJECTS',
-    thumbnailBg: 'from-amber-900/40 to-amber-950',
+    thumbnailBg: 'from-amber-900/40 to-amber-950', image: '/images/work/Hampelmann.png',
     tags: ['Shopify', 'E-Commerce', 'Dutch Market'],
     description: [
       "Contributed to the expansion of the Hampelmann sustainable children's toys platform by optimizing product listings and enhancing customer engagement.",
@@ -46,31 +49,30 @@ const trackItems: TrackItem[] = [
     ],
   },
   {
-    id: 'oppo-mobile',
-    no: '03',
-    title: 'OPPO Mobile',
-    subtitle: 'IT Product Consulting & Analysis',
-    year: 'Sep 2021 – Mar 2022',
-    category: 'IT CONSULTING',
-    thumbnailBg: 'from-red-900/40 to-red-950',
-    tags: ['NPS Analysis', 'Product Strategy', 'UX Research'],
-    description: [
-      'Provided strategic guidance to OPPO mobile phone digital product teams, enhancing user engagement through NPS analysis and data dashboard tracking.',
-      'Organized workshops and synthesized results from quantitative/qualitative research; developed user cases for Cloud and NFC service integration.',
-    ],
-  },
-  {
     id: 'anjun-express',
-    no: '04',
+    no: '03',
     title: 'Anjun Express',
     subtitle: 'Brazil Logistics System',
     year: 'Mar 2022 – Jan 2023',
     category: 'E-COMMERCE & LOGISTICS',
-    thumbnailBg: 'from-blue-900/40 to-blue-950',
+    thumbnailBg: 'from-blue-900/40 to-blue-950', image: '/images/work/Anjun.png',
     tags: ['API Integration', 'Mercado', 'Data Modeling'],
     description: [
       'Architected data modeling and API integrations with Mercado Ecommerce platform and last-mile service Correios; designed prototypes for backend systems and mobile operational software.',
       'Analyzed logistics status data to monitor lead times from order to last-mile delivery, achieving a 60% increase in overall operational efficiency.',
+    ],
+  },  {
+    id: 'oppo-mobile',
+    no: '04',
+    title: 'OPPO Mobile',
+    subtitle: 'IT Product Consulting & Analysis',
+    year: 'Sep 2021 – Mar 2022',
+    category: 'IT CONSULTING',
+    thumbnailBg: 'from-red-900/40 to-red-950', image: '/images/work/OPPO.png', isFullWidth: true,
+    tags: ['NPS Analysis', 'Product Strategy', 'UX Research'],
+    description: [
+      'Provided strategic guidance to OPPO mobile phone digital product teams, enhancing user engagement through NPS analysis and data dashboard tracking.',
+      'Organized workshops and synthesized results from quantitative/qualitative research; developed user cases for Cloud and NFC service integration.',
     ],
   },
   {
@@ -93,7 +95,7 @@ const trackItems: TrackItem[] = [
     subtitle: 'Korean Fashion E-Commerce App',
     year: 'Jul 2019 – Mar 2020',
     category: 'E-COMMERCE & LOGISTICS',
-    thumbnailBg: 'from-pink-900/40 to-pink-950',
+    thumbnailBg: 'from-pink-900/40 to-pink-950', image: '/images/work/Jelly Grow.png',
     tags: ['iOS/Android', 'Fashion Tech', 'A/B Testing'],
     description: [
       'Co-defined a fashion recommendation strategy with the Korean team; led UI/UX design and prototyping for iOS/Android platforms.',
@@ -108,7 +110,7 @@ const trackItems: TrackItem[] = [
     subtitle: 'IoT UX & Hardware-Software Integration',
     year: 'Mar 2020 – Sep 2022',
     category: 'END-TO-END PROJECTS',
-    thumbnailBg: 'from-sky-900/40 to-sky-950',
+    thumbnailBg: 'from-sky-900/40 to-sky-950', image: '/images/work/TCL.png', isFullWidth: true,
     tags: ['IoT', 'Smart Home', 'Hardware-Software'],
     description: [
       'Defined feature roadmaps for "White Goods" to improve UX; designed provisioning and pairing workflows across LAN/PAN, LPWAN, and Cellular networks based on specific user scenarios.',
@@ -122,21 +124,34 @@ const trackItems: TrackItem[] = [
     subtitle: 'Smart Planting Control System',
     year: 'Jan 2018 – Jun 2019',
     category: 'END-TO-END PROJECTS',
-    thumbnailBg: 'from-green-900/40 to-green-950',
+    thumbnailBg: 'from-green-900/40 to-green-950', image: '/images/work/Weiyun.png',
     tags: ['IoT Sensors', 'Agriculture Tech', 'Real-time Data'],
     description: [
       'Designed and implemented a real-time data acquisition system based on multi-dimensional sensors (temp/humidity, soil EC, light intensity) with anomaly trigger mechanism for second-level crop disaster alerting.',
       'Led deep optimization of the mobile control interface, simplifying remote irrigation and ventilation control into one-click interactions for non-technical growers.',
     ],
   },
-  {
-    id: 'master-wan',
-    no: '09',
+    {
+    id: 'bafan', no: '09',
+    title: 'BaFan O2O',
+    subtitle: 'Restaurant Management System',
+    year: '2021',
+    category: 'END-TO-END PROJECTS',
+    thumbnailBg: 'from-rose-900/40 to-rose-950',
+    image: '/images/work/BaFan.png',
+    tags: ['O2O', 'SaaS', 'Catering'],
+    description: [
+      'Designed comprehensive O2O solution for catering.',
+      'Digitized 50+ local restaurants.'
+    ],
+  },
+{
+    id: 'master-wan', no: '10',
     title: 'Master Wan × IKEA O2O',
     subtitle: 'Home Repair & Installation Platform',
     year: 'Jan 2018 – Jun 2019',
     category: 'END-TO-END PROJECTS',
-    thumbnailBg: 'from-yellow-900/40 to-yellow-950',
+    thumbnailBg: 'from-yellow-900/40 to-yellow-950', image: '/images/work/Master wan.png', isFullWidth: true,
     tags: ['O2O', 'Service Design', 'IKEA'],
     description: [
       'Spearheaded UI/UX for Master Wan and IKEA O2O platforms; implemented service rating systems, "Gold Coin" rewards, and voice-ordering strategies to enhance platform experience.',
@@ -218,14 +233,18 @@ function TrackCard({ item, index }: { item: TrackItem; index: number }) {
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 16 }}
         transition={{ duration: 0.4, delay: index * 0.06, ease: [0.33, 1, 0.68, 1] }}
-        className="relative group bg-white cursor-pointer rounded-[40px] overflow-hidden"
+        className={`relative group bg-white cursor-pointer rounded-[40px] overflow-hidden ${item.isFullWidth ? 'md:col-span-2 aspect-[1400/400]' : 'md:col-span-1 aspect-[700/400]'}`}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
         onClick={() => setModalOpen(true)}
       >
         {/* 统一为单一体块卡片，像 All Work 页面一样 */}
-        <div className="relative h-[400px] overflow-hidden">
-          <div className={`absolute inset-0 bg-gradient-to-br ${item.thumbnailBg} transition-transform duration-[800ms] ease-[0.25,1,0.5,1] group-hover:scale-105`} />
+        <div className={`relative overflow-hidden w-full h-full`}>
+          {item.image ? (
+            <img src={item.image} alt={item.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-[800ms] ease-[0.25,1,0.5,1] group-hover:scale-105" />
+          ) : (
+            <div className={`absolute inset-0 bg-gradient-to-br ${item.thumbnailBg} transition-transform duration-[800ms] ease-[0.25,1,0.5,1] group-hover:scale-105`} />
+          )}
           
           {/* Black Overlay - appears on hover */}
           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/75 transition-all duration-[600ms] ease-out" />
@@ -355,7 +374,7 @@ export default function TrackRecord() {
       </div>
 
       {/* Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <AnimatePresence mode="popLayout">
           {visibleItems.map((item, index) => (
             <TrackCard key={item.id} item={item} index={index} />

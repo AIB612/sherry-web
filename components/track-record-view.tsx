@@ -1,6 +1,7 @@
 'use client';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 import React, { useState, useRef } from 'react';
 
 interface CaseItem {
@@ -14,6 +15,8 @@ interface CaseItem {
   location: string;
   tags: string[];
   thumbnailBg: string;
+  image?: string;
+  isFullWidth?: boolean;
   previewUrl: string;
   videoUrl: string;
   teamSize: string;
@@ -28,7 +31,7 @@ const cases: CaseItem[] = [
     id: 'malim-mobility', no: '01', title: 'Malim Mobility Website', subtitle: 'EV Subsidy Tracker & Consulting Platform',
     category: 'SWISS PROJECTS', role: 'Founder & Developer', year: 'Jun 2025 – Present', location: 'Switzerland',
     tags: ['Next.js', 'EV Subsidy', 'Lead Gen'],
-    thumbnailBg: 'from-emerald-900 to-emerald-950', previewUrl: '', videoUrl: '',
+    thumbnailBg: 'from-emerald-900 to-emerald-950', image: '/images/work/Malim.png', isFullWidth: true, previewUrl: '', videoUrl: '',
     teamSize: '1', duration: 'Ongoing',
     context: 'Swiss EV charging subsidy information scattered across cantonal websites. No unified resource for consumers or businesses to understand available incentives and ROI.',
     execution: {
@@ -42,7 +45,7 @@ const cases: CaseItem[] = [
     id: 'hampelmann', no: '02', title: 'Hampelmann', subtitle: 'Sustainable Children&#39;s Toys Platform',
     category: 'SWISS PROJECTS', role: 'E-Commerce Consultant', year: 'Mar 2024 – Mar 2025', location: 'Netherlands / Switzerland',
     tags: ['Shopify', 'E-Commerce', 'Dutch Market'],
-    thumbnailBg: 'from-amber-900 to-amber-950', previewUrl: '', videoUrl: '',
+    thumbnailBg: 'from-amber-900 to-amber-950', image: '/images/work/Hampelmann.png', isFullWidth: false, previewUrl: '', videoUrl: '',
     teamSize: '3', duration: '1 Year',
     context: 'Hampelmann needed to expand its sustainable children toys platform in the Dutch market while improving customer engagement and conversion rates.',
     execution: {
@@ -53,24 +56,10 @@ const cases: CaseItem[] = [
     highlight: 'Improved <strong>payment conversion by 20%</strong> through data-driven user reactivation campaigns.',
   },
   {
-    id: 'oppo-mobile', no: '03', title: 'OPPO Mobile', subtitle: 'IT Product Consulting & Digital Strategy',
-    category: 'IT PRODUCT CONSULTING', role: 'Product Consultant', year: 'Sep 2021 – Mar 2022', location: 'China',
-    tags: ['NPS Analysis', 'Product Strategy', 'UX Research'],
-    thumbnailBg: 'from-sky-900 to-sky-950', previewUrl: '', videoUrl: '',
-    teamSize: '8', duration: '6 Months',
-    context: 'OPPO digital product teams needed strategic guidance to improve user engagement and integrate emerging technologies like Cloud and NFC into their product experience.',
-    execution: {
-      architecture: 'Provided strategic guidance enhancing user engagement through NPS analysis and data dashboard tracking KPIs for future product experience improvement.',
-      compliance: 'Organized workshops and synthesized results from quantitative/qualitative research to develop actionable user cases.',
-      leadership: 'Helped teams better integrate with technical products such as Cloud and NFC services through structured consulting sessions.',
-    },
-    highlight: 'Delivered <strong>NPS dashboard</strong> and strategic roadmap adopted across OPPO digital product teams.',
-  },
-  {
-    id: 'anjun-express', no: '04', title: 'Anjun Express', subtitle: 'Brazil Cross-Border Logistics System',
+    id: 'anjun-express', no: '03', title: 'Anjun Express', subtitle: 'Brazil Cross-Border Logistics System',
     category: 'E-COMMERCE & LOGISTICS', role: 'Product Manager', year: 'Mar 2022 – Jan 2023', location: 'Brazil / China',
     tags: ['API Integration', 'Mercado', 'Data Modeling'],
-    thumbnailBg: 'from-green-900 to-green-950', previewUrl: '', videoUrl: '',
+    thumbnailBg: 'from-green-900 to-green-950', image: '/images/work/Anjun.png', isFullWidth: false, previewUrl: '', videoUrl: '',
     teamSize: '10', duration: '10 Months',
     context: 'Anjun Express needed to integrate with Mercado e-commerce platform and Brazilian last-mile carrier Correios while managing cross-border logistics complexity.',
     execution: {
@@ -81,10 +70,24 @@ const cases: CaseItem[] = [
     highlight: 'Achieved <strong>60% increase</strong> in overall operational efficiency through logistics data monitoring and optimization.',
   },
   {
+    id: 'oppo-mobile', no: '04', title: 'OPPO Mobile', subtitle: 'IT Product Consulting & Digital Strategy',
+    category: 'IT PRODUCT CONSULTING', role: 'Product Consultant', year: 'Sep 2021 – Mar 2022', location: 'China',
+    tags: ['NPS Analysis', 'Product Strategy', 'UX Research'],
+    thumbnailBg: 'from-sky-900 to-sky-950', image: '/images/work/OPPO.png', isFullWidth: true, previewUrl: '', videoUrl: '',
+    teamSize: '8', duration: '6 Months',
+    context: 'OPPO digital product teams needed strategic guidance to improve user engagement and integrate emerging technologies like Cloud and NFC into their product experience.',
+    execution: {
+      architecture: 'Provided strategic guidance enhancing user engagement through NPS analysis and data dashboard tracking KPIs for future product experience improvement.',
+      compliance: 'Organized workshops and synthesized results from quantitative/qualitative research to develop actionable user cases.',
+      leadership: 'Helped teams better integrate with technical products such as Cloud and NFC services through structured consulting sessions.',
+    },
+    highlight: 'Delivered <strong>NPS dashboard</strong> and strategic roadmap adopted across OPPO digital product teams.',
+  },
+  {
     id: 'lazada-ued', no: '05', title: 'Lazada Seller Center', subtitle: 'Southeast Asian E-Commerce Design System',
     category: 'E-COMMERCE & LOGISTICS', role: 'Lead UX Designer', year: 'Sep 2016 – Mar 2020', location: 'China / SEA',
     tags: ['Design System', 'Gamification', 'CRM'],
-    thumbnailBg: 'from-orange-900 to-orange-950', previewUrl: '', videoUrl: '',
+    thumbnailBg: 'from-orange-900 to-orange-950', image: '/images/work/Lazada.png', isFullWidth: false, previewUrl: '', videoUrl: '',
     teamSize: '15+', duration: '4 Years',
     context: 'Lazada seller center running on fragmented frontend across 6 Southeast Asian markets with low seller engagement and retention.',
     execution: {
@@ -98,7 +101,7 @@ const cases: CaseItem[] = [
     id: 'rucy', no: '06', title: 'Rucy', subtitle: 'Korean Fashion E-Commerce App',
     category: 'E-COMMERCE & LOGISTICS', role: 'Product Designer', year: 'Jul 2019 – Mar 2020', location: 'Korea / China',
     tags: ['iOS/Android', 'Fashion Tech', 'A/B Testing'],
-    thumbnailBg: 'from-pink-900 to-pink-950', previewUrl: '', videoUrl: '',
+    thumbnailBg: 'from-pink-900 to-pink-950', image: '/images/work/Jelly Grow.png', isFullWidth: false, previewUrl: '', videoUrl: '',
     teamSize: '6', duration: '8 Months',
     context: 'Korean fashion brand needed a mobile app to enter the Chinese market with AI-powered fashion recommendations tailored to local preferences.',
     execution: {
@@ -112,7 +115,7 @@ const cases: CaseItem[] = [
     id: 'tcl-smart-home', no: '07', title: 'TCL Smart Home App', subtitle: 'IoT Product Line Digital Transformation',
     category: 'END-TO-END PROJECTS', role: 'Senior Product Manager', year: 'Mar 2020 – Sep 2022', location: 'China',
     tags: ['IoT', 'Smart Home', 'Hardware-Software'],
-    thumbnailBg: 'from-blue-900 to-blue-950', previewUrl: '', videoUrl: '',
+    thumbnailBg: 'from-blue-900 to-blue-950', image: '/images/work/TCL.png', isFullWidth: true, previewUrl: '', videoUrl: '',
     teamSize: '20+', duration: '2.5 Years',
     context: 'TCL needed to transform fragmented White Goods product lines into a cohesive smart home ecosystem with seamless device connectivity.',
     execution: {
@@ -126,7 +129,7 @@ const cases: CaseItem[] = [
     id: 'weiyun', no: '08', title: 'WeiYun Agricultural Software', subtitle: 'Smart Farming IoT Platform',
     category: 'END-TO-END PROJECTS', role: 'Product Designer', year: 'Jan 2018 – Jun 2019', location: 'China',
     tags: ['IoT Sensors', 'Agriculture Tech', 'Real-time Data'],
-    thumbnailBg: 'from-lime-900 to-lime-950', previewUrl: '', videoUrl: '',
+    thumbnailBg: 'from-lime-900 to-lime-950', image: '/images/work/Weiyun.png', isFullWidth: false, previewUrl: '', videoUrl: '',
     teamSize: '8', duration: '1.5 Years',
     context: 'Agricultural operations needed real-time monitoring of crop conditions with automated alerting to prevent disaster risks for non-technical growers.',
     execution: {
@@ -137,10 +140,25 @@ const cases: CaseItem[] = [
     highlight: 'Enabled <strong>second-level crop disaster alerts</strong> with one-click control for non-technical growers.',
   },
   {
-    id: 'master-wan', no: '09', title: 'Master Wan × IKEA O2O', subtitle: 'Home Repair & Installation Platform',
+    id: 'bafan', no: '09', title: 'BaFan O2O', subtitle: 'Restaurant Management System',
+    category: 'END-TO-END PROJECTS', role: 'Product Manager', year: '2021', location: 'China',
+    tags: ['O2O', 'SaaS', 'Catering'],
+    thumbnailBg: 'from-rose-900 to-rose-950', image: '/images/work/BaFan.png', isFullWidth: false, previewUrl: '', videoUrl: '',
+    teamSize: '5', duration: '1 Year',
+    context: 'BaFan needed a robust restaurant management and ordering system.',
+    execution: {
+      architecture: 'Designed comprehensive O2O solution for catering.',
+      compliance: 'Ensured transaction security.',
+      leadership: 'Led the cross-functional team to deliver the MVP in 3 months.'
+    },
+    highlight: 'Digitized 50+ local restaurants.'
+  },
+
+  {
+    id: 'master-wan', no: '10', title: 'Master Wan × IKEA O2O', subtitle: 'Home Repair & Installation Platform',
     category: 'END-TO-END PROJECTS', role: 'Lead UX Designer', year: 'Jan 2018 – Jun 2019', location: 'China',
     tags: ['O2O', 'Service Design', 'IKEA'],
-    thumbnailBg: 'from-violet-900 to-violet-950', previewUrl: '', videoUrl: '',
+    thumbnailBg: 'from-violet-900 to-violet-950', image: '/images/work/Master wan.png', isFullWidth: true, previewUrl: '', videoUrl: '',
     teamSize: '10', duration: '1.5 Years',
     context: 'Master Wan and IKEA needed an O2O platform connecting home repair professionals with customers, with strong retention and engagement mechanics.',
     execution: {
@@ -255,7 +273,10 @@ function DetailModal({ item, onClose, onNavigate }: { item: CaseItem; onClose: (
 
           {/* Block 1: Image full-width */}
           <div className="px-10 mb-10">
-            <div className={`w-full aspect-[2/1] rounded-2xl bg-gradient-to-br ${item.thumbnailBg} overflow-hidden relative`}>
+            <div className={`w-full ${item.isFullWidth ? 'aspect-[1400/400]' : 'aspect-[700/400]'} rounded-2xl ${item.image ? 'bg-neutral-100' : 'bg-gradient-to-br ' + item.thumbnailBg} overflow-hidden relative`}>
+              {item.image && !item.previewUrl && (
+                <img src={item.image} alt={item.title} className="absolute inset-0 w-full h-full object-cover" />
+              )}
               {item.previewUrl && (
                 <video src={item.previewUrl} autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover opacity-80" />
               )}
@@ -378,7 +399,7 @@ export function TrackRecordView() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
           {filteredCases.map((item, index) => {
             // All items are square now, but we still track full-width for layout purposes
-            const isFullWidth = index % 3 === 0;
+            const isFullWidth = item.isFullWidth ?? false;
             const totalItems = filteredCases.length;
             const isFirst = index === 0;
             const isSecondToLast = index === totalItems - 2;
@@ -423,15 +444,15 @@ export function TrackRecordView() {
                 viewport={{ once: true, amount: 0 }}
                 transition={{ duration: 0.5, delay: (index % 3) * 0.1 }}
                 style={{ WebkitMaskImage: '-webkit-radial-gradient(white, black)', willChange: 'transform' }}
-                className={`group relative cursor-pointer overflow-hidden ${cornerClasses} ${
-                  isFullWidth 
-                    ? 'md:col-span-2 h-[400px]' 
-                    : 'md:col-span-1 h-[400px]'
-                }`}
+                className={`group relative cursor-pointer overflow-hidden ${cornerClasses} ${isFullWidth ? 'md:col-span-2 aspect-[1400/400]' : 'md:col-span-1 aspect-[700/400]'}`}
                 onClick={() => setSelectedCase(item)}
               >
                 {/* Background Image/Gradient */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${item.thumbnailBg} transition-transform duration-[800ms] ease-[0.25,1,0.5,1] group-hover:scale-105`} />
+                {item.image ? (
+                  <img src={item.image} alt={item.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-[800ms] ease-[0.25,1,0.5,1] group-hover:scale-105" />
+                ) : (
+                  <div className={`absolute inset-0 bg-gradient-to-br ${item.thumbnailBg} transition-transform duration-[800ms] ease-[0.25,1,0.5,1] group-hover:scale-105`} />
+                )}
                 
                 {/* Black Overlay - appears on hover */}
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/75 transition-all duration-[600ms] ease-out" />
