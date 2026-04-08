@@ -38,31 +38,13 @@ jobs:
           SHOPIFY_STOREFRONT_ACCESS_TOKEN: "123456"
         run: pnpm build
 
-      - name: 安装 lftp
-        run: sudo apt-get update && sudo apt-get install -y lftp dnsutils
-
-      - name: 调试 SFTP 主机名 (Debug SFTP hostname)
-        env:
-          SFTP_HOST: ${{ secrets.FTP_SERVER }}
-        run: |
-          echo "host length: ${#SFTP_HOST}"
-          if [[ "$SFTP_HOST" == *":"* ]]; then echo "contains colon: yes"; else echo "contains colon: no"; fi
-          if [[ "$SFTP_HOST" == *"/"* ]]; then echo "contains slash: yes"; else echo "contains slash: no"; fi
-          if [[ "$SFTP_HOST" == *" "* ]]; then echo "contains space: yes"; else echo "contains space: no"; fi
-          printf '%s' "$SFTP_HOST" | od -An -t x1
-          nslookup "$SFTP_HOST" || true
-
-      - name: 通过 SFTP 部署 (Bereitstellung über SFTP)
-        env:
-          SFTP_HOST: ${{ secrets.FTP_SERVER }}
-          SFTP_USERNAME: ${{ secrets.FTP_USERNAME }}
-          SFTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-        run: |
-          lftp -u "$SFTP_USERNAME","$SFTP_PASSWORD" sftp://$SFTP_HOST:1988 <<'EOF'
-          set sftp:auto-confirm yes
-          set net:max-retries 2
-          set net:timeout 20
-          set xfer:clobber on
-          mirror --reverse --delete --verbose ./out .
-          bye
-          EOF
+      - name: 通过 FTPS 部署 (Bereitstellung über FTPS)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          port: 21
+          local-dir: ./out/
+          server-dir: ./
