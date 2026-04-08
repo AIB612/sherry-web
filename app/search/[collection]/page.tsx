@@ -5,6 +5,14 @@ import { notFound } from "next/navigation";
 import Grid from "components/grid";
 import ProductGridItems from "components/layout/product-grid-items";
 
+export function generateStaticParams() {
+  return categories
+    .filter((c) => Boolean(c.id))
+    .map((c) => ({
+      collection: c.id,
+    }));
+}
+
 export async function generateMetadata(props: {
   params: Promise<{ collection: string }>;
 }): Promise<Metadata> {

@@ -8,6 +8,12 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
+export function generateStaticParams() {
+  return productDetails.map((p) => ({
+    handle: p.id,
+  }));
+}
+
 function adaptProduct(product: typeof productDetails[0]) {
   return {
     id: product.id,

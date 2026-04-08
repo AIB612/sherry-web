@@ -1,0 +1,27 @@
+import OpengraphImage from "components/opengraph-image";
+import { getCollection, getCollections } from "lib/shopify";
+
+export const dynamic = "force-static";
+export const revalidate = false;
+
+export async function generateStaticParams() {
+  const collections = await getCollections();
+
+  return collections
+    .filter((collection) => Boolean(collection.handle))
+    .map((collection) => ({
+      collection: collection.handle,
+    }));
+}
+
+export default async function Image({
+  params,
+}: {
+  params: Promise<{ collection: string }>;
+}) {
+  const { collection: handle } = await params;
+  const collection = await getCollection(handle);
+  const title = collection?.seo?.title || collection?.title || "Search";
+
+  return await OpengraphImage({ title });
+}
