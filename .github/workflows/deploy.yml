@@ -39,7 +39,18 @@ jobs:
         run: pnpm build
 
       - name: 安装 lftp
-        run: sudo apt-get update && sudo apt-get install -y lftp
+        run: sudo apt-get update && sudo apt-get install -y lftp dnsutils
+
+      - name: 调试 SFTP 主机名 (Debug SFTP hostname)
+        env:
+          SFTP_HOST: ${{ secrets.FTP_SERVER }}
+        run: |
+          echo "host length: ${#SFTP_HOST}"
+          if [[ "$SFTP_HOST" == *":"* ]]; then echo "contains colon: yes"; else echo "contains colon: no"; fi
+          if [[ "$SFTP_HOST" == *"/"* ]]; then echo "contains slash: yes"; else echo "contains slash: no"; fi
+          if [[ "$SFTP_HOST" == *" "* ]]; then echo "contains space: yes"; else echo "contains space: no"; fi
+          printf '%s' "$SFTP_HOST" | od -An -t x1
+          nslookup "$SFTP_HOST" || true
 
       - name: 通过 SFTP 部署 (Bereitstellung über SFTP)
         env:
