@@ -3,6 +3,7 @@
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from 'framer-motion';
 import { useRef, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const sections = [
   { id: 'about', label: 'About' },
@@ -16,58 +17,58 @@ const sections = [
 const experienceData = [
   {
     h: 25, year: '2016', period: 'Sep.2016 – Mar.2020',
-    company: 'Lazada Tech', location: 'China', role: 'Product Designer',
-    details: { title: 'Product Designer', subtitle: 'Lazada Tech · China', description: 'Refined E-commerce seller center design system (UED) for both administration and seller-facing CRM system.', highlights: ['Designed UI/UX "User Growth Coins" system', 'Improved process efficiency by 30%', 'Built seller-facing CRM system'], tags: ['UX/UI', 'E-commerce', 'CRM'] }
+    company: 'Lazada Tech', location: 'China', role: 'Lead UX Designer',
+    details: { title: 'Lead UX Designer', subtitle: 'Lazada Tech · China / SEA', description: 'Worked on the primary admin and seller-facing CRM systems for the Lazada e-commerce platform.', highlights: ['Modernized the UED design system', 'Designed User Growth Coins gamification system', 'Supported 1 million seller operations'], tags: ['Design System', 'CRM', 'E-commerce'] }
   },
   {
     h: 35, year: '2017', period: 'Sep.2016 – Mar.2020',
-    company: 'Lazada Tech', location: 'China', role: 'Product Designer',
-    details: { title: 'Product Designer', subtitle: 'Lazada Tech · China', description: 'Continued refining the seller center design system and CRM workflows.', highlights: ['Design system expansion', 'Cross-team collaboration', 'User research & testing'], tags: ['UX/UI', 'Design System', 'CRM'] }
+    company: 'Lazada Tech', location: 'China', role: 'Lead UX Designer',
+    details: { title: 'Lead UX Designer', subtitle: 'Lazada Tech · China / SEA', description: 'Continued optimizing seller-center workflows, CRM interactions, and multi-market design consistency.', highlights: ['Seller workflow optimization', 'Cross-market localization', 'Design system expansion'], tags: ['UX/UI', 'Localization', 'CRM'] }
   },
   {
-    h: 45, year: '2018', period: 'Sep.2016 – Mar.2020',
-    company: 'Lazada Tech', location: 'China', role: 'Product Designer',
-    details: { title: 'Product Designer', subtitle: 'Lazada Tech · China', description: 'Led design initiatives for seller growth tools and dashboard.', highlights: ['User Growth Coins dashboard', 'Seller onboarding optimization', 'Data-driven design decisions'], tags: ['Dashboard', 'Growth', 'Data'] }
+    h: 45, year: '2018', period: 'Jan.2018 – Jun.2019',
+    company: 'Master Wan / WeiYun', location: 'China', role: 'Product Designer',
+    details: { title: 'Product Designer', subtitle: 'Master Wan / WeiYun · China', description: 'Worked on end-to-end digital platforms spanning home repair services and smart agricultural software.', highlights: ['O2O service platform design', 'Smart farming IoT workflows', 'Customer Journey Mapping'], tags: ['O2O', 'IoT', 'Service Design'] }
   },
   {
-    h: 55, year: '2019', period: 'Sep.2016 – Mar.2020',
-    company: 'Lazada Tech', location: 'China', role: 'Product Designer',
-    details: { title: 'Product Designer', subtitle: 'Lazada Tech · China', description: 'Final year at Lazada, delivering major CRM improvements.', highlights: ['CRM system overhaul', 'Process efficiency +30%', 'Handover & documentation'], tags: ['CRM', 'Efficiency', 'E-commerce'] }
+    h: 55, year: '2019', period: 'Jul.2019 – Sep.2020',
+    company: 'Jelly ERP / Korea Project', location: 'Korea / China', role: 'Product Designer',
+    details: { title: 'Product Designer', subtitle: 'Jelly ERP · Korea / China', description: 'Built a private-domain operations and customer growth management system based on Enterprise WeChat and app workflows.', highlights: ['Customer lifecycle management', 'Enterprise WeChat collaboration', 'Growth operations workflows'], tags: ['Private Domain', 'CRM', 'Growth'] }
   },
   {
     h: 60, year: '2020', period: 'Mar.2020 – Sep.2022',
-    company: 'TCL New Tech', location: 'China', role: 'Product Owner',
-    details: { title: 'Product Owner', subtitle: 'TCL New Tech · China', description: 'Led AIxIoT and smart home product development and digitalization.', highlights: ['Data-driven product roadmaps', 'iOS/Android application solution', 'Increased 20% new users'], tags: ['AIxIoT', 'Smart Home', 'Mobile App'] }
+    company: 'TCL New Tech', location: 'China', role: 'Senior Product Manager',
+    details: { title: 'Senior Product Manager', subtitle: 'TCL New Tech · China', description: 'Led smart home application design for White Goods management and IoT connectivity.', highlights: ['IoT provisioning workflows', 'Feature roadmap strategy', 'Cross-device UX improvement'], tags: ['IoT', 'Smart Home', 'UX Strategy'] }
   },
   {
-    h: 70, year: '2021', period: 'Mar.2020 – Sep.2022',
-    company: 'TCL New Tech', location: 'China', role: 'Product Owner',
-    details: { title: 'Product Owner', subtitle: 'TCL New Tech · China', description: 'Scaled smart home product line and digital strategy.', highlights: ['Electrical kitchen appliance R&D integration', 'Digital strategy implementation', 'User growth +20%'], tags: ['IoT', 'Product Strategy', 'R&D'] }
+    h: 70, year: '2021', period: 'Sep.2021 – Mar.2022',
+    company: 'OPPO Mobile', location: 'China', role: 'Product Consultant',
+    details: { title: 'Product Consultant', subtitle: 'OPPO Mobile · China', description: 'Provided strategic IT product consulting for OPPO digital product teams.', highlights: ['NPS analysis', 'Workshop facilitation', 'Cloud & NFC use cases'], tags: ['Consulting', 'NPS', 'Strategy'] }
   },
   {
-    h: 75, year: '2022', period: 'Sep.2022 – Mar.2024',
-    company: 'Weiju Tech', location: 'China', role: 'Product Owner',
-    details: { title: 'Product Owner', subtitle: 'Weiju Tech · China', description: 'Managed E-commerce SaaS dropshipping system and Brazil logistics ERP from 0-1.', highlights: ['SaaS dropshipping system', 'Brazil logistics ERP from scratch', 'KPI definition across dimensions'], tags: ['SaaS', 'ERP', 'Logistics'] }
+    h: 75, year: '2022', period: 'Mar.2022 – Jan.2023',
+    company: 'Anjun Express', location: 'Brazil / China', role: 'Product Manager',
+    details: { title: 'Product Manager', subtitle: 'Anjun Express · Brazil / China', description: 'Built a comprehensive logistics system integrating Mercado with Correios last-mile services.', highlights: ['Real-time API integration', 'Cross-border logistics platform', 'Operational efficiency +60%'], tags: ['Logistics', 'API', 'Data Modeling'] }
   },
   {
     h: 80, year: '2023', period: 'Mar.2023 – Sep.2024',
-    company: 'FHNW + Weiju Tech', location: 'Switzerland + China', role: 'MSc Student + Product Owner',
-    details: { title: 'MSc + Product Owner', subtitle: 'FHNW · Switzerland & Weiju Tech · China', description: 'Started Master\'s at FHNW while continuing product ownership. NPS user growth strategies.', highlights: ['MSc Business Information Systems', 'NPS user growth strategies', 'Product Lifecycle Management'], tags: ['Education', 'SaaS', 'NPS'] }
+    company: 'FHNW + Product Work', location: 'Switzerland + China', role: 'MSc Student + Product Owner',
+    details: { title: 'MSc Student + Product Owner', subtitle: 'FHNW · Switzerland & Product Work · China', description: 'Balanced graduate studies with ongoing product strategy and digital transformation work across e-commerce and operations systems.', highlights: ['Business Information Systems MSc', 'Product strategy practice', 'Cross-market project experience'], tags: ['Education', 'Product', 'Strategy'] }
   },
   {
     h: 65, year: '2024', period: 'Mar.2024 – Mar.2025',
-    company: 'Goldoak GmbH', location: 'Switzerland', role: 'Product Manager',
-    details: { title: 'Product Manager (80%)', subtitle: 'Goldoak GmbH · Switzerland', description: 'Analyzed Dutch market trends and customer behavior, boosting product visibility.', highlights: ['Dutch market analysis', 'Power BI KPI & Data Management', 'Digital automated marketing'], tags: ['Product Management', 'Power BI', 'Marketing'] }
+    company: 'Goldoak GmbH / Hampelmann', location: 'Switzerland', role: 'E-Commerce Consultant',
+    details: { title: 'E-Commerce Consultant', subtitle: 'Goldoak GmbH / Hampelmann · Switzerland', description: 'Worked on Hampelmann Shopify, a sustainable kids toy e-commerce platform for the Dutch market.', highlights: ['Dutch market strategy', 'Category planning', 'Conversion growth +20%'], tags: ['Shopify', 'E-commerce', 'Growth'] }
   },
   {
-    h: 50, year: '2025', period: 'Jun.2025 – Now',
-    company: 'Malim Mobility', location: 'Switzerland', role: 'IT Solution Consulting',
-    details: { title: 'IT Solution Consulting (20%)', subtitle: 'Malim Mobility · Switzerland', description: 'Business strategy, competitor analysis, website development from design to deployment.', highlights: ['Business strategy planning', 'Website development & design', 'Full deployment lifecycle'], tags: ['Consulting', 'Strategy', 'Web Dev'] }
+    h: 50, year: '2025', period: 'Jun.2025 – Present',
+    company: 'Malim Mobility', location: 'Switzerland', role: 'Founder & Developer',
+    details: { title: 'Founder & Developer', subtitle: 'Malim Mobility · Switzerland', description: 'Built a cloud-based mobility consulting platform and official website dedicated to EV solutions.', highlights: ['EV subsidy tracker', 'ROI calculator', 'Lead generation platform'], tags: ['EV', 'Consulting', 'Web Platform'] }
   },
   {
     h: 45, year: '2026', period: '2026 – Now',
-    company: 'Building Products', location: 'Switzerland', role: 'Freelance & Products',
-    details: { title: 'Freelance & Products', subtitle: 'Switzerland', description: 'Building own digital products and portfolio. Sherry-Web and new ventures.', highlights: ['Sherry-Web Portfolio', 'Digital product development', 'New ventures'], tags: ['Products', 'Portfolio', 'Freelance'] }
+    company: 'Independent Products', location: 'Switzerland', role: 'Freelance & Products',
+    details: { title: 'Freelance & Products', subtitle: 'Switzerland', description: 'Continuing to build digital products, portfolio systems, and new end-to-end product concepts.', highlights: ['Sherry-Web portfolio', 'Independent product building', 'New ventures'], tags: ['Portfolio', 'Products', 'Freelance'] }
   },
 ];
 
@@ -125,12 +126,26 @@ const skillsData = [
   },
 ];
 
+const projectPreviewMap: Record<string, { title: string; image: string; href: string }> = {
+  '2016': { title: 'Lazada Seller Center', image: '/images/work/Lazada.png', href: '/search?view=track-record' },
+  '2017': { title: 'Lazada Seller Center', image: '/images/work/Lazada.png', href: '/search?view=track-record' },
+  '2018': { title: 'Master Wan × IKEA O2O / WeiYun', image: '/images/work/Master wan.png', href: '/search?view=track-record&category=END-TO-END%20PROJECTS' },
+  '2019': { title: 'Jelly ERP', image: '/images/work/Jelly Grow.png', href: '/search?view=track-record&category=E-COMMERCE%20%26%20LOGISTICS' },
+  '2020': { title: 'TCL Smart Home App', image: '/images/work/TCL.png', href: '/search?view=track-record&category=END-TO-END%20PROJECTS' },
+  '2021': { title: 'OPPO Mobile', image: '/images/work/OPPO.png', href: '/search?view=track-record&category=IT%20PRODUCT%20CONSULTING' },
+  '2022': { title: 'Anjun Express', image: '/images/work/Anjun.png', href: '/search?view=track-record&category=E-COMMERCE%20%26%20LOGISTICS' },
+  '2023': { title: 'Selected Work', image: '/images/work/Malim.png', href: '/search?view=track-record' },
+  '2024': { title: 'Hampelmann Shopify', image: '/images/work/Hampelmann.png', href: '/search?view=track-record&category=SWISS%20PROJECTS' },
+  '2025': { title: 'Malim Mobility Website', image: '/images/work/Malim.png', href: '/search?view=track-record&category=SWISS%20PROJECTS' },
+  '2026': { title: 'Malim Mobility Website', image: '/images/work/Malim.png', href: '/search?view=track-record&category=SWISS%20PROJECTS' },
+};
+
 // 代表项目
 const featuredProjects = [
-  { title: 'E-commerce SaaS', desc: 'Dropshipping system with Brazil logistics ERP', type: 'SAAS / ERP' },
-  { title: 'AIxIoT Smart Home', desc: 'Smart home product digitalization platform', type: 'IOT / MOBILE' },
-  { title: 'Seller Center UED', desc: 'E-commerce design system & CRM', type: 'UX / DESIGN' },
-  { title: 'Malim Mobility', desc: 'Swiss EV charging subsidy explorer', type: 'WEB / CONSULTING' },
+  { title: 'Malim Mobility Website', desc: 'EV Subsidy Tracker & Consulting Platform', type: 'SWISS PROJECTS' },
+  { title: 'Hampelmann Shopify', desc: 'Sustainable Kids Toy E-Commerce Platform', type: 'SWISS PROJECTS' },
+  { title: 'Anjun Express', desc: 'Brazil Cross-Border Logistics System', type: 'E-COMMERCE & LOGISTICS' },
+  { title: 'OPPO Mobile', desc: 'IT Product Consulting & Analysis', type: 'IT PRODUCT CONSULTING' },
 ];
 
 function VerticalIndicator({ activeIndex }: { activeIndex: number }) {
@@ -204,28 +219,30 @@ export default function AboutPage() {
 
       {/* 悬浮下载简历按钮 */}
       <a
-        href="/resume.pdf"
+        href="/pdfs/CV/CV_Chenxue Branny.pdf"
         download
+        target="_blank"
+        rel="noopener noreferrer"
         className="fixed right-6 bottom-6 z-50 flex items-center gap-2 bg-black text-white text-xs px-4 py-3 rounded-full shadow-lg hover:bg-neutral-800 transition-colors group"
       >
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4 group-hover:translate-y-0.5 transition-transform">
           <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
         </svg>
-        Resume
+        Download CV
       </a>
 
       {/* Section 1: About + Experience — 和之前一样的布局 */}
       <motion.section 
         id="about" 
-        className="min-h-screen flex items-center px-8 md:px-20 md:pl-36"
+        className="min-h-screen flex items-center px-5 md:px-8 lg:px-20 lg:pl-36 py-24 md:py-0"
         initial={{ opacity: 0, y: 80 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.8, ease: [0.33, 1, 0.68, 1] }}
       >
-        <div className="w-full grid md:grid-cols-[65%_35%] gap-12 items-center max-w-5xl">
+        <div className="w-full grid lg:grid-cols-[62%_38%] gap-12 lg:gap-14 items-start max-w-5xl">
           
-          {/* 左侧: About + Timeline Chart */}
+          {/* 左侧: About 文案 + 手机端资料卡 + Timeline Chart */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -234,37 +251,78 @@ export default function AboutPage() {
           >
             <h1 className="text-2xl md:text-3xl font-bold tracking-tighter mb-6">About</h1>
             <div className="w-16 h-[1px] bg-black mb-8" />
-            <p className="text-neutral-500 leading-relaxed mb-12">
+            <p className="text-neutral-500 leading-relaxed mb-10 md:mb-12 max-w-[620px]">
               Developer and designer based in Switzerland. 
               Building digital products that are clean, functional, 
               and thoughtfully crafted.
             </p>
 
-            {/* 浮动条形图 + 年份 */}
-            <div className="inline-flex flex-col items-start ml-5 relative" style={{ width: '500px' }}>
-              {/* 引导提示 */}
+            {/* 手机端: 资料块放在 About 文案下面 */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.1 }}
+              className="lg:hidden flex flex-col items-start mb-12"
+            >
+              <div className="w-24 h-24 rounded-full bg-neutral-100 border border-neutral-200 mb-5 overflow-hidden">
+                <img src="/avatar.jpg" alt="Chenxue Branny" className="w-full h-full object-cover" />
+              </div>
+              <h2 className="text-2xl font-bold tracking-tight mb-1">Chenxue Branny</h2>
+              <p className="text-xs text-neutral-400 tracking-[0.18em] mb-5">FULLSTACK DEVELOPER · SWITZERLAND</p>
+              <p className="text-sm text-neutral-500 leading-relaxed mb-6 max-w-sm">
+                Specializing in full-stack development and AI integration. 
+                From software licensing to EV charging platforms and 
+                Swiss-compliant AI infrastructure.
+              </p>
+              <div className="flex flex-wrap gap-2 mb-6">
+                {['React', 'Next.js', 'TypeScript', 'Node.js', 'Python', 'Azure', 'Docker'].map((skill) => (
+                  <span key={skill} className="text-[11px] text-neutral-500 hover:text-black transition-colors cursor-default">
+                    #{skill}
+                  </span>
+                ))}
+              </div>
+              <div className="flex flex-col gap-2 mb-5 text-sm text-neutral-500">
+                <a href="mailto:Sherryxuex@gmail.com" className="hover:text-black transition-colors">Sherryxuex@gmail.com</a>
+                <a href="tel:+41762679796" className="hover:text-black transition-colors">+41 76 267 97 96</a>
+              </div>
+              <div className="flex flex-wrap gap-4">
+                <a href="mailto:Sherryxuex@gmail.com" className="text-[10px] tracking-[0.2em] text-neutral-400 hover:text-black transition-colors">EMAIL ↗</a>
+                <a href="https://github.com/AIB612" target="_blank" rel="noopener noreferrer" className="text-[10px] tracking-[0.2em] text-neutral-400 hover:text-black transition-colors">GITHUB ↗</a>
+                <a href="https://ch.linkedin.com/in/princessbranny" target="_blank" rel="noopener noreferrer" className="text-[10px] tracking-[0.2em] text-neutral-400 hover:text-black transition-colors">LINKEDIN ↗</a>
+              </div>
+            </motion.div>
+
+            {/* 时间轴 */}
+            <div className="inline-flex flex-col items-start ml-0 md:ml-5 relative w-full max-w-[500px] overflow-x-auto pb-2">
               <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: [0, 1, 1, 0] }}
                 transition={{ duration: 3, delay: 1.5, repeat: 2, repeatDelay: 2 }}
-                className="text-sm text-neutral-400 mb-6 flex items-center gap-2"
+                className="text-sm text-neutral-400 mb-6 flex items-center gap-2 whitespace-nowrap"
               >
                 <motion.span animate={{ y: [0, -5, 0] }} transition={{ duration: 0.8, repeat: Infinity }}>
                   👆
                 </motion.span>
-                Hover or click to explore
+                Tap or hover to explore
               </motion.p>
-              {/* 条形 + 年份 */}
-              <div className="flex justify-between w-full">
+              <div className="flex justify-between w-[500px] min-w-[500px]">
                 {experienceData.map((exp, i) => (
                   <div
                     key={i}
                     className="flex flex-col items-center relative group cursor-pointer"
                     onClick={() => setSelectedExp(exp)}
-                    onMouseEnter={() => setHoveredIndex(i)}
-                    onMouseLeave={() => setHoveredIndex(null)}
+                    onMouseEnter={() => {
+                      if (typeof window !== 'undefined' && window.innerWidth >= 768) {
+                        setHoveredIndex(i);
+                      }
+                    }}
+                    onMouseLeave={() => {
+                      if (typeof window !== 'undefined' && window.innerWidth >= 768) {
+                        setHoveredIndex(null);
+                      }
+                    }}
                   >
-                    {/* Hover Tooltip */}
                     <motion.div
                       className="absolute bottom-full mb-4 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 pointer-events-none z-10"
                       initial={false}
@@ -277,7 +335,6 @@ export default function AboutPage() {
                       </div>
                       <div className="w-2 h-2 bg-black rotate-45 mx-auto -mt-1" />
                     </motion.div>
-                    {/* Bar */}
                     <div className="h-[140px] flex items-end mb-2">
                       <motion.div
                         initial={{ height: 0, width: 6, opacity: 0 }}
@@ -294,24 +351,23 @@ export default function AboutPage() {
                         className="bg-black rounded-full cursor-pointer"
                       />
                     </div>
-                    {/* Year */}
                     <span className="text-[11px] text-neutral-400 font-mono mt-2 group-hover:text-black group-hover:font-semibold transition-all duration-200">
                       {exp.year}
                     </span>
                   </div>
                 ))}
               </div>
-              <div className="w-full h-[1px] bg-neutral-300 -mt-[13px] mb-6" />
+              <div className="w-[500px] min-w-[500px] h-[1px] bg-neutral-300 -mt-[13px] mb-6" />
             </div>
           </motion.div>
 
-          {/* 右侧: 头像 + 简介 + 技能 + 联系方式 */}
+          {/* 桌面端右侧: 头像 + 简介 + 技能 + 联系方式 */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.3 }}
-            className="flex flex-col items-center md:items-start"
+            className="hidden lg:flex flex-col items-center lg:items-start"
           >
             <div className="w-28 h-28 rounded-full bg-neutral-100 border border-neutral-200 mb-6 overflow-hidden">
               <img src="/avatar.jpg" alt="Chenxue Branny" className="w-full h-full object-cover" />
@@ -532,18 +588,19 @@ export default function AboutPage() {
       {/* Section 5: Contact — 一起工作吧 */}
       <motion.section 
         id="contact" 
-        className="min-h-screen flex items-center px-5 md:px-8 lg:px-20 lg:pl-36"
+        className="min-h-screen flex items-center px-5 md:px-8 lg:px-20 lg:pl-36 py-20 md:py-0"
         initial={{ opacity: 0, y: 80 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.8, ease: [0.33, 1, 0.68, 1] }}
       >
-        <div className="w-full max-w-4xl grid md:grid-cols-[1.2fr_1fr] gap-16 items-center">
+        <div className="w-full max-w-4xl grid md:grid-cols-[1.2fr_1fr] gap-10 md:gap-16 items-center">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
+            className="order-2 md:order-1"
           >
             <p className="text-[10px] tracking-[0.3em] text-neutral-400 mb-6">GET IN TOUCH</p>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tighter mb-4">
@@ -570,15 +627,15 @@ export default function AboutPage() {
             </div>
           </motion.div>
 
-          {/* 右侧 SVG 插画 */}
+          {/* SVG 插画：手机端上方居中，桌面端右侧 */}
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="hidden md:flex justify-start items-center"
+            className="order-1 md:order-2 flex justify-center md:justify-start items-center"
           >
-            <img src="/thinking-person.svg" alt="Thinking person illustration" className="w-[260px] opacity-80" />
+            <img src="/thinking-person.svg" alt="Thinking person illustration" className="w-[180px] md:w-[260px] opacity-80" />
           </motion.div>
         </div>
       </motion.section>
@@ -598,15 +655,15 @@ export default function AboutPage() {
               />
             )}
             <motion.div
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
+              initial={typeof window !== 'undefined' && window.innerWidth < 768 ? { y: '100%' } : { x: '100%' }}
+              animate={typeof window !== 'undefined' && window.innerWidth < 768 ? { y: 0 } : { x: 0 }}
+              exit={typeof window !== 'undefined' && window.innerWidth < 768 ? { y: '100%' } : { x: '100%' }}
               transition={{ duration: 0.3, ease: [0.33, 1, 0.68, 1] }}
-              className="fixed right-0 top-0 h-full w-full md:w-1/2 bg-white shadow-2xl overflow-y-auto z-[60]"
+              className="fixed right-0 bottom-0 md:top-0 h-[85vh] md:h-full w-full md:w-1/2 bg-white shadow-2xl overflow-y-auto z-[60] rounded-t-3xl md:rounded-none"
             >
               <button
                 onClick={() => { setSelectedExp(null); setHoveredIndex(null); }}
-                className="sticky top-4 left-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 shadow-lg backdrop-blur-sm transition-all hover:scale-110 hover:bg-white"
+                className="absolute top-4 right-4 z-20 flex h-11 w-11 items-center justify-center rounded-full bg-neutral-100 text-neutral-600 border border-neutral-200 shadow-[0_8px_24px_rgba(0,0,0,0.10)] transition-all hover:scale-110 hover:bg-neutral-200 hover:text-black"
                 aria-label="Close"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="h-5 w-5">
@@ -659,19 +716,37 @@ export default function AboutPage() {
                       </div>
 
                       <div className="border-t pt-4">
-                        <h2 className="text-sm font-bold mb-3 text-neutral-800">Other Positions</h2>
-                        <div className="flex gap-2 overflow-x-auto pb-2">
-                          {experienceData.filter(e => e.year !== activeExp.year).map((e) => (
-                            <button
-                              key={e.year}
-                              onClick={() => setSelectedExp(e)}
-                              className="border rounded-lg px-4 py-2 hover:border-black transition-colors flex-shrink-0"
-                            >
-                              <span className="text-sm font-bold">{e.company}</span>
-                              <p className="text-[10px] text-neutral-400 mt-0.5">{e.role}</p>
-                            </button>
-                          ))}
-                        </div>
+                        <h2 className="text-sm font-bold mb-3 text-neutral-800">Project Preview</h2>
+                        {(() => {
+                          const projectPreview = projectPreviewMap[activeExp.year];
+                          if (!projectPreview) return null;
+                          return (
+                            <div className="rounded-xl border border-neutral-200 overflow-hidden bg-white">
+                              <div className="relative aspect-[2/1] bg-neutral-100">
+                                <Image
+                                  src={projectPreview.image}
+                                  alt={projectPreview.title}
+                                  fill
+                                  sizes="(min-width: 768px) 420px, 100vw"
+                                  className="object-cover object-center"
+                                />
+                              </div>
+                              <div className="p-4 flex items-center justify-between gap-4">
+                                <div>
+                                  <h3 className="text-sm font-bold text-neutral-900">{projectPreview.title}</h3>
+                                  <p className="text-xs text-neutral-500 mt-1">View the related project details</p>
+                                </div>
+                                <Link
+                                  href={projectPreview.href}
+                                  className="shrink-0 inline-flex items-center gap-2 text-sm font-medium text-black hover:gap-3 transition-all"
+                                >
+                                  View Project
+                                  <span>→</span>
+                                </Link>
+                              </div>
+                            </div>
+                          );
+                        })()}
                       </div>
                     </div>
                   </div>

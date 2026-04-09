@@ -175,9 +175,22 @@ export default function HomePageClient() {
   return (
     <>
       {/* Tech Banner - Black, particle network, scan line */}
-      <section className="w-full bg-black text-white overflow-hidden relative" style={{ minHeight: '100vh' }}>
+      <section className="w-full bg-black text-white overflow-hidden relative min-h-[calc(82vh-200px)] md:min-h-[82vh]">
+        {/* Video Background */}
+        <video
+          className="absolute inset-0 w-full h-full object-cover"
+          src="/Video/4月9日.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+        />
+
+        {/* Dark overlay for readability */}
+        <div className="absolute inset-0 bg-black/55 z-0" />
+
         {/* Canvas particle network */}
-        <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
+        <canvas ref={canvasRef} className="absolute inset-0 w-full h-full z-[1]" />
 
         {/* Perspective grid overlay */}
         <div className="absolute inset-0 z-[1]" style={{
@@ -211,16 +224,11 @@ export default function HomePageClient() {
           <div className="w-6 h-6 border-r border-b border-white/20" />
         </div>
 
-        {/* Meta labels */}
-        <div className="absolute top-10 left-0 right-0 flex items-center justify-between px-5 md:px-8 lg:px-20 z-10">
-          <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-[9px] tracking-[0.4em] text-white/30 font-mono">ZÜRICH · SWITZERLAND</motion.span>
-          <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-[9px] tracking-[0.4em] text-white/30 font-mono">EST. 2015</motion.span>
-        </div>
+        {/* Meta labels removed */}
+
 
         {/* Main content - centered */}
-        <div className="relative z-10 flex flex-col items-start justify-center h-screen px-5 md:px-8 lg:px-20">
+        <div className="relative z-10 flex flex-col items-start justify-center px-5 md:px-8 lg:px-20 min-h-[calc(82vh-200px)] md:min-h-[82vh]">
           {/* Label */}
           <div className="overflow-hidden mb-8">
             <motion.p
@@ -229,15 +237,14 @@ export default function HomePageClient() {
               transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1], delay: 0.3 }}
               className="text-[9px] tracking-[0.5em] text-white/40 font-mono"
             >
-              DIGITAL CONSULTING · AI ENGINEERING · PRODUCT DESIGN
+              FINE-TUNING · RAG · DIGITAL PRODUCT
             </motion.p>
           </div>
 
           {/* Philosophy headline */}
           {[
-            { text: 'Good technology', color: 'text-white' },
-            { text: 'should feel', color: 'text-white/60' },
-            { text: 'inevitable.', color: 'text-white' },
+            { text: 'Small AI,', color: 'text-white' },
+            { text: 'Only For You.', color: 'text-white/85' },
           ].map(({ text, color }, i) => (
             <div key={text} className="overflow-hidden">
               <motion.h1
@@ -245,7 +252,7 @@ export default function HomePageClient() {
                 animate={{ y: 0 }}
                 transition={{ duration: 0.85, ease: [0.76, 0, 0.24, 1], delay: 0.4 + i * 0.12 }}
                 className={`font-bold leading-[1.0] tracking-[-0.03em] ${color}`}
-                style={{ fontSize: 'clamp(3rem, 8.5vw, 9.5rem)' }}
+                style={{ fontSize: 'clamp(2.2rem, 6.4vw, 7rem)' }}
               >
                 {text}
               </motion.h1>
@@ -253,25 +260,53 @@ export default function HomePageClient() {
           ))}
 
           {/* Bottom row */}
-          <div className="flex items-end justify-between w-full mt-16">
-            <motion.p
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.9 }}
-              className="text-white/30 text-[12px] leading-relaxed max-w-[260px] font-mono"
-            >
-              From strategy to execution —{' '}<br />digital transformation across Europe.
-            </motion.p>
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between w-full mt-12 md:mt-16 gap-8 md:gap-0">
+            <div className="flex flex-col items-start">
+              <motion.p
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.9 }}
+                className="text-white/70 text-[17px] md:text-[22px] leading-relaxed max-w-[520px] font-mono"
+              >
+                Your Computer. Your Data. Your AI. Total Privacy.
+              </motion.p>
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 1.0 }}
+                className="mt-6 md:hidden"
+              >
+                <a
+                  href="https://calendly.com/cxbranny/30min"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center gap-3 border border-white/20 px-8 py-4 hover:bg-white hover:text-black transition-all duration-300"
+                >
+                  <span className="text-[12px] tracking-[0.28em] font-mono">BOOKING</span>
+                  <motion.svg
+                    className="w-3.5 h-3.5"
+                    animate={{ x: [0, 4, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+                    fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </motion.svg>
+                </a>
+              </motion.div>
+            </div>
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 1.0 }}
+              className="hidden md:block"
             >
               <a
-                href="/search?view=track-record"
-                className="group flex items-center gap-3 border border-white/20 px-6 py-3 hover:bg-white hover:text-black transition-all duration-300"
+                href="https://calendly.com/cxbranny/30min"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-3 border border-white/20 px-8 py-4 hover:bg-white hover:text-black transition-all duration-300"
               >
-                <span className="text-[10px] tracking-[0.3em] font-mono">VIEW ALL WORK</span>
+                <span className="text-[12px] tracking-[0.28em] font-mono">BOOKING</span>
                 <motion.svg
                   className="w-3.5 h-3.5"
                   animate={{ x: [0, 4, 0] }}
@@ -301,7 +336,7 @@ export default function HomePageClient() {
       </section>
 
       {/* Hero Section - Refined */}
-      <section className="min-h-[45vh] md:min-h-[55vh] flex items-center relative overflow-hidden bg-white pt-8 md:pt-0">
+      <section className="hidden min-h-[45vh] md:min-h-[55vh] items-center relative overflow-hidden bg-white pt-8 md:pt-0">
         {/* Subtle animated gradient mesh */}
         <motion.div
           animate={{
@@ -387,7 +422,7 @@ export default function HomePageClient() {
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.55 }}
-                className="flex flex-col sm:flex-row gap-3"
+                className="relative z-20 flex flex-col sm:flex-row gap-3"
               >
                 <Link
                   href="/search"
@@ -405,7 +440,7 @@ export default function HomePageClient() {
             </div>
 
             {/* Right: Visual Dashboard */}
-            <div className="relative h-[420px] hidden lg:block">
+            <div className="relative h-[420px] hidden lg:block pointer-events-none">
 
               {/* Subtle pulsing rings */}
               <motion.div
@@ -565,20 +600,18 @@ export default function HomePageClient() {
 {/* Services Section */}
       <section id="services" className="px-5 md:px-8 lg:px-20 py-20 md:py-32">
         <FadeInView>
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-14 md:mb-20">
-            <div>
-              <p className="text-[10px] tracking-[0.35em] text-neutral-400 mb-4 font-medium">SERVICES</p>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-[-0.03em] leading-[1.05]">
-                What I Offer
-              </h2>
-            </div>
-            <p className="text-neutral-400 text-sm max-w-[280px] leading-relaxed hidden md:block">
-              End-to-end digital solutions — from strategy to deployment.
+          <div className="mb-14 md:mb-20 max-w-xl">
+            <p className="text-[10px] tracking-[0.35em] text-neutral-400 mb-4 font-medium">SERVICES</p>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-[-0.03em] leading-[1.05] mb-4">
+              What I Offer
+            </h2>
+            <p className="text-neutral-400 text-sm md:text-base leading-relaxed">
+              End-to-end digital solutions — from strategy and prototyping to deployment and iteration.
             </p>
           </div>
         </FadeInView>
 
-        <div className="border-t border-neutral-100">
+        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-5 md:gap-6 items-stretch auto-rows-fr">
           {services.map((service, index) => (
             <motion.div
               key={service.id}
@@ -586,61 +619,50 @@ export default function HomePageClient() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 0.45, delay: index * 0.07, ease: [0.25, 0.1, 0.25, 1] }}
-              className={`group relative flex items-center gap-4 md:gap-8 py-6 md:py-8 border-b border-neutral-100 cursor-pointer transition-colors duration-200 ${
-                expandedId === service.id ? 'bg-neutral-50/60' : 'hover:bg-neutral-50/60'
+              className={`group relative rounded-2xl border border-neutral-200 p-5 md:p-6 cursor-pointer transition-all duration-200 bg-white h-full min-h-[300px] flex flex-col self-stretch ${
+                expandedId === service.id ? 'border-black shadow-[0_12px_40px_rgba(0,0,0,0.08)] -translate-y-1' : 'hover:border-black hover:shadow-[0_12px_40px_rgba(0,0,0,0.06)] hover:-translate-y-1'
               }`}
               onClick={() => setExpandedId(expandedId === service.id ? null : service.id)}
             >
-              {/* Left accent bar */}
-              <motion.div
-                className="absolute left-0 top-0 bottom-0 w-[2px] bg-black origin-top"
-                animate={{ scaleY: expandedId === service.id ? 1 : 0 }}
-                initial={{ scaleY: 0 }}
-                transition={{ duration: 0.2 }}
-              />
-
-              {/* Number */}
-              <span className="text-[11px] tracking-widest text-neutral-300 font-mono w-6 flex-shrink-0 pl-3">
-                {String(index + 1).padStart(2, '0')}
-              </span>
-
-              {/* Icon */}
-              <div className="text-neutral-400 group-hover:text-black transition-colors duration-200 flex-shrink-0 hidden md:block">
-                {service.icon}
-              </div>
-
-              {/* Title + Tags */}
-              <div className="flex-1 min-w-0">
-                <div className="flex items-baseline gap-3 flex-wrap">
-                  <h3 className="text-base md:text-lg font-bold group-hover:translate-x-0.5 transition-transform duration-200">
-                    {service.title}
-                  </h3>
-                  <span className="text-[10px] text-neutral-400 hidden md:block">{service.titleDe}</span>
-                </div>
-                <div className="flex flex-wrap gap-1.5 mt-2">
-                  {service.tags.slice(0, 3).map((tag) => (
-                    <span key={tag} className="text-[9px] tracking-wide text-neutral-400 border border-neutral-200 rounded-full px-2 py-0.5">
-                      {tag}
-                    </span>
-                  ))}
+              <div className="flex items-start justify-between gap-4 mb-4">
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-start justify-between gap-4 mb-2">
+                    <h3 className="text-lg md:text-xl font-bold tracking-[-0.02em] line-clamp-2">
+                      {service.title}
+                    </h3>
+                    <div className="text-neutral-400 group-hover:text-black transition-colors duration-200 flex-shrink-0 mt-0.5">
+                      {service.icon}
+                    </div>
+                  </div>
+                  <p className="text-[11px] text-neutral-400 line-clamp-1">
+                    {service.titleDe}
+                  </p>
                 </div>
               </div>
 
-              {/* Duration */}
-              <span className="text-[10px] tracking-wider text-neutral-400 flex-shrink-0 hidden lg:block">
-                {service.duration}
-              </span>
+              <p className="text-sm text-neutral-500 leading-relaxed mb-5 line-clamp-3 h-[64px]">
+                {service.desc}
+              </p>
 
-              {/* Arrow */}
-              <motion.div
-                className="flex-shrink-0 pr-2"
-                animate={{ x: expandedId === service.id ? 4 : 0 }}
-                transition={{ duration: 0.2 }}
-              >
-                <svg className="w-4 h-4 text-neutral-300 group-hover:text-black transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
-                </svg>
-              </motion.div>
+              <div className="flex flex-wrap gap-1.5 mb-5 h-[44px] content-start overflow-hidden">
+                {service.tags.slice(0, 3).map((tag) => (
+                  <span key={tag} className="text-[9px] tracking-wide text-neutral-400 border border-neutral-200 rounded-full px-2 py-0.5">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              <div className="flex items-center justify-between pt-5 border-t border-neutral-100 mt-auto">
+                <span className="text-[10px] tracking-wider text-neutral-400">
+                  {service.duration}
+                </span>
+                <div className="flex items-center gap-2 text-[10px] tracking-[0.2em] text-neutral-500 group-hover:text-black transition-colors">
+                  <span>DETAILS</span>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </div>
             </motion.div>
           ))}
         </div>
@@ -660,11 +682,11 @@ export default function HomePageClient() {
               />
               {/* Panel */}
               <motion.div
-                initial={{ x: '100%' }}
-                animate={{ x: 0 }}
-                exit={{ x: '100%' }}
+                initial={typeof window !== 'undefined' && window.innerWidth < 768 ? { y: '100%' } : { x: '100%' }}
+                animate={typeof window !== 'undefined' && window.innerWidth < 768 ? { y: 0 } : { x: 0 }}
+                exit={typeof window !== 'undefined' && window.innerWidth < 768 ? { y: '100%' } : { x: '100%' }}
                 transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                className="fixed top-0 right-0 h-full w-full max-w-[90vw] sm:max-w-md bg-white shadow-2xl z-50 overflow-y-auto"
+                className="fixed right-0 bottom-0 md:top-0 h-[85vh] md:h-full w-full md:max-w-[90vw] md:sm:max-w-md bg-white shadow-2xl z-50 overflow-y-auto rounded-t-3xl md:rounded-none"
               >
                 {(() => {
                   const service = services.find(s => s.id === expandedId);
@@ -753,27 +775,47 @@ export default function HomePageClient() {
         </AnimatePresence>
       </section>
 
-      <TrackRecord />
-
       {/* CTA Section */}
       <FadeInView>
-        <section className="px-5 md:px-8 lg:px-20 py-20 md:py-32 bg-black text-white">
-          <div className="max-w-3xl mx-auto text-center">
+        <section className="px-5 md:px-8 lg:px-20 py-14 md:py-20 bg-black text-white relative overflow-hidden">
+          <div
+            className="absolute inset-0 opacity-20"
+            style={{
+              backgroundImage:
+                'linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px)',
+              backgroundSize: '48px 48px',
+            }}
+          />
+
+          <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-[0.14]" viewBox="0 0 1440 600" preserveAspectRatio="none">
+            <line x1="0" y1="120" x2="1440" y2="520" stroke="white" strokeWidth="1" />
+            <line x1="120" y1="0" x2="1080" y2="600" stroke="white" strokeWidth="1" />
+            <line x1="420" y1="0" x2="1440" y2="420" stroke="white" strokeWidth="1" />
+            <line x1="0" y1="360" x2="980" y2="600" stroke="white" strokeWidth="1" />
+          </svg>
+
+          <div className="absolute left-0 right-0 top-24 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+          <div className="absolute left-0 right-0 bottom-24 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+
+          <div className="max-w-3xl mx-auto text-center relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <p className="text-[10px] tracking-[0.35em] text-neutral-500 mb-6 font-medium">GET STARTED</p>
+              <p className="text-[10px] tracking-[0.35em] text-neutral-500 mb-6 font-medium">GET IN TOUCH</p>
               <h2 className="text-3xl md:text-5xl font-bold tracking-[-0.03em] mb-6 leading-[1.1]">
-                Ready to transform<br />your business?
+                Small AI, Only For You.
               </h2>
               <p className="text-neutral-400 text-sm md:text-base mb-10 max-w-md mx-auto leading-relaxed">
-                Let's discuss your project and find the right solution together.
+                Your Computer. Your Data. Your AI.<br />
+                100% Total Privacy.
               </p>
               <Link 
-                href="/about#contact" 
+                href="https://calendly.com/cxbranny/30min"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-block px-10 py-4 bg-white text-black text-[11px] tracking-[0.15em] font-medium hover:bg-neutral-200 transition-colors"
               >
                 GET IN TOUCH

@@ -7,7 +7,7 @@ import { useSearchParams } from 'next/navigation';
 import React, { useState, useRef, Suspense } from 'react';
 
 // ============================================
-// Track Record 数据 (HR/猎头版 - 深度案例分析)
+// All Work 数据 (HR/猎头版 - 深度案例分析)
 // ============================================
 interface TrackRecordCase {
   id: string;
@@ -266,7 +266,7 @@ function BusinessImpactView() {
 
                 {/* CTA */}
                 <Link
-                  href="https://calendly.com/sherryxuex"
+                  href="https://calendly.com/cxbranny/30min"
                   target="_blank"
                   className="block w-full bg-black text-white text-center py-4 rounded-xl font-medium hover:bg-neutral-800 transition-colors"
                 >
@@ -330,7 +330,7 @@ function BusinessImpactView() {
             </div>
             
             <Link
-              href="https://calendly.com/sherryxuex"
+              href="https://calendly.com/cxbranny/30min"
               target="_blank"
               className="block w-full bg-black text-white text-center py-3 rounded-lg font-medium text-sm hover:bg-neutral-800 transition-colors"
             >
@@ -349,11 +349,12 @@ function BusinessImpactView() {
 function SearchContent() {
   const searchParams = useSearchParams();
   const view = searchParams.get('view') || '';
+  const category = searchParams.get('category') || 'ALL';
   
   const isTrackRecord = view === 'track-record';
 
   if (isTrackRecord) {
-    return <TrackRecordView />;
+    return <TrackRecordView initialCategory={category} />;
   }
   
   return <BusinessImpactView />;

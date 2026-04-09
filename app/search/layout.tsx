@@ -10,7 +10,7 @@ export default function SearchLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // 新的 Track Record / Business Impact 页面不需要侧边栏
+  // 新的 All Work / Business Impact 页面不需要侧边栏
   // 直接返回 children，让页面自己控制布局
   return (
     <Suspense fallback={null}>

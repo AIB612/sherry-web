@@ -349,7 +349,7 @@ export default function TrackRecord() {
         <div>
           <p className="text-[10px] tracking-[0.35em] text-neutral-500 mb-4 font-medium">SELECTED WORK</p>
           <h2 className="text-3xl md:text-5xl font-bold tracking-[-0.03em] text-black leading-[1.05] mb-6">
-            Track Record
+            All Work
           </h2>
           {/* Category Filters */}
           <div className="flex flex-wrap gap-2">

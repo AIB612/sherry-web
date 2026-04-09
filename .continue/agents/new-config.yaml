@@ -1,0 +1,21 @@
+name: Local Code Agent
+version: 1.0.0
+schema: v1
+
+models:
+  - name: Qwen 2.5 Coder 7b
+    provider: ollama
+    model: qwen2.5-coder:7b
+    apiBase: http://127.0.0.1:11434
+
+# 这一段是开启 @Codebase 检索的关键！
+embeddingsProvider:
+  provider: ollama
+  model: nomic-embed-text
+  apiBase: http://127.0.0.1:11434
+
+tabAutocompleteModel:
+  name: Tab Autocomplete
+  provider: ollama
+  model: qwen2.5-coder:7b
+  apiBase: http://127.0.0.1:11434
