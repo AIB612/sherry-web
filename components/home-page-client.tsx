@@ -228,9 +228,9 @@ export default function HomePageClient() {
 
 
         {/* Main content - centered */}
-        <div className="relative z-10 flex flex-col items-start justify-center px-5 md:px-8 lg:px-20 min-h-[calc(82vh-200px)] md:min-h-[82vh]">
+        <div className="relative z-10 flex flex-col items-start justify-center px-5 md:px-8 lg:px-20 min-h-[calc(82vh-180px)] md:min-h-[82vh]">
           {/* Label */}
-          <div className="overflow-hidden mb-8">
+          <div className="overflow-hidden mb-6 md:mb-8">
             <motion.p
               initial={{ y: '100%' }}
               animate={{ y: 0 }}
@@ -260,7 +260,7 @@ export default function HomePageClient() {
           ))}
 
           {/* Bottom row */}
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between w-full mt-12 md:mt-16 gap-8 md:gap-0">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between w-full mt-10 md:mt-16 gap-6 md:gap-0">
             <div className="flex flex-col items-start">
               <motion.p
                 initial={{ opacity: 0, y: 15 }}
@@ -422,7 +422,35 @@ export default function HomePageClient() {
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.55 }}
-                className="relative z-20 flex flex-col sm:flex-row gap-3"
+                className="relative z-20 md:hidden flex flex-col border-t border-b border-neutral-200"
+              >
+                <Link
+                  href="/search"
+                  className="flex items-center justify-between py-4 border-b border-neutral-200"
+                >
+                  <div>
+                    <p className="text-[11px] tracking-[0.28em] text-neutral-400 font-mono mb-1.5">01</p>
+                    <p className="text-[15px] font-medium tracking-[-0.02em] text-black">All Work</p>
+                  </div>
+                  <span className="text-lg text-neutral-400">↗</span>
+                </Link>
+                <Link
+                  href="#services"
+                  className="flex items-center justify-between py-4"
+                >
+                  <div>
+                    <p className="text-[11px] tracking-[0.28em] text-neutral-400 font-mono mb-1.5">02</p>
+                    <p className="text-[15px] font-medium tracking-[-0.02em] text-black">Services</p>
+                  </div>
+                  <span className="text-lg text-neutral-400">↗</span>
+                </Link>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.55 }}
+                className="relative z-20 hidden md:flex flex-col sm:flex-row gap-3"
               >
                 <Link
                   href="/search"
@@ -598,9 +626,9 @@ export default function HomePageClient() {
       </section>
 
 {/* Services Section */}
-      <section id="services" className="px-5 md:px-8 lg:px-20 py-20 md:py-32">
+      <section id="services" className="px-5 md:px-8 lg:px-20 py-16 md:py-32">
         <FadeInView>
-          <div className="mb-14 md:mb-20 max-w-xl">
+          <div className="mb-12 md:mb-20 max-w-xl">
             <p className="text-[10px] tracking-[0.35em] text-neutral-400 mb-4 font-medium">SERVICES</p>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-[-0.03em] leading-[1.05] mb-4">
               What I Offer
@@ -692,11 +720,11 @@ export default function HomePageClient() {
                   const service = services.find(s => s.id === expandedId);
                   if (!service) return null;
                   return (
-                    <div className="p-8">
+                    <div className="p-5 md:p-8">
                       {/* Close button */}
                       <button
                         onClick={() => setExpandedId(null)}
-                        className="absolute top-6 right-6 p-2 hover:bg-neutral-100 rounded-full transition-colors"
+                        className="absolute top-4 right-4 md:top-6 md:right-6 p-2 hover:bg-neutral-100 rounded-full transition-colors"
                       >
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -777,7 +805,7 @@ export default function HomePageClient() {
 
       {/* CTA Section */}
       <FadeInView>
-        <section className="px-5 md:px-8 lg:px-20 py-14 md:py-20 bg-black text-white relative overflow-hidden">
+        <section className="px-5 md:px-8 lg:px-20 py-12 md:py-20 bg-black text-white relative overflow-hidden">
           <div
             className="absolute inset-0 opacity-20"
             style={{
@@ -804,11 +832,11 @@ export default function HomePageClient() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <p className="text-[10px] tracking-[0.35em] text-neutral-500 mb-6 font-medium">GET IN TOUCH</p>
-              <h2 className="text-3xl md:text-5xl font-bold tracking-[-0.03em] mb-6 leading-[1.1]">
+              <p className="text-[10px] tracking-[0.35em] text-neutral-500 mb-5 md:mb-6 font-medium">GET IN TOUCH</p>
+              <h2 className="text-3xl md:text-5xl font-bold tracking-[-0.03em] mb-5 md:mb-6 leading-[1.1]">
                 Small AI, Only For You.
               </h2>
-              <p className="text-neutral-400 text-sm md:text-base mb-10 max-w-md mx-auto leading-relaxed">
+              <p className="text-neutral-400 text-sm md:text-base mb-8 md:mb-10 max-w-md mx-auto leading-relaxed">
                 Your Computer. Your Data. Your AI.<br />
                 100% Total Privacy.
               </p>

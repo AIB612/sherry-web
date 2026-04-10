@@ -1218,6 +1218,7 @@ export default function ProtocolPage() {
   const [activeSubId, setActiveSubId] = useState<string>(categories[0]!.subs[0]!.id);
   const [zoomedImage, setZoomedImage] = useState<string | null>(null);
   const [zoomedPdf, setZoomedPdf] = useState<string | null>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const activeCat = categories.find((c) => c.id === activeCatId)!;
   const activeSub = activeCat.subs.find((s) => s.id === activeSubId) || activeCat.subs[0]!;
@@ -1228,20 +1229,26 @@ export default function ProtocolPage() {
     setActiveSubId(cat.subs[0]!.id);
   };
 
+  const handleSubSelect = (catId: string, subId: string) => {
+    setActiveCatId(catId);
+    setActiveSubId(subId);
+    setMobileMenuOpen(false);
+  };
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <div className="relative px-5 md:px-8 lg:px-20 pt-8 pb-0">
+      <div className="relative px-5 md:px-8 lg:px-20 pt-7 md:pt-10 pb-0">
         {/* Background Image - Right Side - Fixed Position */}
         <img 
           src="/protocol-hero.jpg" 
           alt="" 
-          className="absolute right-8 lg:right-20 top-8 w-[400px] h-auto rounded-2xl z-0" 
+          className="hidden md:block absolute right-8 lg:right-20 top-8 w-[400px] h-auto rounded-2xl z-0" 
         />
         
         {/* Content - Left Side */}
         <div className="relative z-10 max-w-xl">
-          <h1 className="text-2xl md:text-3xl font-bold tracking-tighter mb-4">My Methodology</h1>
+          <h1 className="text-[26px] md:text-3xl font-bold tracking-tighter mb-4">My Methodology</h1>
           <p className="text-neutral-500 text-sm leading-relaxed">
             Product philosophy, Swiss IT compliance, consulting templates, and UX design frameworks.
           </p>
@@ -1249,15 +1256,42 @@ export default function ProtocolPage() {
       </div>
 
       {/* Main: Left Sidebar + Right Content */}
-      <section className="px-5 md:px-8 lg:px-20 mt-6 pb-20 relative z-10">
+      <section className="px-5 md:px-8 lg:px-20 mt-7 md:mt-10 pb-16 md:pb-24 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-[280px_1fr] gap-6 md:gap-10 items-start">
 
           {/* Left: Category Tree */}
+          <div className="md:hidden mb-5">
+            <div className="border-b border-neutral-200 pb-5">
+              <div className="flex items-end justify-between gap-4">
+                <div className="min-w-0 flex-1 pr-3">
+                  <p className="text-[10px] tracking-[0.42em] font-mono text-neutral-300 mb-3 uppercase">
+                    {activeCat.number}
+                  </p>
+                  <h2 className="text-[24px] leading-[1] font-bold tracking-[-0.04em] text-black">
+                    {activeCat.title}
+                  </h2>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setMobileMenuOpen(true)}
+                  className="shrink-0 flex items-center gap-2 text-[10px] tracking-[0.22em] uppercase text-neutral-400 hover:text-black transition-colors pb-1"
+                  aria-label="Open methodology menu"
+                >
+                  <span>Menu</span>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M4 7h16M4 12h16M4 17h16" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
           <motion.nav
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
-            className="md:sticky md:top-24 space-y-1"
+            className="hidden md:block md:sticky md:top-24 space-y-1"
           >
             {categories.map((cat) => (
               <div key={cat.id}>
@@ -1325,12 +1359,12 @@ export default function ProtocolPage() {
                 </div>
 
                 {/* Title */}
-                <h2 className="text-2xl font-bold tracking-tight mb-2">{activeSub.title}</h2>
-                <p className="text-sm text-neutral-400 mb-6">{activeSub.description}</p>
+                <h2 className="text-[24px] md:text-2xl font-bold tracking-tight mb-4 text-left">{activeSub.title}</h2>
+                <p className="text-sm text-neutral-400 mb-6 text-left">{activeSub.description}</p>
 
                 {/* Image with Zoom */}
                 {activeSub.image && (
-                  <div className="mb-6 ml-5">
+                  <div className="mb-6">
                     <div 
                       className="rounded-xl overflow-hidden border border-neutral-200 cursor-zoom-in hover:border-neutral-400 transition-colors"
                       onClick={() => setZoomedImage(activeSub.image!.src)}
@@ -1342,7 +1376,7 @@ export default function ProtocolPage() {
                         loading="lazy"
                       />
                     </div>
-                    <p className="text-[10px] text-neutral-300 mt-1.5 ml-1">
+                    <p className="text-[10px] text-neutral-300 mt-1.5">
                       Photo by <a href={activeSub.image.creditUrl} target="_blank" rel="noopener noreferrer" className="hover:text-neutral-500 transition-colors">{activeSub.image.credit}</a> / Unsplash · Click to zoom
                     </p>
                   </div>
@@ -1350,7 +1384,7 @@ export default function ProtocolPage() {
 
                 {/* PDF Previews */}
                 {activeSub.pdfs && activeSub.pdfs.length > 0 && (
-                  <div className="mb-6 ml-5">
+                  <div className="mb-6">
                     <p className="text-[10px] tracking-[0.2em] text-neutral-400 mb-3">REFERENCE DOCUMENTS</p>
                     <div className="space-y-3">
                       {activeSub.pdfs.map((pdf: { title: string; file: string; desc: string }, i: number) => (
@@ -1386,7 +1420,7 @@ export default function ProtocolPage() {
                 )}
 
                 {/* Content */}
-                <div className="border-t border-neutral-100 pt-6 mb-8">
+                <div className="border-t border-neutral-100 pt-8 mb-8">
                   {/* Chart for specific sections */}
                   {activeSub.id === 'mvp' && <BMLoopChart />}
                   {activeSub.id === 'pmf' && <PMFChart />}
@@ -1408,7 +1442,7 @@ export default function ProtocolPage() {
                         return (
                           <div key={i}>
                             <RetentionChart />
-                            <p className="mb-1.5 ml-5 leading-relaxed">
+                            <p className="mb-1.5 leading-relaxed">
                               {line.split(/\*\*(.+?)\*\*/g).map((part, j) =>
                                 j % 2 === 1 ? <span key={j} className="text-black font-medium">{part}</span> : <span key={j}>{part}</span>
                               )}
@@ -1419,7 +1453,7 @@ export default function ProtocolPage() {
                       // Formula lines (contains = and numbers/variables)
                       if (line.includes(' = ') && (line.includes('×') || line.includes('+') || line.includes('/') || line.includes('%') || /\d/.test(line))) {
                         return (
-                          <p key={i} className="my-2 ml-5 text-sm font-semibold italic text-black">
+                          <p key={i} className="my-2 text-sm font-semibold italic text-black">
                             <mark className="bg-yellow-200 px-1 py-0.5 rounded">{line}</mark>
                           </p>
                         );
@@ -1443,7 +1477,7 @@ export default function ProtocolPage() {
                       if (line.startsWith('• ') || line.startsWith('- ')) {
                         const text = line.replace(/^[•\-]\s/, '');
                         return (
-                          <div key={i} className="flex items-start gap-2.5 ml-5 mb-1.5">
+                          <div key={i} className="flex items-start gap-2.5 mb-1.5">
                             <div className="w-1 h-1 rounded-full bg-neutral-400 mt-1.5 flex-shrink-0" />
                             <span className="leading-relaxed">{text}</span>
                           </div>
@@ -1452,7 +1486,7 @@ export default function ProtocolPage() {
                       // Checkmarks
                       if (line.startsWith('✓ ')) {
                         return (
-                          <div key={i} className="flex items-start gap-2.5 ml-5 mb-1.5">
+                          <div key={i} className="flex items-start gap-2.5 mb-1.5">
                             <span className="text-neutral-700 flex-shrink-0">✓</span>
                             <span className="leading-relaxed">{line.slice(2)}</span>
                           </div>
@@ -1463,7 +1497,7 @@ export default function ProtocolPage() {
                         const match = line.match(/^(\d+)\.\s(.*)/);
                         if (match) {
                           return (
-                            <div key={i} className="flex items-start gap-3 ml-5 mb-2">
+                            <div key={i} className="flex items-start gap-3 mb-2">
                               <span className="text-[11px] font-mono text-neutral-300 mt-0.5 flex-shrink-0 w-4">{match[1]}.</span>
                               <span className="leading-relaxed">{match[2]}</span>
                             </div>
@@ -1475,7 +1509,7 @@ export default function ProtocolPage() {
                         return <div key={i} className="h-3" />;
                       }
                       // Regular text
-                      return <p key={i} className="mb-1.5 ml-5 leading-relaxed">{line}</p>;
+                      return <p key={i} className="mb-1.5 leading-relaxed text-left">{line}</p>;
                     })}
                   </div>
                 </div>
@@ -1525,6 +1559,93 @@ export default function ProtocolPage() {
           </div>
         </div>
       </section>
+
+      {/* Image Zoom Overlay */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-end md:hidden"
+            style={{ background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(4px)' }}
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <motion.div
+              initial={{ y: '100%' }}
+              animate={{ y: 0 }}
+              exit={{ y: '100%' }}
+              transition={{ type: 'spring', damping: 30, stiffness: 300 }}
+              className="relative bg-white w-full max-h-[82vh] rounded-t-3xl shadow-2xl overflow-hidden flex flex-col"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="sticky top-0 z-10 bg-white px-5 pt-4 pb-3 border-b border-neutral-100">
+                <div className="w-10 h-1 rounded-full bg-neutral-200 mx-auto mb-4" />
+                <div className="flex items-center justify-between gap-4">
+                  <div>
+                    <p className="text-[28px] font-bold tracking-[-0.045em] leading-[0.98] text-black">MY METHODOLOGY</p>
+                  </div>
+                  <button
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="w-10 h-10 rounded-full bg-neutral-100 text-neutral-500 border border-neutral-200 flex items-center justify-center"
+                    aria-label="Close methodology menu"
+                  >
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5">
+                      <path d="M1 13L13 1M1 1l12 12" strokeLinecap="round"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <div className="overflow-y-auto px-5 pb-6">
+                {categories.map((cat) => (
+                  <div key={cat.id} className="py-4 border-b border-neutral-100 last:border-b-0">
+                    <div className="mb-3">
+                      <p className="text-[10px] tracking-[0.24em] font-mono text-neutral-400 mb-1">{cat.number}</p>
+                      <h3 className="text-base font-semibold tracking-tight text-black">{cat.title}</h3>
+                    </div>
+
+                    <div className="space-y-2">
+                      {cat.subs.map((sub) => {
+                        const isActive = activeCatId === cat.id && activeSubId === sub.id;
+
+                        return (
+                          <button
+                            key={sub.id}
+                            type="button"
+                            onClick={() => handleSubSelect(cat.id, sub.id)}
+                            className={`w-full text-left rounded-2xl px-4 py-3 transition-all duration-200 border ${
+                              isActive
+                                ? 'bg-black text-white border-black'
+                                : 'bg-white text-neutral-700 border-neutral-200 hover:border-neutral-400'
+                            }`}
+                          >
+                            <div className="flex items-start justify-between gap-4">
+                              <div className="min-w-0">
+                                <p className={`text-sm font-semibold tracking-tight ${isActive ? 'text-white' : 'text-black'}`}>
+                                  {sub.title}
+                                </p>
+                                <p className={`text-xs mt-1 leading-relaxed ${isActive ? 'text-white/70' : 'text-neutral-500'}`}>
+                                  {sub.description}
+                                </p>
+                              </div>
+                              <span className={`shrink-0 mt-0.5 ${isActive ? 'text-white' : 'text-neutral-300'}`}>
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                </svg>
+                              </span>
+                            </div>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Image Zoom Overlay */}
       <AnimatePresence>

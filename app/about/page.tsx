@@ -234,7 +234,7 @@ export default function AboutPage() {
       {/* Section 1: About + Experience — 和之前一样的布局 */}
       <motion.section 
         id="about" 
-        className="min-h-screen flex items-center px-5 md:px-8 lg:px-20 lg:pl-36 py-24 md:py-0"
+        className="min-h-screen flex items-center px-5 md:px-8 lg:px-20 lg:pl-36 py-20 md:py-0"
         initial={{ opacity: 0, y: 80 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
@@ -249,9 +249,9 @@ export default function AboutPage() {
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
           >
-            <h1 className="text-2xl md:text-3xl font-bold tracking-tighter mb-6">About</h1>
-            <div className="w-16 h-[1px] bg-black mb-8" />
-            <p className="text-neutral-500 leading-relaxed mb-10 md:mb-12 max-w-[620px]">
+            <h1 className="text-2xl md:text-3xl font-bold tracking-tighter mb-5 md:mb-6">About</h1>
+            <div className="w-16 h-[1px] bg-black mb-6 md:mb-8" />
+            <p className="text-neutral-500 leading-relaxed mb-8 md:mb-12 max-w-[620px]">
               Developer and designer based in Switzerland. 
               Building digital products that are clean, functional, 
               and thoughtfully crafted.
@@ -263,7 +263,7 @@ export default function AboutPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: 0.1 }}
-              className="lg:hidden flex flex-col items-start mb-12"
+              className="lg:hidden flex flex-col items-start mb-10"
             >
               <div className="w-24 h-24 rounded-full bg-neutral-100 border border-neutral-200 mb-5 overflow-hidden">
                 <img src="/avatar.jpg" alt="Chenxue Branny" className="w-full h-full object-cover" />
@@ -588,7 +588,7 @@ export default function AboutPage() {
       {/* Section 5: Contact — 一起工作吧 */}
       <motion.section 
         id="contact" 
-        className="min-h-screen flex items-center px-5 md:px-8 lg:px-20 lg:pl-36 py-20 md:py-0"
+        className="min-h-screen flex items-center px-5 md:px-8 lg:px-20 lg:pl-36 py-16 md:py-0"
         initial={{ opacity: 0, y: 80 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
@@ -602,11 +602,11 @@ export default function AboutPage() {
             transition={{ duration: 0.7 }}
             className="order-2 md:order-1"
           >
-            <p className="text-[10px] tracking-[0.3em] text-neutral-400 mb-6">GET IN TOUCH</p>
+            <p className="text-[10px] tracking-[0.3em] text-neutral-400 mb-5 md:mb-6">GET IN TOUCH</p>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tighter mb-4">
               Let&apos;s work<br />together.
             </h2>
-            <p className="text-neutral-500 mb-8 max-w-md text-sm leading-relaxed">
+            <p className="text-neutral-500 mb-6 md:mb-8 max-w-md text-sm leading-relaxed">
               Have a project in mind? Looking for a Product Manager with strong analytical skills and AI expertise? Let&apos;s talk.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
@@ -675,7 +675,7 @@ export default function AboutPage() {
                 const activeExp = selectedExp || (hoveredIndex !== null ? experienceData[hoveredIndex] : null);
                 if (!activeExp) return null;
                 return (
-                  <div className="px-6 pb-8 pt-2">
+                  <div className="px-5 md:px-6 pb-8 pt-2">
                     <div className="flex items-start gap-4 mb-6">
                       <div className="h-14 w-14 flex-shrink-0 overflow-hidden rounded-xl border border-neutral-200 bg-neutral-50 flex items-center justify-center">
                         <span className="text-lg font-bold text-neutral-800">{activeExp.year.slice(2)}</span>

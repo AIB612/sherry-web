@@ -7,6 +7,7 @@ import MobileMenu from "./mobile-menu";
 import { Menu } from "lib/shopify/types";
 
 const defaultMenu: Menu[] = [
+  { title: 'Home', path: '/' },
   { title: 'All Work', path: '/search?view=track-record' },
   { title: 'My Methodology', path: '/protocol' },
   { title: 'Digital Tool', path: '/digital-tool' },
@@ -32,20 +33,15 @@ function NavbarContent() {
 
   return (
     <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md relative flex items-center justify-between px-5 md:px-8 lg:px-20 py-3 md:py-4">
-      <div className="block flex-none md:hidden">
-        <Suspense fallback={null}>
-          <MobileMenu menu={menu} />
-        </Suspense>
-      </div>
       <div className="flex w-full items-center justify-between">
         {/* 左侧: Logo + 菜单 */}
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-4 md:gap-6 min-w-0">
           <Link
             href="/"
             prefetch={true}
-            className="flex items-center"
+            className="flex items-center shrink-0"
           >
-            <span className="text-lg"><span className="font-normal">Chenxue</span> <span className="font-bold">Branny</span></span>
+            <span className="text-base md:text-lg whitespace-nowrap"><span className="font-normal">Chenxue</span> <span className="font-bold">Branny</span></span>
           </Link>
           {menu.length ? (
             <ul className="hidden gap-6 text-sm md:flex md:items-center">
@@ -74,8 +70,13 @@ function NavbarContent() {
           ) : null}
         </div>
 
-        {/* 右侧: 外部链接 + 社交图标 */}
-        <div className="flex items-center gap-6">
+        {/* 右侧: 外部链接 + 社交图标 + 手机菜单 */}
+        <div className="flex items-center gap-4 md:gap-6 shrink-0">
+          <div className="block md:hidden">
+            <Suspense fallback={null}>
+              <MobileMenu menu={menu} />
+            </Suspense>
+          </div>
           {/* Software.it Link */}
           <Link
             href="https://software.it"
@@ -105,7 +106,7 @@ function NavbarContent() {
             href="https://github.com/AIB612"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-neutral-500 hover:text-black dark:hover:text-white transition-colors"
+            className="hidden md:inline-flex text-neutral-500 hover:text-black dark:hover:text-white transition-colors"
             aria-label="GitHub"
           >
             <svg
@@ -127,7 +128,7 @@ function NavbarContent() {
             href="https://ch.linkedin.com/in/princessbranny"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-neutral-500 hover:text-black dark:hover:text-white transition-colors"
+            className="hidden md:inline-flex text-neutral-500 hover:text-black dark:hover:text-white transition-colors"
             aria-label="LinkedIn"
           >
             <svg

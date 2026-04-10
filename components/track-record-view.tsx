@@ -259,9 +259,9 @@ function DetailModal({ item, onClose, onNavigate }: { item: CaseItem; onClose: (
           </svg>
         </button>
 
-        <div className="flex-1 overflow-y-auto pb-12">
+        <div className="flex-1 overflow-y-auto pb-10 md:pb-12">
           {/* Header: Title and Year */}
-          <div className="mb-10 px-10 pt-5">
+          <div className="mb-8 md:mb-10 px-5 md:px-10 pt-5 md:pt-5">
             <h1 className="text-3xl md:text-4xl font-bold text-black tracking-[-0.02em] leading-tight mb-4 text-left">
               {item.title}
             </h1>
@@ -273,7 +273,7 @@ function DetailModal({ item, onClose, onNavigate }: { item: CaseItem; onClose: (
           </div>
 
           {/* Block 1: Image full-width */}
-          <div className="px-10 mb-10">
+          <div className="px-5 md:px-10 mb-8 md:mb-10">
             <div className={`w-full aspect-[2/1] rounded-2xl ${item.detailImage1 ? 'bg-neutral-100' : 'bg-gradient-to-br ' + item.thumbnailBg} overflow-hidden relative`}>
               {item.detailImage1 ? (
                 <Image src={item.detailImage1} alt={`${item.title} detail 1`} fill sizes="(min-width: 768px) 700px, 100vw" quality={100} className="absolute inset-0 w-full h-full object-cover object-center" />
@@ -289,16 +289,16 @@ function DetailModal({ item, onClose, onNavigate }: { item: CaseItem; onClose: (
             </div>
           </div>
           
-          <div className="flex justify-center mb-10 px-8 md:px-14 lg:px-20">
+          <div className="flex justify-center mb-8 md:mb-10 px-5 md:px-14 lg:px-20">
             <p className="text-center text-neutral-600 text-sm leading-relaxed max-w-xl">
               {item.title} is a {item.subtitle.toLowerCase()}. {item.context}
             </p>
           </div>
           
-          <div className="h-px w-[40px] bg-neutral-400 mx-auto mb-10" />
+          <div className="h-px w-[40px] bg-neutral-400 mx-auto mb-8 md:mb-10" />
 
           {/* Block 2: Secondary image / visual */}
-          <div className="px-10 mb-10">
+          <div className="px-5 md:px-10 mb-8 md:mb-10">
             <div className={`w-full aspect-[2/1] rounded-2xl ${item.detailImage2 ? 'bg-neutral-100' : 'bg-gradient-to-tl ' + item.thumbnailBg} overflow-hidden opacity-90 relative`}>
               {item.detailImage2 ? (
                 <Image src={item.detailImage2} alt={`${item.title} detail 2`} fill sizes="(min-width: 768px) 700px, 100vw" quality={100} className="absolute inset-0 w-full h-full object-cover object-center" />
@@ -308,20 +308,20 @@ function DetailModal({ item, onClose, onNavigate }: { item: CaseItem; onClose: (
             </div>
           </div>
           
-          <div className="flex justify-center mb-10 px-8 md:px-14 lg:px-20">
+          <div className="flex justify-center mb-8 md:mb-10 px-5 md:px-14 lg:px-20">
             <p className="text-center text-neutral-600 text-sm leading-relaxed max-w-xl">
               {item.execution.architecture}
             </p>
           </div>
           
-          <div className="h-px w-[40px] bg-neutral-400 mx-auto mb-12" />
+          <div className="h-px w-[40px] bg-neutral-400 mx-auto mb-10 md:mb-12" />
 
           {/* Conclusion/Summary Section */}
-          <div className="mb-8 px-8 md:px-14 lg:px-20 text-center">
-            <h3 className="text-[10px] font-bold tracking-[0.3em] text-neutral-400 mb-6">SUMMARY</h3>
+          <div className="mb-8 px-5 md:px-14 lg:px-20 text-center">
+            <h3 className="text-[10px] font-bold tracking-[0.3em] text-neutral-400 mb-5 md:mb-6">SUMMARY</h3>
             <p className="text-center text-neutral-600 text-sm leading-relaxed max-w-xl mx-auto" dangerouslySetInnerHTML={{ __html: item.highlight }} />
             
-            <div className="flex flex-wrap justify-center gap-2 mt-8">
+            <div className="flex flex-wrap justify-center gap-2 mt-6 md:mt-8">
               {item.tags.map(tag => (
                 <span key={tag} className="text-[10px] tracking-widest border border-neutral-200 px-4 py-1.5 text-neutral-500">
                   {tag}
@@ -335,7 +335,7 @@ function DetailModal({ item, onClose, onNavigate }: { item: CaseItem; onClose: (
         <div className="mt-auto border-t border-neutral-200 grid grid-cols-2 bg-white">
           {prevCase ? (
             <button 
-              className="p-6 md:p-8 flex flex-col items-start border-r border-neutral-200 hover:bg-neutral-50 transition-colors group"
+              className="p-5 md:p-8 flex flex-col items-start border-r border-neutral-200 hover:bg-neutral-50 transition-colors group"
               onClick={() => onNavigate(prevCase)}
             >
               <span className="text-[9px] tracking-[0.2em] text-neutral-400 mb-2 flex items-center gap-2 group-hover:text-black transition-colors">
@@ -348,7 +348,7 @@ function DetailModal({ item, onClose, onNavigate }: { item: CaseItem; onClose: (
 
           {nextCase ? (
             <button 
-              className="p-6 md:p-8 flex flex-col items-end hover:bg-neutral-50 transition-colors group text-right"
+              className="p-5 md:p-8 flex flex-col items-end hover:bg-neutral-50 transition-colors group text-right"
               onClick={() => onNavigate(nextCase)}
             >
               <span className="text-[9px] tracking-[0.2em] text-neutral-400 mb-2 flex items-center gap-2 group-hover:text-black transition-colors">
@@ -385,10 +385,34 @@ export function TrackRecordView({ initialCategory = 'ALL' }: { initialCategory?:
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="px-5 md:px-8 lg:px-20 pt-[5px] pb-6">
-        <h1 className="text-[30px] font-bold tracking-tight mb-6">All Work</h1>
+      <div className="px-5 md:px-8 lg:px-20 pt-5 md:pt-[5px] pb-5 md:pb-6">
+        <h1 className="text-[30px] font-bold tracking-tight mb-5 md:mb-6">All Work</h1>
         {/* Category Filters */}
-        <div className="flex flex-wrap gap-2 mb-[10px]">
+        <div className="md:hidden -mx-5 px-5 mb-4 overflow-x-auto scrollbar-hide">
+          <div className="flex w-max gap-2 pb-1">
+            {VIEW_CATEGORIES.map(cat => {
+              const href = cat.key === 'ALL'
+                ? '/search?view=track-record'
+                : `/search?view=track-record&category=${encodeURIComponent(cat.key)}`;
+
+              return (
+                <Link
+                  key={cat.key}
+                  href={href}
+                  className={`whitespace-nowrap text-[11px] font-medium px-4 py-2.5 rounded-full transition-all duration-200 cursor-pointer select-none ${
+                    activeCategory === cat.key
+                      ? 'bg-black text-white'
+                      : 'bg-neutral-100 text-neutral-500 hover:bg-neutral-200 hover:text-neutral-800'
+                  }`}
+                >
+                  {cat.label}
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="hidden md:flex flex-wrap gap-2 mb-[10px]">
           {VIEW_CATEGORIES.map(cat => {
             const href = cat.key === 'ALL'
               ? '/search?view=track-record'
@@ -413,15 +437,19 @@ export function TrackRecordView({ initialCategory = 'ALL' }: { initialCategory?:
       </div>
 
             {/* Project Grid - All square items, hover reveals black overlay */}
-      <div className="px-5 md:px-8 lg:px-20 mb-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-0 auto-rows-[400px]">
+      <div className="px-5 md:px-8 lg:px-20 mb-16 md:mb-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-y-0 gap-x-0 auto-rows-[300px] md:auto-rows-[400px]">
           {filteredCases.map((item, index) => {
             // All items are square now, but we still track full-width for layout purposes
             const isFullWidth = item.isFullWidth ?? false;
             const totalItems = filteredCases.length;
             const isFirst = index === 0;
-            const isSecondToLast = index === totalItems - 2;
             const isLast = index === totalItems - 1;
+            const isMobile = typeof window !== 'undefined' ? window.innerWidth < 768 : false;
+            const isLeftColumnOnDesktop = index % 2 === 0;
+            const getsBottomLeftRadius = isMobile
+              ? isLast
+              : (isLast && (isFullWidth || isLeftColumnOnDesktop));
 
             // Corner radius classes
             let cornerClasses = '';
@@ -430,8 +458,6 @@ export function TrackRecordView({ initialCategory = 'ALL' }: { initialCategory?:
               cornerClasses = 'rounded-[20px]';
             } else {
               // Multiple items: outer corners of the whole grid
-              // Left side: first item (top-left) and second-to-last or last (bottom-left)
-              // Right side: first item (top-right) and last item (bottom-right)
               
               // Top-left corner (first item)
               if (isFirst) {
@@ -443,8 +469,8 @@ export function TrackRecordView({ initialCategory = 'ALL' }: { initialCategory?:
                 cornerClasses += 'rounded-tr-[20px] ';
               }
               
-              // Bottom-left corner (second-to-last if not full-width, or last if full-width)
-              if ((isSecondToLast && !isFullWidth) || (isLast && isFullWidth)) {
+              // Bottom-left corner: only the real bottom-left card should get it
+              if (getsBottomLeftRadius) {
                 cornerClasses += 'rounded-bl-[20px] ';
               }
               
@@ -462,7 +488,7 @@ export function TrackRecordView({ initialCategory = 'ALL' }: { initialCategory?:
                 viewport={{ once: true, amount: 0 }}
                 transition={{ duration: 0.5, delay: (index % 3) * 0.1 }}
                 style={{ WebkitMaskImage: '-webkit-radial-gradient(white, black)', willChange: 'transform' }}
-                className={`group relative h-[400px] cursor-pointer overflow-hidden ${cornerClasses} ${isFullWidth ? 'md:col-span-2' : 'md:col-span-1'}`}
+                className={`group relative h-[300px] md:h-[400px] cursor-pointer overflow-hidden ${cornerClasses} ${isFullWidth ? 'md:col-span-2' : 'md:col-span-1'}`}
                 onClick={() => setSelectedCase(item)}
               >
                 {/* Background Image/Gradient */}
@@ -480,52 +506,32 @@ export function TrackRecordView({ initialCategory = 'ALL' }: { initialCategory?:
                 )}
                 
                 {/* Black Overlay - appears on hover */}
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/35 transition-all duration-[600ms] ease-out" />
-                
-                {/* Corner Number - always visible */}
-                <span className="absolute top-3 left-4 text-[9px] tracking-[0.25em] font-mono text-white/50 z-10 transition-opacity duration-300 group-hover:text-white/90">
-                  {item.no}
-                </span>
-                
-                {/* Category Tag - always visible */}
-                <span className="absolute top-3 right-4 text-[8px] tracking-[0.2em] text-white/50 z-10 transition-opacity duration-300 group-hover:text-white/90">
-                  {item.category}
-                </span>
-
-                {/* Content - appears on hover */}
                 <div className="absolute inset-0 flex flex-col p-4 md:p-6 lg:p-8 z-10">
-                  <div className="mt-auto translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-[500ms] ease-[0.33,1,0.68,1]">
-                    <div className="flex items-end justify-between gap-6">
-                      <div className="min-w-0 flex-1">
-                        <div className="flex items-center gap-2 mb-2">
-                          <p className="text-[9px] tracking-[0.2em] text-white/70 font-mono">{item.year}</p>
-                          <span className="h-px w-4 bg-white/30" />
-                          <p className="text-[9px] tracking-[0.2em] text-white/50">{item.location}</p>
+                  <div className="mt-auto translate-y-0 opacity-100 md:translate-y-8 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100 transition-all duration-[500ms] ease-[0.33,1,0.68,1]">
+                    <div className="rounded-2xl bg-black/30 px-4 py-4 md:bg-transparent md:p-0">
+                      <div className="flex items-end justify-between gap-6">
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center gap-2 mb-2">
+                            <p className="text-[9px] tracking-[0.2em] text-white/70 font-mono">{item.year}</p>
+                            <span className="h-px w-4 bg-white/30" />
+                            <p className="text-[9px] tracking-[0.2em] text-white/50">{item.location}</p>
+                          </div>
+
+                          <h3 className={`font-bold text-white mb-2 tracking-tight leading-tight ${isFullWidth ? 'text-xl md:text-3xl' : 'text-lg md:text-2xl'}`}>
+                            {item.title}
+                          </h3>
+                          
+                          <p className={`text-white/70 leading-relaxed ${isFullWidth ? 'text-sm md:text-base max-w-2xl' : 'text-xs max-w-[90%]'}`}>
+                            {item.subtitle}
+                          </p>
                         </div>
 
-                        <h3 className={`font-bold text-white mb-2 tracking-tight leading-tight ${isFullWidth ? 'text-xl md:text-3xl' : 'text-lg md:text-2xl'}`}>
-                          {item.title}
-                        </h3>
-                        
-                        <p className={`text-white/70 leading-relaxed mb-4 line-clamp-2 ${isFullWidth ? 'text-sm md:text-base max-w-2xl' : 'text-xs max-w-[90%]'}`}>
-                          {item.subtitle}
-                        </p>
-                        
-                        {/* Tags */}
-                        <div className="flex flex-wrap gap-1.5">
-                          {item.tags.slice(0, 3).map(tag => (
-                            <span key={tag} className="text-[8px] tracking-[0.15em] text-white/60 border border-white/20 px-2 py-1 backdrop-blur-sm">
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div className="shrink-0 self-end text-white/80 group-hover:text-white transition-colors">
-                        <div className="w-10 h-10 rounded-full border border-white/30 flex items-center justify-center transition-transform duration-[500ms] ease-[0.33,1,0.68,1] group-hover:translate-x-1.5 group-hover:bg-white group-hover:text-black">
-                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                          </svg>
+                        <div className="shrink-0 self-end text-white md:text-white/80 transition-colors md:group-hover:text-white">
+                          <div className="w-10 h-10 rounded-full border border-white/30 flex items-center justify-center bg-white/10 md:bg-transparent transition-transform duration-[500ms] ease-[0.33,1,0.68,1] md:group-hover:translate-x-1.5 md:group-hover:bg-white md:group-hover:text-black">
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                            </svg>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -537,7 +543,7 @@ export function TrackRecordView({ initialCategory = 'ALL' }: { initialCategory?:
         </div>
       </div>
 
-      <div className="px-5 md:px-8 lg:px-20 py-12 flex items-center justify-between border-t border-neutral-100 bg-neutral-50/50">
+      <div className="px-5 md:px-8 lg:px-20 py-10 md:py-12 flex items-center justify-between border-t border-neutral-100 bg-neutral-50/50">
         <span className="text-[11px] tracking-[0.25em] text-neutral-400 font-mono">{filteredCases.length} PROJECTS</span>
         <Link href="/about#contact" className="text-[11px] tracking-[0.25em] font-medium text-neutral-500 hover:text-black transition-colors flex items-center gap-2">
           LET'S COLLABORATE

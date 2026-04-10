@@ -34,60 +34,81 @@ export default function MobileMenu({ menu }: { menu: Menu[] }) {
       <button
         onClick={openMobileMenu}
         aria-label="Open mobile menu"
-        className="flex h-11 w-11 items-center justify-center rounded-md border border-neutral-200 text-black transition-colors md:hidden dark:border-neutral-700 dark:text-white"
+        className="flex h-11 w-11 items-center justify-center rounded-full border border-neutral-200/80 bg-white/90 text-black shadow-sm backdrop-blur-sm transition-colors md:hidden dark:border-neutral-700 dark:bg-black/80 dark:text-white"
       >
         <Bars3Icon className="h-4" />
       </button>
       <Transition show={isOpen}>
-        <Dialog onClose={closeMobileMenu} className="relative z-50">
+        <Dialog onClose={closeMobileMenu} className="relative z-50 md:hidden">
           <Transition.Child
             as={Fragment}
-            enter="transition-all ease-in-out duration-300"
-            enterFrom="opacity-0 backdrop-blur-none"
-            enterTo="opacity-100 backdrop-blur-[.5px]"
-            leave="transition-all ease-in-out duration-200"
-            leaveFrom="opacity-100 backdrop-blur-[.5px]"
-            leaveTo="opacity-0 backdrop-blur-none"
+            enter="transition-all ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="transition-all ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
+            <div className="fixed inset-0 bg-black/70 backdrop-blur-xl" aria-hidden="true" />
           </Transition.Child>
+
           <Transition.Child
             as={Fragment}
-            enter="transition-all ease-in-out duration-300"
-            enterFrom="translate-x-[-100%]"
-            enterTo="translate-x-0"
-            leave="transition-all ease-in-out duration-200"
-            leaveFrom="translate-x-0"
-            leaveTo="translate-x-[-100%]"
+            enter="transition-all ease-out duration-300"
+            enterFrom="opacity-0 scale-[0.98]"
+            enterTo="opacity-100 scale-100"
+            leave="transition-all ease-in duration-200"
+            leaveFrom="opacity-100 scale-100"
+            leaveTo="opacity-0 scale-[0.98]"
           >
-            <Dialog.Panel className="fixed bottom-0 left-0 right-0 top-0 flex h-full w-full flex-col bg-white pb-6 dark:bg-black">
-              <div className="p-4">
+            <Dialog.Panel className="fixed inset-0 flex min-h-screen flex-col px-5 pt-5 pb-8 text-white">
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] tracking-[0.35em] text-white/45 font-mono">
+                  MENU
+                </span>
                 <button
-                  className="mb-4 flex h-11 w-11 items-center justify-center rounded-md border border-neutral-200 text-black transition-colors dark:border-neutral-700 dark:text-white"
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition-colors hover:bg-white/15"
                   onClick={closeMobileMenu}
                   aria-label="Close mobile menu"
                 >
-                  <XMarkIcon className="h-6" />
+                  <XMarkIcon className="h-5 w-5" />
                 </button>
+              </div>
 
+              <div className="flex flex-1 flex-col items-center justify-center">
                 {menu.length ? (
-                  <ul className="flex w-full flex-col">
-                    {menu.map((item: Menu) => (
-                      <li
-                        className="py-2 text-xl text-black transition-colors hover:text-neutral-500 dark:text-white"
-                        key={item.title}
-                      >
-                        <Link
-                          href={item.path}
-                          prefetch={true}
-                          onClick={closeMobileMenu}
+                  <ul className="flex w-full max-w-sm flex-col items-center gap-4 text-center">
+                    {menu.map((item: Menu, index) => (
+                      <li key={item.title} className="w-full overflow-hidden">
+                        <Transition.Child
+                          as={Fragment}
+                          enter="transition-all ease-out duration-300"
+                          enterFrom="opacity-0 translate-y-3"
+                          enterTo="opacity-100 translate-y-0"
+                          leave="transition-all ease-in duration-200"
+                          leaveFrom="opacity-100 translate-y-0"
+                          leaveTo="opacity-0 translate-y-2"
                         >
-                          {item.title}
-                        </Link>
+                          <Link
+                            href={item.path}
+                            prefetch={true}
+                            onClick={closeMobileMenu}
+                            className="block text-[clamp(1.8rem,7vw,2.5rem)] font-semibold tracking-[-0.03em] text-white/92 transition-all duration-300 hover:text-white"
+                            style={{ transitionDelay: `${index * 40}ms` }}
+                          >
+                            {item.title}
+                          </Link>
+                        </Transition.Child>
                       </li>
                     ))}
                   </ul>
                 ) : null}
+              </div>
+
+              <div className="flex items-center justify-center pt-8 pr-2">
+                <span className="text-[10px] tracking-[0.28em] text-white/35 font-mono translate-x-3">
+                  CHENXUE BRANNY
+                </span>
               </div>
             </Dialog.Panel>
           </Transition.Child>
