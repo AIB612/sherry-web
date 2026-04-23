@@ -1,6 +1,6 @@
 import { baseUrl } from "lib/utils";
 
-const pageUrl = `${baseUrl}/all-work`;
+const pageUrl = `${baseUrl}/all-work.html`;
 const imageUrl = `${baseUrl}/social-share-cover.jpg`;
 const description =
   "Explore high-impact case studies by Chenxue Branny spanning AI, IT, digital transformation, enterprise platforms, UX strategy, and growth-focused product execution.";

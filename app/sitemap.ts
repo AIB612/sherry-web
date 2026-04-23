@@ -9,18 +9,17 @@ export const dynamic = "force-static";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const routesMap = [
     "",
-    "/all-work",
-    "/my-methodology",
-    "/digital-tool",
-    "/about",
-    "/work",
+    "/all-work.html",
+    "/my-methodology.html",
+    "/digital-tool.html",
+    "/about.html",
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date().toISOString(),
   }));
 
   const workRoutes = portfolioItems.map((item) => ({
-    url: `${baseUrl}/work/${item.id}`,
+    url: `${baseUrl}/work/${item.id}.html`,
     lastModified: new Date().toISOString(),
   }));
 

@@ -1,6 +1,6 @@
 import { baseUrl } from "lib/utils";
 
-const pageUrl = `${baseUrl}/digital-tool`;
+const pageUrl = `${baseUrl}/digital-tool.html`;
 const imageUrl = `${baseUrl}/social-share-cover.jpg`;
 const description =
   "Use Chenxue Branny's digital maturity framework to identify growth gaps, prioritize transformation, and accelerate smarter decisions across strategy, technology, and operations.";

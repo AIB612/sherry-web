@@ -1,6 +1,6 @@
 import { baseUrl } from "lib/utils";
 
-const pageUrl = `${baseUrl}/my-methodology`;
+const pageUrl = `${baseUrl}/my-methodology.html`;
 const imageUrl = `${baseUrl}/social-share-cover.jpg`;
 const description =
   "See the frameworks Chenxue Branny uses to turn complex business challenges into clear AI, IT, product, and digital transformation strategies that scale.";
