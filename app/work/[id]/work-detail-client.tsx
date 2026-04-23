@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { portfolioItems } from "lib/portfolio-data";
+import { unifiedWorkItems } from "lib/work-items";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -18,7 +18,7 @@ export default function WorkDetailClient({
   // But since this is 'use client' we use React.use() to unwrap
   const { id } = React.use(params);
 
-  const item = portfolioItems.find((p) => p.id === id);
+  const item = unifiedWorkItems.find((p) => p.id === id);
 
   if (!item) {
     return (
@@ -33,11 +33,11 @@ export default function WorkDetailClient({
     setTimeout(() => router.back(), 300);
   };
 
-  const currentIndex = portfolioItems.findIndex((p) => p.id === id);
-  const prevItem = currentIndex > 0 ? portfolioItems[currentIndex - 1] : null;
+  const currentIndex = unifiedWorkItems.findIndex((p) => p.id === id);
+  const prevItem = currentIndex > 0 ? unifiedWorkItems[currentIndex - 1] : null;
   const nextItem =
-    currentIndex < portfolioItems.length - 1
-      ? portfolioItems[currentIndex + 1]
+    currentIndex < unifiedWorkItems.length - 1
+      ? unifiedWorkItems[currentIndex + 1]
       : null;
 
   return (
