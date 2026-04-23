@@ -26,7 +26,7 @@ function NavbarContent() {
         {/* 左侧: Logo + 菜单 */}
         <div className="flex items-center gap-4 md:gap-6 min-w-0">
           <Link href="/" prefetch={true} className="flex items-center shrink-0">
-            <span className="text-base md:text-lg whitespace-nowrap">
+            <span className="text-lg sm:text-xl md:text-lg whitespace-nowrap leading-none">
               <span className="font-normal">Chenxue</span>{" "}
               <span className="font-bold">Branny</span>
             </span>
