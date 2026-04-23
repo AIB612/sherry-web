@@ -1,8 +1,13 @@
 import { ReadonlyURLSearchParams } from "next/navigation";
 
-export const baseUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
-  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-  : "http://localhost:3000";
+const configuredSiteUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+const vercelProductionUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL?.trim();
+
+export const baseUrl = configuredSiteUrl
+  ? configuredSiteUrl.replace(/\/$/, "")
+  : vercelProductionUrl
+    ? `https://${vercelProductionUrl}`
+    : "https://portfolio.malim.online";
 
 export const createUrl = (
   pathname: string,
