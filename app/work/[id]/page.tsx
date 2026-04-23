@@ -43,7 +43,9 @@ export async function generateMetadata(props: {
   }
 
   const pageUrl = `${baseUrl}/work/${item.id}.html`;
-  const imageUrl = `${baseUrl}/work/${item.id}/opengraph-image`;
+  const imageUrl = item.image
+    ? `${baseUrl}${item.image}`
+    : `${baseUrl}/social-share-cover.jpg`;
   const description = `${item.title} — ${item.subtitle}. ${item.description}`;
   const descriptionDe = `${item.title} — ${item.subtitle}. Entdecken Sie dieses Projekt von Chenxue Branny aus den Bereichen KI, IT, digitale Transformation und Produktstrategie.`;
 
