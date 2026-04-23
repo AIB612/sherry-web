@@ -7,7 +7,14 @@ import { categories } from "lib/search-data";
 export const dynamic = "force-static";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const routesMap = ["", "/search", "/work"].map((route) => ({
+  const routesMap = [
+    "",
+    "/all-work",
+    "/my-methodology",
+    "/digital-tool",
+    "/about",
+    "/work",
+  ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date().toISOString(),
   }));

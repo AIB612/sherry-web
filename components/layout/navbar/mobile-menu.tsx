@@ -49,7 +49,10 @@ export default function MobileMenu({ menu }: { menu: Menu[] }) {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-black/70 backdrop-blur-xl" aria-hidden="true" />
+            <div
+              className="fixed inset-0 bg-black/70 backdrop-blur-xl"
+              aria-hidden="true"
+            />
           </Transition.Child>
 
           <Transition.Child

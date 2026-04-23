@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
@@ -7,41 +7,29 @@ import MobileMenu from "./mobile-menu";
 import { Menu } from "lib/shopify/types";
 
 const defaultMenu: Menu[] = [
-  { title: 'Home', path: '/' },
-  { title: 'All Work', path: '/search?view=track-record' },
-  { title: 'My Methodology', path: '/protocol' },
-  { title: 'Digital Tool', path: '/digital-tool' },
-  { title: 'About', path: '/about' },
+  { title: "Home", path: "/" },
+  { title: "All Work", path: "/all-work" },
+  { title: "My Methodology", path: "/my-methodology" },
+  { title: "Digital Tool", path: "/digital-tool" },
+  { title: "About", path: "/about" },
 ];
 
 function NavbarContent() {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const view = searchParams.get('view');
-  
   const menu = defaultMenu;
 
-  const isActiveLink = (path: string) => {
-    if (path.includes('?')) {
-      const [basePath, query] = path.split('?');
-      const params = new URLSearchParams(query);
-      const viewParam = params.get('view');
-      return pathname === basePath && view === viewParam;
-    }
-    return pathname === path && !view;
-  };
+  const isActiveLink = (path: string) => pathname === path;
 
   return (
     <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md relative flex items-center justify-between px-5 md:px-8 lg:px-20 py-3 md:py-4">
       <div className="flex w-full items-center justify-between">
         {/* 左侧: Logo + 菜单 */}
         <div className="flex items-center gap-4 md:gap-6 min-w-0">
-          <Link
-            href="/"
-            prefetch={true}
-            className="flex items-center shrink-0"
-          >
-            <span className="text-base md:text-lg whitespace-nowrap"><span className="font-normal">Chenxue</span> <span className="font-bold">Branny</span></span>
+          <Link href="/" prefetch={true} className="flex items-center shrink-0">
+            <span className="text-base md:text-lg whitespace-nowrap">
+              <span className="font-normal">Chenxue</span>{" "}
+              <span className="font-bold">Branny</span>
+            </span>
           </Link>
           {menu.length ? (
             <ul className="hidden gap-6 text-sm md:flex md:items-center">
@@ -54,14 +42,16 @@ function NavbarContent() {
                       prefetch={true}
                       className={`relative underline-offset-4 transition-colors pb-1 group ${
                         isActive
-                          ? 'text-black dark:text-white'
-                          : 'text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-neutral-300'
+                          ? "text-black dark:text-white"
+                          : "text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-neutral-300"
                       }`}
                     >
                       {item.title}
-                      <span className={`absolute bottom-0 left-0 h-[1px] bg-black dark:bg-white transition-all duration-300 ${
-                        isActive ? 'w-full' : 'w-0 group-hover:w-full'
-                      }`} />
+                      <span
+                        className={`absolute bottom-0 left-0 h-[1px] bg-black dark:bg-white transition-all duration-300 ${
+                          isActive ? "w-full" : "w-0 group-hover:w-full"
+                        }`}
+                      />
                     </Link>
                   </li>
                 );
@@ -155,7 +145,11 @@ function NavbarContent() {
 
 export function Navbar() {
   return (
-    <Suspense fallback={<nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md h-14" />}>
+    <Suspense
+      fallback={
+        <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md h-14" />
+      }
+    >
       <NavbarContent />
     </Suspense>
   );
