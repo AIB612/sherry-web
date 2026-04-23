@@ -522,12 +522,14 @@ export default function AboutPage() {
             transition={{ duration: 0.7 }}
           >
             <h1 className="text-2xl md:text-3xl font-bold tracking-tighter mb-5 md:mb-6">
-              About
+              About Chenxue Branny
             </h1>
             <div className="w-16 h-[1px] bg-black mb-6 md:mb-8" />
             <p className="text-neutral-500 leading-relaxed mb-8 md:mb-12 max-w-[620px]">
-              Developer and designer based in Switzerland. Building digital
-              products that are clean, functional, and thoughtfully crafted.
+              Chenxue Branny is an AI & IT expert based in Switzerland,
+              focused on digital transformation, AI automation, product
+              strategy, and modern software systems that help businesses grow
+              faster and operate more intelligently.
             </p>
 
             {/* 手机端: 资料块放在 About 文案下面 */}
@@ -549,12 +551,12 @@ export default function AboutPage() {
                 Chenxue Branny
               </h2>
               <p className="text-xs text-neutral-400 tracking-[0.18em] mb-5">
-                FULLSTACK DEVELOPER · SWITZERLAND
+                AI & IT EXPERT · SWITZERLAND
               </p>
               <p className="text-sm text-neutral-500 leading-relaxed mb-6 max-w-sm">
-                Specializing in full-stack development and AI integration. From
-                software licensing to EV charging platforms and Swiss-compliant
-                AI infrastructure.
+                Specializing in AI automation, full-stack product development,
+                RAG systems, Azure workflows, and digital transformation for
+                Swiss SMEs and modern growth-focused businesses.
               </p>
               <div className="flex flex-wrap gap-2 mb-6">
                 {[
