@@ -400,14 +400,14 @@ export default function HomePageClient() {
               }}
               className="text-[9px] tracking-[0.5em] text-white/40 font-mono"
             >
-              FINE-TUNING · RAG · AI STRATEGY · SWITZERLAND
+              FINE-TUNING · RAG · DIGITAL PRODUCT
             </motion.p>
           </div>
 
           {/* Philosophy headline */}
           {[
-            { text: "Chenxue Branny", color: "text-white" },
-            { text: "AI & IT Expert", color: "text-white/85" },
+            { text: "Small AI,", color: "text-white" },
+            { text: "Only For You.", color: "text-white/85" },
           ].map(({ text, color }, i) => (
             <div key={text} className="overflow-hidden">
               <motion.h1
@@ -435,10 +435,7 @@ export default function HomePageClient() {
                 transition={{ duration: 0.6, delay: 0.9 }}
                 className="text-white/70 text-[17px] md:text-[22px] leading-relaxed max-w-[520px] font-mono"
               >
-                Chenxue Branny helps Swiss and international businesses build
-                AI systems, digital products, automation workflows, and
-                customer-focused growth strategies with privacy, clarity, and
-                execution in mind.
+                Your Computer. Your Data. Your AI. Total Privacy.
               </motion.p>
               <motion.div
                 initial={{ opacity: 0, y: 15 }}
