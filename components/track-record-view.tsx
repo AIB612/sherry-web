@@ -813,7 +813,7 @@ export function TrackRecordView({
             return (
               <Link
                 key={item.id}
-                href={`/work/${item.id}`}
+                href={`/work/${item.id}.html`}
                 className={`group relative h-[300px] md:h-[400px] cursor-pointer overflow-hidden ${cornerClasses} ${isFullWidth ? "md:col-span-2" : "md:col-span-1"}`}
               >
                 {/* Background Image/Gradient */}

@@ -212,7 +212,7 @@ export default function WorkDetailClient({
           className="flex justify-between items-center pt-16 border-t border-neutral-200"
         >
           {prevItem ? (
-            <Link href={`/work/${prevItem.id}`} className="group">
+            <Link href={`/work/${prevItem.id}.html`} className="group">
               <p className="text-[10px] tracking-[0.2em] text-neutral-400 mb-1">
                 ← PREVIOUS
               </p>
@@ -232,7 +232,7 @@ export default function WorkDetailClient({
           </Link>
 
           {nextItem ? (
-            <Link href={`/work/${nextItem.id}`} className="text-right group">
+            <Link href={`/work/${nextItem.id}.html`} className="text-right group">
               <p className="text-[10px] tracking-[0.2em] text-neutral-400 mb-1">
                 NEXT →
               </p>
