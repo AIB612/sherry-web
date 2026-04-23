@@ -632,7 +632,7 @@ export default function HomePageClient() {
                 className="relative z-20 md:hidden flex flex-col border-t border-b border-neutral-200"
               >
                 <Link
-                  href="/all-work"
+                  href="/all-work.html"
                   className="flex items-center justify-between py-4 border-b border-neutral-200"
                 >
                   <div>
@@ -668,7 +668,7 @@ export default function HomePageClient() {
                 className="relative z-20 hidden md:flex flex-col sm:flex-row gap-3"
               >
                 <Link
-                  href="/all-work"
+                  href="/all-work.html"
                   className="px-7 py-3.5 bg-black text-white text-[11px] tracking-[0.1em] font-medium hover:bg-neutral-800 transition-colors"
                 >
                   ALL WORK
@@ -1334,7 +1334,7 @@ export default function HomePageClient() {
 
                       {/* CTA */}
                       <Link
-                        href="/about#contact"
+                        href="/about.html#contact"
                         className="inline-block w-full text-center px-6 py-4 bg-black text-white text-[11px] tracking-[0.15em] font-medium hover:bg-neutral-800 transition-colors"
                       >
                         GET A QUOTE

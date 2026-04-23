@@ -225,7 +225,7 @@ export default function WorkDetailClient({
           )}
 
           <Link
-            href="/all-work"
+            href="/all-work.html"
             className="text-sm text-neutral-500 hover:text-black transition-colors"
           >
             All Work

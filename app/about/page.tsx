@@ -327,12 +327,12 @@ const projectPreviewMap: Record<
   "2016": {
     title: "Lazada Seller Center",
     image: "/images/work/Lazada.png",
-    href: "/all-work",
+    href: "/all-work.html",
   },
   "2017": {
     title: "Lazada Seller Center",
     image: "/images/work/Lazada.png",
-    href: "/all-work",
+    href: "/all-work.html",
   },
   "2018": {
     title: "Master Wan × IKEA O2O / WeiYun",
@@ -362,7 +362,7 @@ const projectPreviewMap: Record<
   "2023": {
     title: "Selected Work",
     image: "/images/work/Malim.png",
-    href: "/all-work",
+    href: "/all-work.html",
   },
   "2024": {
     title: "Hampelmann Shopify",
@@ -999,7 +999,7 @@ export default function AboutPage() {
             className="mt-8"
           >
             <Link
-              href="/all-work"
+              href="/all-work.html"
               className="inline-flex items-center gap-2 text-sm font-medium hover:gap-3 transition-all"
             >
               View all projects
