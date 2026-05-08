@@ -42,7 +42,9 @@ function createEmptyCart(): Cart {
   };
 }
 
-function updateCartTotals(lines: CartItem[]): Pick<Cart, "totalQuantity" | "cost"> {
+function updateCartTotals(
+  lines: CartItem[],
+): Pick<Cart, "totalQuantity" | "cost"> {
   const totalQuantity = lines.reduce((sum, item) => sum + item.quantity, 0);
   const totalAmount = lines.reduce(
     (sum, item) => sum + Number(item.cost.totalAmount.amount),
@@ -69,13 +71,13 @@ export function CartProvider({
 }) {
   // Load cart from localStorage on mount
   const [cart, setCart] = useState<Cart>(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('cart');
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("cart");
       if (saved) {
         try {
           return JSON.parse(saved);
         } catch (e) {
-          console.error('Failed to parse cart from localStorage:', e);
+          console.error("Failed to parse cart from localStorage:", e);
         }
       }
     }
@@ -84,93 +86,101 @@ export function CartProvider({
 
   // Save cart to localStorage whenever it changes
   React.useEffect(() => {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('cart', JSON.stringify(cart));
+    if (typeof window !== "undefined") {
+      localStorage.setItem("cart", JSON.stringify(cart));
     }
   }, [cart]);
 
-  const updateCartItem = useCallback((merchandiseId: string, updateType: UpdateType) => {
-    setCart((currentCart) => {
-      const updatedLines = currentCart.lines
-        .map((item) => {
-          if (item.merchandise.id !== merchandiseId) return item;
-          
-          if (updateType === "delete") return null;
-          
-          const newQuantity = updateType === "plus" ? item.quantity + 1 : item.quantity - 1;
-          if (newQuantity === 0) return null;
-          
-          const singleItemAmount = Number(item.cost.totalAmount.amount) / item.quantity;
-          return {
-            ...item,
-            quantity: newQuantity,
-            cost: {
-              ...item.cost,
-              totalAmount: {
-                ...item.cost.totalAmount,
-                amount: (singleItemAmount * newQuantity).toString(),
+  const updateCartItem = useCallback(
+    (merchandiseId: string, updateType: UpdateType) => {
+      setCart((currentCart) => {
+        const updatedLines = currentCart.lines
+          .map((item) => {
+            if (item.merchandise.id !== merchandiseId) return item;
+
+            if (updateType === "delete") return null;
+
+            const newQuantity =
+              updateType === "plus" ? item.quantity + 1 : item.quantity - 1;
+            if (newQuantity === 0) return null;
+
+            const singleItemAmount =
+              Number(item.cost.totalAmount.amount) / item.quantity;
+            return {
+              ...item,
+              quantity: newQuantity,
+              cost: {
+                ...item.cost,
+                totalAmount: {
+                  ...item.cost.totalAmount,
+                  amount: (singleItemAmount * newQuantity).toString(),
+                },
               },
+            };
+          })
+          .filter(Boolean) as CartItem[];
+
+        if (updatedLines.length === 0) {
+          return createEmptyCart();
+        }
+
+        return {
+          ...currentCart,
+          ...updateCartTotals(updatedLines),
+          lines: updatedLines,
+        };
+      });
+    },
+    [],
+  );
+
+  const addCartItem = useCallback(
+    (variant: ProductVariant, product: Product) => {
+      setCart((currentCart) => {
+        const existingItem = currentCart.lines.find(
+          (item) => item.merchandise.id === variant.id,
+        );
+
+        const quantity = existingItem ? existingItem.quantity + 1 : 1;
+        const totalAmount = calculateItemCost(quantity, variant.price.amount);
+
+        const updatedItem: CartItem = {
+          id: existingItem?.id || `cart-item-${variant.id}`,
+          quantity,
+          cost: {
+            totalAmount: {
+              amount: totalAmount,
+              currencyCode: variant.price.currencyCode,
             },
-          };
-        })
-        .filter(Boolean) as CartItem[];
-
-      if (updatedLines.length === 0) {
-        return createEmptyCart();
-      }
-
-      return {
-        ...currentCart,
-        ...updateCartTotals(updatedLines),
-        lines: updatedLines,
-      };
-    });
-  }, []);
-
-  const addCartItem = useCallback((variant: ProductVariant, product: Product) => {
-    setCart((currentCart) => {
-      const existingItem = currentCart.lines.find(
-        (item) => item.merchandise.id === variant.id,
-      );
-
-      const quantity = existingItem ? existingItem.quantity + 1 : 1;
-      const totalAmount = calculateItemCost(quantity, variant.price.amount);
-
-      const updatedItem: CartItem = {
-        id: existingItem?.id || `cart-item-${variant.id}`,
-        quantity,
-        cost: {
-          totalAmount: {
-            amount: totalAmount,
-            currencyCode: variant.price.currencyCode,
           },
-        },
-        merchandise: {
-          id: variant.id,
-          title: variant.title,
-          selectedOptions: variant.selectedOptions,
-          product: {
-            id: product.id,
-            handle: product.handle,
-            title: product.title,
-            featuredImage: product.featuredImage,
+          merchandise: {
+            id: variant.id,
+            title: variant.title,
+            selectedOptions: variant.selectedOptions,
+            product: {
+              id: product.id,
+              handle: product.handle,
+              title: product.title,
+              featuredImage: product.featuredImage,
+            },
           },
-        },
-      };
+        };
 
-      const updatedLines = existingItem
-        ? currentCart.lines.map((item) =>
-            item.merchandise.id === variant.id ? updatedItem : item,
-          )
-        : [...currentCart.lines, updatedItem];
+        const updatedLines = existingItem
+          ? currentCart.lines.map((item) =>
+              item.merchandise.id === variant.id ? updatedItem : item,
+            )
+          : [...currentCart.lines, updatedItem];
 
-      return {
-        ...currentCart,
-        ...updateCartTotals(updatedLines),
-        lines: updatedLines,
-      };
-    });
-  }, []);
+        return {
+          ...currentCart,
+          ...updateCartTotals(updatedLines),
+          lines: updatedLines,
+        };
+      });
+    },
+    [],
+  );
 
   const value = useMemo(
     () => ({
@@ -181,11 +191,7 @@ export function CartProvider({
     [cart, updateCartItem, addCartItem],
   );
 
-  return (
-    <CartContext.Provider value={value}>
-      {children}
-    </CartContext.Provider>
-  );
+  return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }
 
 export function useCart() {

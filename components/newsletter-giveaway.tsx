@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 
 export default function NewsletterGiveaway() {
-  const [email, setEmail] = useState('');
-  const [product, setProduct] = useState('Adobe');
+  const [email, setEmail] = useState("");
+  const [product, setProduct] = useState("Adobe");
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -44,7 +44,7 @@ export default function NewsletterGiveaway() {
             disabled={submitted}
             className="text-sm font-medium border-b border-black pb-2 hover:opacity-60 transition-opacity disabled:opacity-40 whitespace-nowrap"
           >
-            {submitted ? 'Submitted ✓' : 'Subscribe →'}
+            {submitted ? "Submitted ✓" : "Subscribe →"}
           </button>
         </form>
       </div>

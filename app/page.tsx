@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import HomePageClient from "components/home-page-client";
 import { baseUrl } from "lib/utils";
 
-const title = "Chenxue Branny | AI & IT Expert in Switzerland";
+const title =
+  "Chenxue Branny | Digitalization, AI & Process Automation in Switzerland";
 const description =
-  "Chenxue Branny is an AI & IT expert in Switzerland helping businesses grow through digital transformation, AI automation, RAG systems, Azure workflows, and customer-focused product strategy.";
+  "Chenxue Branny is based in Switzerland and helps Swiss SMEs and service businesses improve workflows, reduce manual work, and grow through digitalization, AI automation, Azure systems, and practical process design. Available for local projects in Switzerland and selected work across Europe and the US.";
 const descriptionDe =
-  "Chenxue Branny ist eine KI- und IT-Expertin in der Schweiz und unterstützt Unternehmen mit digitaler Transformation, KI-Automatisierung, RAG-Systemen, Azure-Workflows und kundenzentrierter Produktstrategie beim Wachstum.";
+  "Chenxue Branny ist in der Schweiz tätig und unterstützt Schweizer KMU und Dienstleistungsunternehmen dabei, Abläufe zu verbessern, manuelle Arbeit zu reduzieren und durch Digitalisierung, KI-Automatisierung, Azure-Systeme und praxisnahe Prozessgestaltung zu wachsen. Verfügbar für lokale Projekte in der Schweiz sowie ausgewählte Projekte in Europa und den USA.";
 
 export const metadata: Metadata = {
   title,

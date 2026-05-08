@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FadeInView } from "components/animations";
 import Link from "next/link";
 import {
@@ -59,7 +59,7 @@ const categories: Category[] = [
         ],
         links: [
           {
-            label: "Enter Module",
+            label: "Open Source",
             url: "https://github.com/AIB612/DigitalTransformationAI",
           },
         ],
@@ -78,7 +78,7 @@ const categories: Category[] = [
         ],
         links: [
           {
-            label: "Enter Module",
+            label: "Open Source",
             url: "https://github.com/AIB612/DigitalTransformationAI",
           },
         ],
@@ -97,7 +97,7 @@ const categories: Category[] = [
         ],
         links: [
           {
-            label: "Enter Module",
+            label: "Open Source",
             url: "https://github.com/AIB612/DigitalTransformationAI",
           },
         ],
@@ -116,7 +116,7 @@ const categories: Category[] = [
         ],
         links: [
           {
-            label: "Enter Module",
+            label: "Open Source",
             url: "https://github.com/AIB612/DigitalTransformationAI",
           },
         ],
@@ -1528,6 +1528,28 @@ export default function ProtocolPage() {
   const [zoomedPdf, setZoomedPdf] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  // Read hash on mount and when hash changes
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.slice(1); // remove #
+      if (!hash) return;
+
+      // Find which category + sub this hash belongs to
+      for (const cat of categories) {
+        const sub = cat.subs.find((s) => s.id === hash);
+        if (sub) {
+          setActiveCatId(cat.id);
+          setActiveSubId(sub.id);
+          return;
+        }
+      }
+    };
+
+    handleHashChange(); // run on mount
+    window.addEventListener("hashchange", handleHashChange);
+    return () => window.removeEventListener("hashchange", handleHashChange);
+  }, []);
+
   const activeCat = categories.find((c) => c.id === activeCatId)!;
   const activeSub =
     activeCat.subs.find((s) => s.id === activeSubId) || activeCat.subs[0]!;
@@ -1535,13 +1557,16 @@ export default function ProtocolPage() {
   const handleCatClick = (catId: string) => {
     setActiveCatId(catId);
     const cat = categories.find((c) => c.id === catId)!;
-    setActiveSubId(cat.subs[0]!.id);
+    const firstSubId = cat.subs[0]!.id;
+    setActiveSubId(firstSubId);
+    window.location.hash = firstSubId;
   };
 
   const handleSubSelect = (catId: string, subId: string) => {
     setActiveCatId(catId);
     setActiveSubId(subId);
     setMobileMenuOpen(false);
+    window.location.hash = subId;
   };
 
   return (
@@ -1645,7 +1670,10 @@ export default function ProtocolPage() {
                         {cat.subs.map((sub) => (
                           <button
                             key={sub.id}
-                            onClick={() => setActiveSubId(sub.id)}
+                            onClick={() => {
+                              setActiveSubId(sub.id);
+                              window.location.hash = sub.id;
+                            }}
                             className={`w-full text-left px-3 py-1.5 rounded-md text-xs transition-all duration-200 ${
                               activeSubId === sub.id
                                 ? "text-black font-semibold bg-neutral-50"
@@ -1673,12 +1701,38 @@ export default function ProtocolPage() {
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.2 }}
               >
-                {/* Breadcrumb */}
-                <div className="flex items-center gap-2 text-[11px] text-neutral-400 mb-6">
-                  <span>{activeCat.number}</span>
-                  <span>{activeCat.title}</span>
-                  <span>/</span>
-                  <span className="text-neutral-700">{activeSub.title}</span>
+                {/* Breadcrumb + Share Button */}
+                <div className="flex items-center justify-between gap-3 mb-6">
+                  <div className="flex items-center gap-2 text-[11px] text-neutral-400">
+                    <span>{activeCat.number}</span>
+                    <span>{activeCat.title}</span>
+                    <span>/</span>
+                    <span className="text-neutral-700">{activeSub.title}</span>
+                  </div>
+                  <button
+                    onClick={() => {
+                      const url = `${window.location.origin}${window.location.pathname}#${activeSub.id}`;
+                      navigator.clipboard.writeText(url);
+                      alert("Link copied to clipboard!");
+                    }}
+                    className="flex items-center gap-1.5 text-[10px] text-neutral-400 hover:text-black transition-colors px-2 py-1 rounded hover:bg-neutral-50"
+                    title="Copy link to this section"
+                  >
+                    <svg
+                      className="w-3.5 h-3.5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
+                      />
+                    </svg>
+                    <span>Share</span>
+                  </button>
                 </div>
 
                 {/* Title */}

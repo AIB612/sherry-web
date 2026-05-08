@@ -39,7 +39,12 @@ export function GridTileImage({
           <img
             src={src}
             alt={alt || ""}
-            style={{ maxWidth: '100px', maxHeight: '100px', width: 'auto', height: 'auto' }}
+            style={{
+              maxWidth: "100px",
+              maxHeight: "100px",
+              width: "auto",
+              height: "auto",
+            }}
             className={clsx("object-contain", {
               "transition duration-300 ease-in-out group-hover:scale-110":
                 isInteractive,

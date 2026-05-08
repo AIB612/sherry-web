@@ -14,7 +14,7 @@ export function generateStaticParams() {
   }));
 }
 
-function adaptProduct(product: typeof productDetails[0]) {
+function adaptProduct(product: (typeof productDetails)[0]) {
   return {
     id: product.id,
     handle: product.id,
@@ -43,7 +43,7 @@ function adaptProduct(product: typeof productDetails[0]) {
     variants: [
       {
         id: product.id,
-        title: 'Default',
+        title: "Default",
         availableForSale: true,
         selectedOptions: [],
         price: {
@@ -100,9 +100,11 @@ export default async function ProductPage(props: {
   if (!mockProduct) return notFound();
 
   const product = adaptProduct(mockProduct);
-  
+
   // Get other products (exclude current product)
-  const otherProducts = productDetails.filter((p) => p.id !== params.handle).slice(0, 4);
+  const otherProducts = productDetails
+    .filter((p) => p.id !== params.handle)
+    .slice(0, 4);
 
   const productJsonLd = {
     "@context": "https://schema.org",

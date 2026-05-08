@@ -16,7 +16,8 @@ const defaultMenu: Menu[] = [
 
 function NavbarContent() {
   const pathname = usePathname();
-  const menu = defaultMenu;
+  const menu = defaultMenu.filter((item) => item.title !== "About");
+  const desktopMenu = menu.filter((item) => item.title !== "Home");
 
   const isActiveLink = (path: string) => {
     if (path === "/") return pathname === "/";
@@ -37,7 +38,7 @@ function NavbarContent() {
           </Link>
           {menu.length ? (
             <ul className="hidden gap-6 text-sm md:flex md:items-center">
-              {menu.map((item: Menu) => {
+              {desktopMenu.map((item: Menu) => {
                 const isActive = isActiveLink(item.path);
                 return (
                   <li key={item.title}>

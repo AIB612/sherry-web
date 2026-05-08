@@ -2,7 +2,11 @@
 
 import clsx from "clsx";
 import { Dialog, Transition } from "@headlessui/react";
-import { ShoppingCartIcon, XMarkIcon, PencilIcon } from "@heroicons/react/24/outline";
+import {
+  ShoppingCartIcon,
+  XMarkIcon,
+  PencilIcon,
+} from "@heroicons/react/24/outline";
 import Price from "components/price";
 import { DEFAULT_OPTION } from "lib/constants";
 import { createUrl } from "lib/utils";
@@ -22,35 +26,35 @@ type MerchandiseSearchParams = {
 };
 
 function CartItemEmail({ merchandiseId }: { merchandiseId: string }) {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
   const [editing, setEditing] = useState(false);
-  const [editValue, setEditValue] = useState('');
+  const [editValue, setEditValue] = useState("");
 
   useEffect(() => {
-    const cartEmails = JSON.parse(localStorage.getItem('cartEmails') || '{}');
+    const cartEmails = JSON.parse(localStorage.getItem("cartEmails") || "{}");
     if (cartEmails[merchandiseId]) {
       setEmail(cartEmails[merchandiseId]);
     }
   }, [merchandiseId]);
 
   const handleSave = () => {
-    const cartEmails = JSON.parse(localStorage.getItem('cartEmails') || '{}');
+    const cartEmails = JSON.parse(localStorage.getItem("cartEmails") || "{}");
     if (editValue.trim()) {
       cartEmails[merchandiseId] = editValue.trim();
       setEmail(editValue.trim());
     } else {
       delete cartEmails[merchandiseId];
-      setEmail('');
+      setEmail("");
     }
-    localStorage.setItem('cartEmails', JSON.stringify(cartEmails));
+    localStorage.setItem("cartEmails", JSON.stringify(cartEmails));
     setEditing(false);
   };
 
   const handleDelete = () => {
-    const cartEmails = JSON.parse(localStorage.getItem('cartEmails') || '{}');
+    const cartEmails = JSON.parse(localStorage.getItem("cartEmails") || "{}");
     delete cartEmails[merchandiseId];
-    localStorage.setItem('cartEmails', JSON.stringify(cartEmails));
-    setEmail('');
+    localStorage.setItem("cartEmails", JSON.stringify(cartEmails));
+    setEmail("");
     setEditing(false);
   };
 
@@ -85,7 +89,10 @@ function CartItemEmail({ merchandiseId }: { merchandiseId: string }) {
         <div className="flex items-center gap-1">
           <span className="text-xs text-gray-500">📧 {email}</span>
           <button
-            onClick={() => { setEditValue(email); setEditing(true); }}
+            onClick={() => {
+              setEditValue(email);
+              setEditing(true);
+            }}
             className="text-gray-400 hover:text-black"
           >
             <PencilIcon className="h-3 w-3" />
@@ -169,7 +176,7 @@ export default function CartModal() {
                   <button
                     onClick={() => {
                       closeCart();
-                      window.location.href = '/search';
+                      window.location.href = "/search";
                     }}
                     className="mt-6 bg-[var(--color-airbnb-red)] text-white py-2 px-6 rounded-lg font-semibold hover:opacity-90 transition-opacity"
                   >
@@ -250,7 +257,9 @@ export default function CartModal() {
                                     </div>
                                   </Link>
                                   {/* Email display */}
-                                  <CartItemEmail merchandiseId={item.merchandise.id} />
+                                  <CartItemEmail
+                                    merchandiseId={item.merchandise.id}
+                                  />
                                 </div>
                               </div>
                               <div className="flex h-16 flex-col justify-between">

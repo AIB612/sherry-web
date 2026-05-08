@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { carouselProducts } from "lib/homepage-data";
 import Link from "next/link";
@@ -16,7 +16,11 @@ export function Carousel() {
             key={product.id}
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 + i * 0.1, ease: 'easeOut' }}
+            transition={{
+              duration: 0.5,
+              delay: 0.3 + i * 0.1,
+              ease: "easeOut",
+            }}
             className="relative aspect-square h-[30vh] max-h-[275px] w-2/3 max-w-[475px] flex-none md:w-1/3"
           >
             <motion.div

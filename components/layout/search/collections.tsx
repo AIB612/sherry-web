@@ -7,7 +7,7 @@ import { Suspense } from "react";
 
 function CollectionsContent() {
   const searchParams = useSearchParams();
-  const currentCategory = searchParams.get('category');
+  const currentCategory = searchParams.get("category");
 
   return (
     <nav>
@@ -16,38 +16,46 @@ function CollectionsContent() {
       </h3>
       <ul className="hidden md:block">
         {portfolioCategories.map((collection) => {
-          const isActive = currentCategory === collection.id || 
-            (!currentCategory && collection.id === '');
-          const href = collection.id 
-            ? `/search?category=${collection.id}` 
-            : '/search';
-          
+          const isActive =
+            currentCategory === collection.id ||
+            (!currentCategory && collection.id === "");
+          const href = collection.id
+            ? `/search?category=${collection.id}`
+            : "/search";
+
           return (
-            <li key={collection.id} className="mt-2 flex text-black dark:text-white">
+            <li
+              key={collection.id}
+              className="mt-2 flex text-black dark:text-white"
+            >
               {isActive ? (
                 <p className="w-full text-sm underline underline-offset-4">
-                  {collection.name} <span className="text-neutral-400">({collection.count})</span>
+                  {collection.name}{" "}
+                  <span className="text-neutral-400">({collection.count})</span>
                 </p>
               ) : (
                 <Link
                   href={href}
                   className="w-full text-sm underline-offset-4 hover:underline dark:hover:text-neutral-100"
                 >
-                  {collection.name} <span className="text-neutral-400">({collection.count})</span>
+                  {collection.name}{" "}
+                  <span className="text-neutral-400">({collection.count})</span>
                 </Link>
               )}
             </li>
           );
         })}
       </ul>
-      
+
       {/* Mobile dropdown */}
       <div className="md:hidden">
         <select
-          value={currentCategory || ''}
+          value={currentCategory || ""}
           onChange={(e) => {
             const value = e.target.value;
-            window.location.href = value ? `/search?category=${value}` : '/search';
+            window.location.href = value
+              ? `/search?category=${value}`
+              : "/search";
           }}
           className="w-full rounded border p-2 text-sm"
         >

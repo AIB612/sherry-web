@@ -11,15 +11,15 @@
   ::file-selector-button {
     border-color: var(--color-gray-200, currentColor);
   }
-  
+
   body {
     font-family: var(--font-cardo), serif;
     background-color: white;
   }
-  
+
   /* Swiss Flag Red Color (Pantone 485C) */
   :root {
-    --color-airbnb-red: #DA291C;
+    --color-airbnb-red: #da291c;
   }
 }
 

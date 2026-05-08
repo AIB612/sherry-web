@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { GridTileImage } from "components/grid/tile";
 import { homepageProducts, HomepageProduct } from "lib/homepage-data";

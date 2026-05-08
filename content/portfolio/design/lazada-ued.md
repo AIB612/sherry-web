@@ -45,6 +45,7 @@ The existing seller center had inconsistent UI patterns, poor user experience, a
 ## My Role
 
 Lead Product Designer responsible for:
+
 - User research and persona development
 - Design system architecture
 - UI/UX design for core features

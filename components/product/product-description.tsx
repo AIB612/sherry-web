@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import Price from "components/price";
 import Prose from "components/prose";
@@ -6,14 +6,22 @@ import { Product } from "lib/shopify/types";
 import { productDetails } from "lib/product-details";
 import Link from "next/link";
 
-export function ProductDescription({ product }: { product: Product & { productType?: string; category?: string } }) {
+export function ProductDescription({
+  product,
+}: {
+  product: Product & { productType?: string; category?: string };
+}) {
   const price = parseFloat(product.priceRange.maxVariantPrice.amount);
   const currencyCode = product.priceRange.maxVariantPrice.currencyCode;
 
   // Get other products (exclude current product)
   const currentCategory = product.category;
-  let sameCategory = productDetails.filter((p) => p.id !== product.id && p.category === currentCategory);
-  let otherCategory = productDetails.filter((p) => p.id !== product.id && p.category !== currentCategory);
+  let sameCategory = productDetails.filter(
+    (p) => p.id !== product.id && p.category === currentCategory,
+  );
+  let otherCategory = productDetails.filter(
+    (p) => p.id !== product.id && p.category !== currentCategory,
+  );
   let otherProducts = [...sameCategory, ...otherCategory].slice(0, 4);
 
   return (
@@ -30,7 +38,9 @@ export function ProductDescription({ product }: { product: Product & { productTy
           </div>
           <div>
             <h1 className="text-xl font-bold">{product.title}</h1>
-            <p className="text-sm text-neutral-500 dark:text-neutral-400">{product.description}</p>
+            <p className="text-sm text-neutral-500 dark:text-neutral-400">
+              {product.description}
+            </p>
           </div>
         </div>
         <div className="flex flex-col items-end flex-shrink-0">
@@ -38,7 +48,10 @@ export function ProductDescription({ product }: { product: Product & { productTy
             {currencyCode} {(price * 1.3).toFixed(2)}
           </span>
           <span className="text-xl font-bold text-[var(--color-airbnb-red)]">
-            <Price amount={product.priceRange.maxVariantPrice.amount} currencyCode={currencyCode} />
+            <Price
+              amount={product.priceRange.maxVariantPrice.amount}
+              currencyCode={currencyCode}
+            />
           </span>
           <span className="mt-1 rounded-full bg-green-100 px-2 py-0.5 text-xs font-semibold text-green-700 dark:bg-green-900/30 dark:text-green-400">
             -23% OFF
@@ -57,8 +70,12 @@ export function ProductDescription({ product }: { product: Product & { productTy
 
         <div className="rounded-xl border border-green-200 bg-green-50/80 p-4 dark:border-green-800 dark:bg-green-900/20">
           <div className="flex items-center gap-2 mb-3">
-            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-green-100 text-sm dark:bg-green-900/40">🔑</span>
-            <span className="text-sm font-bold text-green-800 dark:text-green-300">Chenxue Branny Exclusive</span>
+            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-green-100 text-sm dark:bg-green-900/40">
+              🔑
+            </span>
+            <span className="text-sm font-bold text-green-800 dark:text-green-300">
+              Chenxue Branny Exclusive
+            </span>
           </div>
           <div className="grid grid-cols-2 gap-1.5 text-xs text-green-700 dark:text-green-400">
             <div className="flex items-center gap-1.5">
@@ -97,11 +114,18 @@ export function ProductDescription({ product }: { product: Product & { productTy
                         <img
                           src={p.image}
                           alt={p.name}
-                          style={{ maxWidth: '32px', maxHeight: '32px', width: 'auto', height: 'auto' }}
+                          style={{
+                            maxWidth: "32px",
+                            maxHeight: "32px",
+                            width: "auto",
+                            height: "auto",
+                          }}
                           className="object-contain"
                         />
                       </div>
-                      <h3 className="font-semibold text-xs line-clamp-2 flex-1">{p.name}</h3>
+                      <h3 className="font-semibold text-xs line-clamp-2 flex-1">
+                        {p.name}
+                      </h3>
                     </div>
                     <div className="flex items-center justify-between">
                       <div className="flex flex-col">

@@ -9,6 +9,7 @@ import {
 import Link from "next/link";
 import TrackRecord from "components/track-record";
 import { useState, useRef, useEffect } from "react";
+import Image from "next/image";
 
 const services = [
   {
@@ -244,7 +245,13 @@ const services = [
 
 export default function HomePageClient() {
   const [expandedId, setExpandedId] = useState<number | null>(null);
+  const [showPrivacyModal, setShowPrivacyModal] = useState(false);
+  const [showInsightsPanel, setShowInsightsPanel] = useState(false);
+  const [insightsTab, setInsightsTab] = useState<
+    "insights" | "summit" | "material"
+  >("summit");
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const showServices = false;
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -435,7 +442,15 @@ export default function HomePageClient() {
                 transition={{ duration: 0.6, delay: 0.9 }}
                 className="text-white/70 text-[17px] md:text-[22px] leading-relaxed max-w-[520px] font-mono"
               >
-                Your Computer. Your Data. Your AI. Total Privacy.
+                Your Computer. Your Data. Your AI. Total Privacy.{" "}
+                <button
+                  type="button"
+                  onClick={() => setShowPrivacyModal(true)}
+                  className="inline-flex items-center gap-1 text-white underline underline-offset-4 hover:text-neutral-300 transition-colors"
+                >
+                  <span>How it works</span>
+                  <span>↗</span>
+                </button>
               </motion.p>
               <motion.div
                 initial={{ opacity: 0, y: 15 }}
@@ -620,9 +635,9 @@ export default function HomePageClient() {
                 transition={{ duration: 0.5, delay: 0.4 }}
                 className="text-neutral-500 text-[13px] md:text-[15px] leading-[1.7] max-w-[380px] mb-6 md:mb-10"
               >
-                From IT strategy to AI-powered enterprise solutions. Swiss-based
-                consulting for digital transformation, cloud infrastructure, and
-                intelligent automation.
+                Swiss-based consulting for digital workflows, practical AI
+                automation, and scalable systems that reduce manual work without
+                changing how your business already works best.
               </motion.p>
 
               <motion.div
@@ -680,10 +695,25 @@ export default function HomePageClient() {
                   SERVICES
                 </Link>
               </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.68 }}
+                className="relative z-20 mt-5"
+              >
+                <Link
+                  href="/digitalization-for-swiss-smes.html"
+                  className="inline-flex items-center gap-2 text-[11px] tracking-[0.18em] uppercase text-neutral-400 hover:text-black transition-colors"
+                >
+                  <span>For Swiss SMEs</span>
+                  <span>↗</span>
+                </Link>
+              </motion.div>
             </div>
 
             {/* Right: Visual Dashboard */}
-            <div className="relative h-[420px] hidden lg:block pointer-events-none">
+            <div className="relative h-[420px] hidden lg:block">
               {/* Subtle pulsing rings */}
               <motion.div
                 animate={{
@@ -749,10 +779,10 @@ export default function HomePageClient() {
                   </div>
                   <div className="flex-1">
                     <p className="text-[10px] font-semibold">
-                      AI & RAG Enterprise
+                      Knowledge Systems
                     </p>
                     <p className="text-[8px] text-neutral-400">
-                      Private Cloud · Swiss
+                      Search · Retrieval · Structure
                     </p>
                   </div>
                   <motion.div
@@ -841,6 +871,22 @@ export default function HomePageClient() {
                 </svg>
               </motion.div>
 
+              <button
+                type="button"
+                onClick={() => setShowPrivacyModal(true)}
+                className="absolute top-[28px] right-[18px] z-40 w-[150px] rounded-xl border border-black/10 bg-white/90 px-4 py-3 text-left backdrop-blur-md shadow-[0_18px_40px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all"
+              >
+                <p className="text-[9px] tracking-[0.24em] text-neutral-400 mb-1">
+                  PRIVATE AI
+                </p>
+                <p className="text-sm font-semibold tracking-[-0.02em] text-black">
+                  How it works ↗
+                </p>
+                <p className="text-[11px] text-neutral-500 mt-1 leading-relaxed">
+                  Local setup · private cloud · workflow control
+                </p>
+              </button>
+
               {/* Card 2 - Growth */}
               <motion.div
                 initial={{ opacity: 0, y: 60, scale: 0.95 }}
@@ -879,10 +925,10 @@ export default function HomePageClient() {
                   </div>
                   <div className="flex-1">
                     <p className="text-[10px] font-semibold">
-                      Strategy & Growth
+                      Process Design
                     </p>
                     <p className="text-[8px] text-neutral-400">
-                      Digital Transformation
+                      Operations · Clarity · Flow
                     </p>
                   </div>
                   <span className="text-[9px] font-bold text-emerald-500">
@@ -974,9 +1020,9 @@ export default function HomePageClient() {
                     </svg>
                   </div>
                   <div className="flex-1">
-                    <p className="text-[10px] font-semibold">Automation & AI</p>
+                    <p className="text-[10px] font-semibold">Workflow Automation</p>
                     <p className="text-[8px] text-neutral-400">
-                      Intelligent Workflows
+                      Handoffs · Tasks · Notifications
                     </p>
                   </div>
                   <motion.div
@@ -1095,6 +1141,7 @@ export default function HomePageClient() {
       </section>
 
       {/* Services Section */}
+      {showServices && (
       <section id="services" className="px-5 md:px-8 lg:px-20 py-16 md:py-32">
         <FadeInView>
           <div className="mb-12 md:mb-20 max-w-xl">
@@ -1105,8 +1152,8 @@ export default function HomePageClient() {
               What I Offer
             </h2>
             <p className="text-neutral-400 text-sm md:text-base leading-relaxed">
-              End-to-end digital solutions — from strategy and prototyping to
-              deployment and iteration.
+              Digital and automation support for Swiss businesses — practical,
+              scalable, and built around real operational needs.
             </p>
           </div>
         </FadeInView>
@@ -1347,6 +1394,51 @@ export default function HomePageClient() {
           )}
         </AnimatePresence>
       </section>
+      )}
+
+      <FadeInView>
+        <section className="px-5 md:px-8 lg:px-20 py-14 md:py-20 bg-neutral-50/60 border-y border-neutral-200/70">
+          <div className="grid gap-8 md:gap-10 lg:grid-cols-[0.9fr_1.1fr] items-center">
+            <div className="max-w-md">
+              <p className="text-[10px] tracking-[0.35em] text-neutral-400 mb-4 font-medium">
+                FROM THE FIELD
+              </p>
+              <h2 className="text-2xl md:text-4xl font-bold tracking-[-0.03em] leading-[1.08] mb-3">
+                Insights, summit traces, and industry material.
+              </h2>
+              <p className="text-neutral-500 text-sm md:text-base leading-relaxed mb-6">
+                A quieter layer of notes, references, and field signals — kept light here, with more detail behind the link.
+              </p>
+              <button
+                type="button"
+                onClick={() => setShowInsightsPanel(true)}
+                className="inline-flex items-center gap-2 text-[11px] tracking-[0.18em] text-neutral-500 hover:text-black transition-colors"
+              >
+                <span>VIEW INSIGHTS</span>
+                <span>↗</span>
+              </button>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setShowInsightsPanel(true)}
+              className="group border border-neutral-200 bg-white hover:border-black transition-colors text-left"
+            >
+              <div className="relative aspect-[16/9] overflow-hidden bg-neutral-100">
+                <Image
+                  src="/social-share-cover.jpg"
+                  alt="Insights and industry materials"
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                />
+                <div className="absolute left-4 top-4 bg-white/90 backdrop-blur px-3 py-2 border border-black/5">
+                  <p className="text-[10px] tracking-[0.28em] text-neutral-400">INSIGHT ENTRY</p>
+                </div>
+              </div>
+            </button>
+          </div>
+        </section>
+      </FadeInView>
 
       {/* CTA Section */}
       <FadeInView>
@@ -1418,8 +1510,17 @@ export default function HomePageClient() {
               <p className="text-neutral-400 text-sm md:text-base mb-8 md:mb-10 max-w-md mx-auto leading-relaxed">
                 Your Computer. Your Data. Your AI.
                 <br />
-                100% Total Privacy.
+                100% Total Privacy.{" "}
+                <button
+                  type="button"
+                  onClick={() => setShowPrivacyModal(true)}
+                  className="inline-flex items-center gap-1 text-neutral-300 underline underline-offset-4 hover:text-white transition-colors"
+                >
+                  <span>How it works</span>
+                  <span>↗</span>
+                </button>
               </p>
+              <div>
               <Link
                 href="https://calendly.com/cxbranny/30min"
                 target="_blank"
@@ -1428,10 +1529,407 @@ export default function HomePageClient() {
               >
                 GET IN TOUCH
               </Link>
+              </div>
             </motion.div>
           </div>
         </section>
       </FadeInView>
+
+      <AnimatePresence>
+        {showInsightsPanel && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/35 z-40"
+              onClick={() => setShowInsightsPanel(false)}
+            />
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", damping: 26, stiffness: 220 }}
+              className="fixed top-0 right-0 h-full w-full md:w-1/2 bg-white shadow-2xl z-50 overflow-y-auto"
+            >
+              <div className="p-6 md:p-8">
+                <div className="flex items-start justify-between gap-4 mb-6">
+                  <div>
+                    <p className="text-[10px] tracking-[0.32em] text-neutral-400 mb-2 font-medium">
+                      FROM THE FIELD
+                    </p>
+                    <h3 className="text-2xl md:text-3xl font-bold tracking-[-0.03em] leading-tight">
+                      Insights, summit traces, and industry material.
+                    </h3>
+                  </div>
+                  <button
+                    onClick={() => setShowInsightsPanel(false)}
+                    className="text-neutral-400 hover:text-black transition-colors"
+                    aria-label="Close insights panel"
+                  >
+                    ✕
+                  </button>
+                </div>
+
+                <div className="flex flex-wrap gap-2 mb-8 md:mb-10">
+                  {[
+                    { key: "insights", label: "Insights" },
+                    { key: "summit", label: "Summit Traces" },
+                    { key: "material", label: "Industry Material" },
+                  ].map((tab) => (
+                    <button
+                      key={tab.key}
+                      type="button"
+                      onClick={() =>
+                        setInsightsTab(
+                          tab.key as "insights" | "summit" | "material",
+                        )
+                      }
+                      className={`px-4 py-2 text-[11px] tracking-[0.18em] border transition-colors ${
+                        insightsTab === tab.key
+                          ? "border-black bg-black text-white"
+                          : "border-neutral-200 text-neutral-500 hover:text-black hover:border-black"
+                      }`}
+                    >
+                      {tab.label}
+                    </button>
+                  ))}
+                </div>
+
+                {insightsTab === "insights" && (
+                  <div className="pb-10 md:pb-12">
+                    <div className="mb-8 md:mb-10">
+                      <div className="flex items-center gap-4">
+                        <span className="text-[11px] tracking-[0.25em] font-mono text-neutral-400">
+                          01
+                        </span>
+                        <span className="h-px w-8 bg-neutral-200" />
+                        <span className="text-[10px] tracking-[0.2em] font-mono text-neutral-400">
+                          FIELD NOTES
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="mb-8 md:mb-10">
+                      <div className="w-full aspect-[2/1] rounded-2xl overflow-hidden relative bg-neutral-100">
+                        <Image
+                          src="/social-share-cover.jpg"
+                          alt="Insights field notes"
+                          fill
+                          className="absolute inset-0 w-full h-full object-cover object-center"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="flex justify-center mb-8 md:mb-10 px-0 md:px-4">
+                      <p className="text-center text-neutral-600 text-sm leading-relaxed max-w-xl">
+                        Short observations from real business settings — where AI,
+                        digitalization, and workflow change stop being abstract and
+                        start becoming operational decisions.
+                      </p>
+                    </div>
+
+                    <div className="h-px w-[40px] bg-neutral-400 mx-auto mb-8 md:mb-10" />
+
+                    <div className="flex justify-center mb-8 md:mb-10 px-0 md:px-4">
+                      <p className="text-center text-neutral-600 text-sm leading-relaxed max-w-xl">
+                        Repeated patterns keep showing up: scattered knowledge,
+                        slow handoffs, manual follow-ups, and too much strategy
+                        language without enough system design behind it.
+                      </p>
+                    </div>
+
+                    <div className="h-px w-[40px] bg-neutral-400 mx-auto mb-10 md:mb-12" />
+
+                    <div className="text-center">
+                      <h5 className="text-[10px] font-bold tracking-[0.3em] text-neutral-400 mb-5 md:mb-6">
+                        SUMMARY
+                      </h5>
+                      <p className="text-center text-neutral-600 text-sm leading-relaxed max-w-xl mx-auto">
+                        The most valuable insight is rarely a trend headline.
+                        It is usually the operational gap between what teams say
+                        they want to do and what their systems actually allow
+                        them to do each day.
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {insightsTab === "summit" && (
+                  <div className="pb-10 md:pb-12">
+                    <div className="space-y-4 mb-8 md:mb-10">
+                      {[
+                        "Hangzhou, China — Alibaba Pingtouge Entrepreneurship Track",
+                        "Shenzhen, China — UXID",
+                        "San Francisco, USA — Silicon Valley",
+                        "Vienna, Austria — Digital Leaders",
+                      ].map((entry) => (
+                        <div key={entry} className="border-t border-neutral-100 pt-4">
+                          <p className="text-sm md:text-base font-medium text-black leading-relaxed">
+                            {entry}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="mb-8 md:mb-10">
+                      <div className="w-full aspect-[2/1] rounded-2xl overflow-hidden relative bg-neutral-100">
+                        <Image
+                          src="/social-share-cover.jpg"
+                          alt="Summit traces"
+                          fill
+                          className="absolute inset-0 w-full h-full object-cover object-center"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="flex justify-center mb-8 md:mb-10 px-0 md:px-4">
+                      <p className="text-center text-neutral-600 text-sm leading-relaxed max-w-xl">
+                        Conference traces, city fragments, and real-world moments
+                        that continue shaping how I see product, design, and
+                        digital business across different markets.
+                      </p>
+                    </div>
+
+                    <div className="h-px w-[40px] bg-neutral-400 mx-auto mb-10 md:mb-12" />
+
+                    <div className="text-center">
+                      <h5 className="text-[10px] font-bold tracking-[0.3em] text-neutral-400 mb-5 md:mb-6">
+                        SUMMARY
+                      </h5>
+                      <p className="text-center text-neutral-600 text-sm leading-relaxed max-w-xl mx-auto">
+                        These traces matter because they are not just memories.
+                        They are reference points for how innovation feels on the
+                        ground — in rooms, cities, and conversations where ideas
+                        meet execution.
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {insightsTab === "material" && (
+                  <div className="pb-10 md:pb-12">
+                    <div className="mb-8 md:mb-10">
+                      <div className="flex items-center gap-4">
+                        <span className="text-[11px] tracking-[0.25em] font-mono text-neutral-400">
+                          03
+                        </span>
+                        <span className="h-px w-8 bg-neutral-200" />
+                        <span className="text-[10px] tracking-[0.2em] font-mono text-neutral-400">
+                          ARCHIVE
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="mb-8 md:mb-10">
+                      <div className="w-full aspect-[2/1] rounded-2xl overflow-hidden relative bg-neutral-100">
+                        <Image
+                          src="/protocol-hero.jpg"
+                          alt="Industry material archive"
+                          fill
+                          className="absolute inset-0 w-full h-full object-cover object-center"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="flex justify-center mb-8 md:mb-10 px-0 md:px-4">
+                      <p className="text-center text-neutral-600 text-sm leading-relaxed max-w-xl">
+                        A softer archive of references: event images, market cues,
+                        product notes, and collected material that can still be
+                        useful long after the original moment has passed.
+                      </p>
+                    </div>
+
+                    <div className="h-px w-[40px] bg-neutral-400 mx-auto mb-8 md:mb-10" />
+
+                    <div className="space-y-4 mb-8 md:mb-10">
+                      {[
+                        "historical event references and summit traces",
+                        "captured images and visual signals worth revisiting",
+                        "practical notes tied to AI, product, and digital transformation",
+                      ].map((entry) => (
+                        <div key={entry} className="border-t border-neutral-100 pt-4">
+                          <p className="text-sm md:text-base font-medium text-black leading-relaxed capitalize">
+                            {entry}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="h-px w-[40px] bg-neutral-400 mx-auto mb-10 md:mb-12" />
+
+                    <div className="text-center">
+                      <h5 className="text-[10px] font-bold tracking-[0.3em] text-neutral-400 mb-5 md:mb-6">
+                        SUMMARY
+                      </h5>
+                      <p className="text-center text-neutral-600 text-sm leading-relaxed max-w-xl mx-auto">
+                        Not everything needs to become a public article. Some
+                        things are more valuable as collected material — ready to
+                        support later thinking, storytelling, or strategy work.
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {showPrivacyModal && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/45 z-40"
+              onClick={() => setShowPrivacyModal(false)}
+            />
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", damping: 26, stiffness: 220 }}
+              className="fixed top-0 right-0 h-full w-full md:w-1/2 bg-white shadow-2xl z-50 overflow-y-auto"
+            >
+              <div className="p-6 md:p-8">
+                <div className="flex items-start justify-between gap-4 mb-10 md:mb-12">
+                  <div className="flex-1 text-center">
+                    <p className="text-[10px] tracking-[0.32em] text-neutral-400 mb-2 font-medium">
+                      PRIVACY-FIRST AI
+                    </p>
+                    <h3 className="text-2xl md:text-3xl font-bold tracking-[-0.03em] leading-tight">
+                      What is Small AI
+                    </h3>
+                  </div>
+                  <button
+                    onClick={() => setShowPrivacyModal(false)}
+                    className="text-neutral-400 hover:text-black transition-colors"
+                    aria-label="Close privacy modal"
+                  >
+                    ✕
+                  </button>
+                </div>
+
+                <div className="pb-10 md:pb-12">
+                  <div className="flex justify-center mb-10 md:mb-12 px-0 md:px-4">
+                    <p className="text-center text-neutral-600 text-sm leading-relaxed max-w-xl">
+                      A private AI setup built around one real person, one team,
+                      or one business workflow — not a generic public product.
+                      In practice, this can mean a local assistant connected to
+                      your own files, a private knowledge system over internal
+                      documents, or a workflow layer that reads structured inputs,
+                      triggers automations, and responds inside your own operating
+                      environment.
+                    </p>
+                  </div>
+
+                  <div className="h-px w-[48px] bg-neutral-400 mx-auto mb-10 md:mb-12" />
+
+                  <div className="mb-10 md:mb-12">
+                    <div className="w-full aspect-[2/1] rounded-2xl overflow-hidden relative bg-neutral-100">
+                      <Image
+                        src="/protocol-hero.jpg"
+                        alt="Privacy-first AI setup"
+                        fill
+                        className="absolute inset-0 w-full h-full object-cover object-center"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex justify-center mb-10 md:mb-12 px-0 md:px-4">
+                    <p className="text-center text-neutral-600 text-sm leading-relaxed max-w-xl">
+                      The real value is control. Files can stay on your own machine
+                      or private cloud, sensitive notes do not need to be pasted
+                      into public chat tools, and workflow logic can sit close to
+                      the systems already being used. Depending on the setup, the
+                      assistant can work with local folders, internal documentation,
+                      Google Workspace data, forms, sheets, lightweight databases,
+                      or approved APIs — without turning the whole workflow into a
+                      black box.
+                    </p>
+                  </div>
+
+                  <div className="h-px w-[48px] bg-neutral-400 mx-auto mb-10 md:mb-12" />
+
+                  <div className="space-y-8 mb-10 md:mb-12 text-center">
+                    <div>
+                      <p className="text-[11px] font-bold tracking-[0.28em] text-black mb-3">
+                        WHY IS IT NEEDED?
+                      </p>
+                      <p className="text-sm text-neutral-600 leading-relaxed max-w-xl mx-auto">
+                        Because many teams want AI support for real tasks — searching
+                        internal files, answering repeated questions, summarizing notes,
+                        drafting client responses, routing requests, or triggering
+                        follow-ups — but do not want to expose customer data, internal
+                        documents, or operating processes to tools they cannot fully
+                        audit or control.
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-[11px] font-bold tracking-[0.28em] text-black mb-3">
+                        WHO NEEDS IT?
+                      </p>
+                      <p className="text-sm text-neutral-600 leading-relaxed max-w-xl mx-auto">
+                        Small businesses, consultants, founders, operators, and lean
+                        teams who already know where time is being lost. It is especially
+                        useful when the work depends on recurring documents, service
+                        requests, booking flows, CRM notes, internal SOPs, proposal
+                        drafting, or knowledge that currently lives across folders,
+                        inboxes, spreadsheets, and people’s heads.
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-[11px] font-bold tracking-[0.28em] text-black mb-3">
+                        HOW IS IT DONE?
+                      </p>
+                      <p className="text-sm text-neutral-600 leading-relaxed max-w-xl mx-auto">
+                        It usually starts with one concrete use case: internal search,
+                        document Q&A, workflow automation, booking flow, or a daily
+                        assistant for recurring operations. Then the setup is designed
+                        around that one job first: the model layer, file access rules,
+                        retrieval or search logic, prompt structure, approved actions,
+                        and deployment boundary. Depending on the need, that can involve
+                        local models, hosted models with controlled access, RAG over
+                        internal documents, Google Drive or Sheets integrations, webhook
+                        automations, or lightweight databases that keep the assistant
+                        grounded in real business context.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="h-px w-[48px] bg-neutral-400 mx-auto mb-10 md:mb-12" />
+
+                  <div className="text-center">
+                    <h5 className="text-[10px] font-bold tracking-[0.3em] text-neutral-400 mb-5 md:mb-6">
+                      SUMMARY
+                    </h5>
+                    <p className="text-center text-neutral-600 text-sm leading-relaxed max-w-xl mx-auto mb-10">
+                      Privacy-first AI is not about making AI smaller just for the sake
+                      of it. It is about combining real technical structure — data
+                      boundaries, retrieval, controlled integrations, and workflow logic —
+                      with a setup that still feels personal, safe, and genuinely useful
+                      in everyday work.
+                    </p>
+                    <Link
+                      href="https://calendly.com/cxbranny/30min"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group inline-flex items-center justify-center gap-2 min-w-[280px] px-8 py-3.5 rounded-full bg-black text-white text-[11px] tracking-[0.16em] font-medium shadow-[0_18px_40px_rgba(0,0,0,0.18)] hover:bg-neutral-800 hover:-translate-y-0.5 hover:shadow-[0_24px_48px_rgba(0,0,0,0.22)] transition-all"
+                    >
+                      <span>GET A FREE AI WORKFLOW REVIEW</span>
+                      <span className="transition-transform duration-200 group-hover:translate-x-0.5">
+                        ↗
+                      </span>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </>
   );
 }

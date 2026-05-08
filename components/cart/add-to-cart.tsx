@@ -17,24 +17,29 @@ export function AddToCart({
   requiresEmail?: boolean;
 }) {
   const [added, setAdded] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const { addCartItem } = useCart();
 
   const searchParams = useSearchParams();
-  const defaultVariantId = product.variants.length === 1 ? product.variants[0]!.id : undefined;
+  const defaultVariantId =
+    product.variants.length === 1 ? product.variants[0]!.id : undefined;
   const variant = product.variants.find((v: ProductVariant) =>
     v.selectedOptions.every(
-      (option) => option.value === searchParams.get(option.name.toLowerCase())
-    )
+      (option) => option.value === searchParams.get(option.name.toLowerCase()),
+    ),
   );
-  const selectedVariant = variant || (defaultVariantId ? product.variants.find(v => v.id === defaultVariantId) : undefined);
+  const selectedVariant =
+    variant ||
+    (defaultVariantId
+      ? product.variants.find((v) => v.id === defaultVariantId)
+      : undefined);
 
   const handleClick = () => {
     if (requiresEmail && !email) {
-      setError('Please enter your account email');
+      setError("Please enter your account email");
       return;
     }
-    setError('');
+    setError("");
 
     if (!selectedVariant) return;
 
@@ -47,10 +52,12 @@ export function AddToCart({
 
     // Use a global store for emails
     if (email) {
-      if (typeof window !== 'undefined') {
-        const cartEmails = JSON.parse(localStorage.getItem('cartEmails') || '{}');
+      if (typeof window !== "undefined") {
+        const cartEmails = JSON.parse(
+          localStorage.getItem("cartEmails") || "{}",
+        );
         cartEmails[selectedVariant.id] = email;
-        localStorage.setItem('cartEmails', JSON.stringify(cartEmails));
+        localStorage.setItem("cartEmails", JSON.stringify(cartEmails));
       }
     }
 

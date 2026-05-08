@@ -1,15 +1,16 @@
 export const products = [
   {
-    id: '1',
-    name: 'Adobe Creative Cloud',
-    type: 'account',
-    category: 'design',
-    price: 648.00,
-    originalPrice: 780.00,
+    id: "1",
+    name: "Adobe Creative Cloud",
+    type: "account",
+    category: "design",
+    price: 648.0,
+    originalPrice: 780.0,
     discount: 17,
-    currency: 'CHF',
-    billingCycle: 'yearly',
-    description: 'Complete Adobe Creative Suite with 20+ professional apps for design, video, web, and photography. Perfect for creative professionals and teams.',
+    currency: "CHF",
+    billingCycle: "yearly",
+    description:
+      "Complete Adobe Creative Suite with 20+ professional apps for design, video, web, and photography. Perfect for creative professionals and teams.",
     longDescription: `
       <h3>What's Included</h3>
       <p>Get access to the entire Adobe Creative Cloud suite with over 20 industry-leading apps:</p>
@@ -45,21 +46,27 @@ export const products = [
       <h3>System Requirements</h3>
       <p>Compatible with Windows 10/11 and macOS 10.15 or later. Internet connection required for activation and updates.</p>
     `,
-    features: ['20+ Creative Apps', '100GB Cloud Storage', 'Adobe Fonts', 'Regular Updates'],
-    image: '/logos/adobe.png',
-    badge: 'POPULAR',
+    features: [
+      "20+ Creative Apps",
+      "100GB Cloud Storage",
+      "Adobe Fonts",
+      "Regular Updates",
+    ],
+    image: "/logos/adobe.png",
+    badge: "POPULAR",
   },
   {
-    id: '2',
-    name: 'JetBrains All Products',
-    type: 'account',
-    category: 'program',
-    price: 99.90,
-    originalPrice: 685.00,
+    id: "2",
+    name: "JetBrains All Products",
+    type: "account",
+    category: "program",
+    price: 99.9,
+    originalPrice: 685.0,
     discount: 85,
-    currency: 'CHF',
-    billingCycle: 'yearly',
-    description: 'Complete JetBrains toolbox with all IDEs for every programming language. Boost your productivity with intelligent code assistance.',
+    currency: "CHF",
+    billingCycle: "yearly",
+    description:
+      "Complete JetBrains toolbox with all IDEs for every programming language. Boost your productivity with intelligent code assistance.",
     longDescription: `
       <h3>All JetBrains IDEs Included</h3>
       <p>Get unlimited access to all JetBrains professional development tools:</p>
@@ -98,21 +105,27 @@ export const products = [
       <h3>System Requirements</h3>
       <p>Windows 10/11, macOS 10.14+, or Linux. 8GB RAM minimum (16GB recommended). SSD drive recommended for best performance.</p>
     `,
-    features: ['All IDEs', 'Code Analysis', 'Refactoring Tools', 'Database Tools'],
-    image: '/logos/jetbrains.png',
-    badge: 'SAVE 85%',
+    features: [
+      "All IDEs",
+      "Code Analysis",
+      "Refactoring Tools",
+      "Database Tools",
+    ],
+    image: "/logos/jetbrains.png",
+    badge: "SAVE 85%",
   },
   {
-    id: '3',
-    name: 'Axure RP 10 Team',
-    type: 'key',
-    category: 'design',
-    price: 99.90,
-    originalPrice: 440.00,
+    id: "3",
+    name: "Axure RP 10 Team",
+    type: "key",
+    category: "design",
+    price: 99.9,
+    originalPrice: 440.0,
     discount: 77,
-    currency: 'CHF',
-    billingCycle: 'yearly',
-    description: 'Professional prototyping and wireframing tool for UX designers. Create interactive prototypes without coding.',
+    currency: "CHF",
+    billingCycle: "yearly",
+    description:
+      "Professional prototyping and wireframing tool for UX designers. Create interactive prototypes without coding.",
     longDescription: `
       <h3>Professional Prototyping Made Easy</h3>
       <p>Axure RP 10 is the industry-standard tool for creating interactive prototypes and specifications:</p>
@@ -150,21 +163,27 @@ export const products = [
       <h3>System Requirements</h3>
       <p>Windows 10/11 or macOS 10.14+. 4GB RAM minimum. Internet connection for cloud features.</p>
     `,
-    features: ['Team Collaboration', 'Interactive Prototypes', 'Design Systems', 'Auto Documentation'],
-    image: '/logos/axure.png',
-    badge: 'BEST DEAL',
+    features: [
+      "Team Collaboration",
+      "Interactive Prototypes",
+      "Design Systems",
+      "Auto Documentation",
+    ],
+    image: "/logos/axure.png",
+    badge: "BEST DEAL",
   },
   {
-    id: '4',
-    name: 'Navicat Premium',
-    type: 'key',
-    category: 'program',
-    price: 99.90,
-    originalPrice: 350.00,
+    id: "4",
+    name: "Navicat Premium",
+    type: "key",
+    category: "program",
+    price: 99.9,
+    originalPrice: 350.0,
     discount: 71,
-    currency: 'CHF',
-    billingCycle: 'yearly',
-    description: 'Universal database management tool supporting MySQL, PostgreSQL, MongoDB, SQL Server, Oracle, and more.',
+    currency: "CHF",
+    billingCycle: "yearly",
+    description:
+      "Universal database management tool supporting MySQL, PostgreSQL, MongoDB, SQL Server, Oracle, and more.",
     longDescription: `
       <h3>All-in-One Database Management</h3>
       <p>Navicat Premium is a powerful database development tool that lets you connect to multiple databases simultaneously:</p>
@@ -201,21 +220,27 @@ export const products = [
       <h3>System Requirements</h3>
       <p>Windows 10/11, macOS 10.14+, or Linux. 2GB RAM minimum. Compatible with all major database versions.</p>
     `,
-    features: ['Multi-Database Support', 'Data Modeling', 'Query Builder', 'SSH Tunnel'],
-    image: '/logos/navicat.png',
-    badge: 'LIMITED TIME',
+    features: [
+      "Multi-Database Support",
+      "Data Modeling",
+      "Query Builder",
+      "SSH Tunnel",
+    ],
+    image: "/logos/navicat.png",
+    badge: "LIMITED TIME",
   },
   {
-    id: '5',
-    name: 'SecureCRT',
-    type: 'key',
-    category: 'security',
-    price: 72.00,
-    originalPrice: 87.00,
+    id: "5",
+    name: "SecureCRT",
+    type: "key",
+    category: "security",
+    price: 72.0,
+    originalPrice: 87.0,
     discount: 17,
-    currency: 'CHF',
-    billingCycle: 'one-time',
-    description: 'Professional SSH client for secure remote access. Advanced terminal emulation with powerful scripting capabilities.',
+    currency: "CHF",
+    billingCycle: "one-time",
+    description:
+      "Professional SSH client for secure remote access. Advanced terminal emulation with powerful scripting capabilities.",
     longDescription: `
       <h3>Professional SSH Terminal</h3>
       <p>SecureCRT is a rock-solid terminal emulator with advanced SSH capabilities for secure remote access:</p>
@@ -252,25 +277,36 @@ export const products = [
       <h3>System Requirements</h3>
       <p>Windows 10/11, macOS 10.12+, or Linux. Lifetime license with free updates for the current major version.</p>
     `,
-    features: ['SSH/Telnet Client', 'Session Management', 'Script Automation', 'Port Forwarding'],
-    image: '/logos/securecrt.png',
+    features: [
+      "SSH/Telnet Client",
+      "Session Management",
+      "Script Automation",
+      "Port Forwarding",
+    ],
+    image: "/logos/securecrt.png",
   },
   {
-    id: '6',
-    name: 'Adobe Creative Cloud (Monthly)',
-    type: 'account',
-    category: 'design',
-    price: 9.90,
-    originalPrice: 12.90,
+    id: "6",
+    name: "Adobe Creative Cloud (Monthly)",
+    type: "account",
+    category: "design",
+    price: 9.9,
+    originalPrice: 12.9,
     discount: 23,
-    currency: 'CHF',
-    billingCycle: 'monthly',
-    description: 'Complete Adobe Creative Suite with 20+ professional apps. Monthly subscription with flexible cancellation.',
+    currency: "CHF",
+    billingCycle: "monthly",
+    description:
+      "Complete Adobe Creative Suite with 20+ professional apps. Monthly subscription with flexible cancellation.",
     longDescription: `<p>Same as yearly plan - all 20+ Adobe apps, 100GB storage, Adobe Fonts. Cancel anytime.</p>`,
-    features: ['20+ Creative Apps', '100GB Cloud Storage', 'Adobe Fonts', 'Cancel Anytime'],
-    image: '/logos/adobe.png',
-    badge: 'FLEXIBLE',
+    features: [
+      "20+ Creative Apps",
+      "100GB Cloud Storage",
+      "Adobe Fonts",
+      "Cancel Anytime",
+    ],
+    image: "/logos/adobe.png",
+    badge: "FLEXIBLE",
   },
 ];
 
-export type Product = typeof products[0];
+export type Product = (typeof products)[0];

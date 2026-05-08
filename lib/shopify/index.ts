@@ -136,7 +136,7 @@ const reshapeCart = (cart: ShopifyCart): Cart => {
 };
 
 const reshapeCollection = (
-  collection: ShopifyCollection
+  collection: ShopifyCollection,
 ): Collection | undefined => {
   if (!collection) {
     return undefined;
@@ -178,7 +178,7 @@ const reshapeImages = (images: Connection<Image>, productTitle: string) => {
 
 const reshapeProduct = (
   product: ShopifyProduct,
-  filterHiddenProducts: boolean = true
+  filterHiddenProducts: boolean = true,
 ) => {
   if (
     !product ||
@@ -221,7 +221,7 @@ export async function createCart(): Promise<Cart> {
 }
 
 export async function addToCart(
-  lines: { merchandiseId: string; quantity: number }[]
+  lines: { merchandiseId: string; quantity: number }[],
 ): Promise<Cart> {
   const cartId = (await cookies()).get("cartId")?.value!;
   const res = await shopifyFetch<ShopifyAddToCartOperation>({
@@ -248,7 +248,7 @@ export async function removeFromCart(lineIds: string[]): Promise<Cart> {
 }
 
 export async function updateCart(
-  lines: { id: string; merchandiseId: string; quantity: number }[]
+  lines: { id: string; merchandiseId: string; quantity: number }[],
 ): Promise<Cart> {
   const cartId = (await cookies()).get("cartId")?.value!;
   const res = await shopifyFetch<ShopifyUpdateCartOperation>({
@@ -265,12 +265,12 @@ export async function updateCart(
 export async function getCart(): Promise<Cart | undefined> {
   // Mock cart - return empty cart for now
   return {
-    id: 'mock-cart',
-    checkoutUrl: '/checkout',
+    id: "mock-cart",
+    checkoutUrl: "/checkout",
     cost: {
-      subtotalAmount: { amount: '0', currencyCode: 'CHF' },
-      totalAmount: { amount: '0', currencyCode: 'CHF' },
-      totalTaxAmount: { amount: '0', currencyCode: 'CHF' },
+      subtotalAmount: { amount: "0", currencyCode: "CHF" },
+      totalAmount: { amount: "0", currencyCode: "CHF" },
+      totalTaxAmount: { amount: "0", currencyCode: "CHF" },
     },
     lines: [],
     totalQuantity: 0,
@@ -278,9 +278,8 @@ export async function getCart(): Promise<Cart | undefined> {
 }
 
 export async function getCollection(
-  handle: string
+  handle: string,
 ): Promise<Collection | undefined> {
-
   const res = await shopifyFetch<ShopifyCollectionOperation>({
     query: getCollectionQuery,
     variables: {
@@ -300,10 +299,9 @@ export async function getCollectionProducts({
   reverse?: boolean;
   sortKey?: string;
 }): Promise<Product[]> {
-
   if (!endpoint) {
     console.log(
-      `Skipping getCollectionProducts for '${collection}' - Shopify not configured`
+      `Skipping getCollectionProducts for '${collection}' - Shopify not configured`,
     );
     return [];
   }
@@ -323,12 +321,11 @@ export async function getCollectionProducts({
   }
 
   return reshapeProducts(
-    removeEdgesAndNodes(res.body.data.collection.products)
+    removeEdgesAndNodes(res.body.data.collection.products),
   );
 }
 
 export async function getCollections(): Promise<Collection[]> {
-
   if (!endpoint) {
     console.log("Skipping getCollections - Shopify not configured");
     return [
@@ -365,7 +362,7 @@ export async function getCollections(): Promise<Collection[]> {
     // Filter out the `hidden` collections.
     // Collections that start with `hidden-*` need to be hidden on the search page.
     ...reshapeCollections(shopifyCollections).filter(
-      (collection) => !collection.handle.startsWith("hidden")
+      (collection) => !collection.handle.startsWith("hidden"),
     ),
   ];
 
@@ -373,7 +370,6 @@ export async function getCollections(): Promise<Collection[]> {
 }
 
 export async function getMenu(handle: string): Promise<Menu[]> {
-
   if (!endpoint) {
     console.log(`Skipping getMenu for '${handle}' - Shopify not configured`);
     return [];
@@ -415,7 +411,6 @@ export async function getPages(): Promise<Page[]> {
 }
 
 export async function getProduct(handle: string): Promise<Product | undefined> {
-
   if (!endpoint) {
     console.log(`Skipping getProduct for '${handle}' - Shopify not configured`);
     return undefined;
@@ -432,9 +427,8 @@ export async function getProduct(handle: string): Promise<Product | undefined> {
 }
 
 export async function getProductRecommendations(
-  productId: string
+  productId: string,
 ): Promise<Product[]> {
-
   const res = await shopifyFetch<ShopifyProductRecommendationsOperation>({
     query: getProductRecommendationsQuery,
     variables: {
@@ -454,7 +448,6 @@ export async function getProducts({
   reverse?: boolean;
   sortKey?: string;
 }): Promise<Product[]> {
-
   const res = await shopifyFetch<ShopifyProductsOperation>({
     query: getProductsQuery,
     variables: {

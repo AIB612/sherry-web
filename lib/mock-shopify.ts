@@ -1,28 +1,28 @@
-import { products } from './mock-data';
+import { products } from "./mock-data";
 
 // 将我们的产品数据转换为 Shopify 格式
 export function getCollectionProducts({ collection }: { collection: string }) {
   // 根据不同的 collection 返回不同的产���
-  if (collection === 'hidden-homepage-featured-items') {
+  if (collection === "hidden-homepage-featured-items") {
     // 返回前 3 个产品用于 ThreeItemGrid
     return products.slice(0, 3).map(adaptProduct);
   }
-  
-  if (collection === 'hidden-homepage-carousel') {
+
+  if (collection === "hidden-homepage-carousel") {
     // 返回所有产品用于 Carousel
     return products.map(adaptProduct);
   }
-  
+
   return products.map(adaptProduct);
 }
 
 export function getProduct(handle: string) {
-  const product = products.find(p => p.id === handle);
+  const product = products.find((p) => p.id === handle);
   return product ? adaptProduct(product) : null;
 }
 
 // 将我们的产品格式转换为 Shopify Product 格式
-function adaptProduct(product: typeof products[0]) {
+function adaptProduct(product: (typeof products)[0]) {
   return {
     id: product.id,
     handle: product.id,
@@ -50,7 +50,7 @@ function adaptProduct(product: typeof products[0]) {
         {
           node: {
             id: product.id,
-            title: 'Default',
+            title: "Default",
             availableForSale: true,
             selectedOptions: [],
             price: {
@@ -97,12 +97,12 @@ export function getCart(cartId: string) {
 export function createCart() {
   // 创建空购物车
   return {
-    id: 'mock-cart-id',
-    checkoutUrl: '/checkout',
+    id: "mock-cart-id",
+    checkoutUrl: "/checkout",
     cost: {
-      subtotalAmount: { amount: '0', currencyCode: 'CHF' },
-      totalAmount: { amount: '0', currencyCode: 'CHF' },
-      totalTaxAmount: { amount: '0', currencyCode: 'CHF' },
+      subtotalAmount: { amount: "0", currencyCode: "CHF" },
+      totalAmount: { amount: "0", currencyCode: "CHF" },
+      totalTaxAmount: { amount: "0", currencyCode: "CHF" },
     },
     lines: { edges: [] },
     totalQuantity: 0,

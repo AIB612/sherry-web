@@ -1,14 +1,22 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import { ReactNode } from 'react';
+import { motion } from "framer-motion";
+import { ReactNode } from "react";
 
-export function FadeIn({ children, delay = 0, className = '' }: { children: ReactNode; delay?: number; className?: string }) {
+export function FadeIn({
+  children,
+  delay = 0,
+  className = "",
+}: {
+  children: ReactNode;
+  delay?: number;
+  className?: string;
+}) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay, ease: 'easeOut' }}
+      transition={{ duration: 0.5, delay, ease: "easeOut" }}
       className={className}
     >
       {children}
@@ -16,13 +24,21 @@ export function FadeIn({ children, delay = 0, className = '' }: { children: Reac
   );
 }
 
-export function FadeInView({ children, delay = 0, className = '' }: { children: ReactNode; delay?: number; className?: string }) {
+export function FadeInView({
+  children,
+  delay = 0,
+  className = "",
+}: {
+  children: ReactNode;
+  delay?: number;
+  className?: string;
+}) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-50px' }}
-      transition={{ duration: 0.6, delay, ease: 'easeOut' }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.6, delay, ease: "easeOut" }}
       className={className}
     >
       {children}
@@ -30,13 +46,21 @@ export function FadeInView({ children, delay = 0, className = '' }: { children: 
   );
 }
 
-export function ScaleIn({ children, delay = 0, className = '' }: { children: ReactNode; delay?: number; className?: string }) {
+export function ScaleIn({
+  children,
+  delay = 0,
+  className = "",
+}: {
+  children: ReactNode;
+  delay?: number;
+  className?: string;
+}) {
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
       whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true, margin: '-50px' }}
-      transition={{ duration: 0.5, delay, ease: 'easeOut' }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.5, delay, ease: "easeOut" }}
       className={className}
     >
       {children}
@@ -44,13 +68,23 @@ export function ScaleIn({ children, delay = 0, className = '' }: { children: Rea
   );
 }
 
-export function SlideIn({ children, delay = 0, direction = 'left', className = '' }: { children: ReactNode; delay?: number; direction?: 'left' | 'right'; className?: string }) {
+export function SlideIn({
+  children,
+  delay = 0,
+  direction = "left",
+  className = "",
+}: {
+  children: ReactNode;
+  delay?: number;
+  direction?: "left" | "right";
+  className?: string;
+}) {
   return (
     <motion.div
-      initial={{ opacity: 0, x: direction === 'left' ? -30 : 30 }}
+      initial={{ opacity: 0, x: direction === "left" ? -30 : 30 }}
       whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true, margin: '-50px' }}
-      transition={{ duration: 0.5, delay, ease: 'easeOut' }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.5, delay, ease: "easeOut" }}
       className={className}
     >
       {children}
@@ -58,12 +92,18 @@ export function SlideIn({ children, delay = 0, direction = 'left', className = '
   );
 }
 
-export function StaggerContainer({ children, className = '' }: { children: ReactNode; className?: string }) {
+export function StaggerContainer({
+  children,
+  className = "",
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
   return (
     <motion.div
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: '-50px' }}
+      viewport={{ once: true, margin: "-50px" }}
       variants={{
         hidden: {},
         visible: { transition: { staggerChildren: 0.15 } },
@@ -75,12 +115,22 @@ export function StaggerContainer({ children, className = '' }: { children: React
   );
 }
 
-export function StaggerItem({ children, className = '' }: { children: ReactNode; className?: string }) {
+export function StaggerItem({
+  children,
+  className = "",
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
   return (
     <motion.div
       variants={{
         hidden: { opacity: 0, y: 20 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
+        visible: {
+          opacity: 1,
+          y: 0,
+          transition: { duration: 0.5, ease: "easeOut" },
+        },
       }}
       className={className}
     >
@@ -89,7 +139,13 @@ export function StaggerItem({ children, className = '' }: { children: ReactNode;
   );
 }
 
-export function HoverScale({ children, className = '' }: { children: ReactNode; className?: string }) {
+export function HoverScale({
+  children,
+  className = "",
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
   return (
     <motion.div
       whileHover={{ scale: 1.03 }}

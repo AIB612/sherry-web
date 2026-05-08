@@ -20,11 +20,13 @@ const Label = ({
   badge?: string;
   billingCycle?: string;
 }) => {
-  const cycleLabel = billingCycle === 'monthly' ? '/mo' : billingCycle === 'yearly' ? '/yr' : '';
-  
+  const cycleLabel =
+    billingCycle === "monthly" ? "/mo" : billingCycle === "yearly" ? "/yr" : "";
+
   // Convert to numbers for comparison
-  const hasOriginalPrice = originalAmount && parseFloat(originalAmount) !== parseFloat(amount);
-  
+  const hasOriginalPrice =
+    originalAmount && parseFloat(originalAmount) !== parseFloat(amount);
+
   return (
     <div
       className={clsx(
@@ -43,7 +45,9 @@ const Label = ({
             <span className="text-sm font-bold">
               {currencyCode} {parseFloat(amount).toFixed(2)}
             </span>
-            {cycleLabel && <span className="text-xs opacity-80">{cycleLabel}</span>}
+            {cycleLabel && (
+              <span className="text-xs opacity-80">{cycleLabel}</span>
+            )}
           </div>
         </div>
       </div>

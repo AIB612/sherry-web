@@ -477,7 +477,6 @@ function DetailModal({
         className="relative bg-white w-full md:w-1/2 h-[88vh] md:h-full shadow-2xl ml-auto overflow-hidden flex flex-col rounded-t-3xl md:rounded-none"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Close button - absolute top right */}
         <button
           onClick={onClose}
           className="absolute top-4 right-4 md:top-6 md:right-6 z-20 w-11 h-11 bg-neutral-100 text-neutral-600 border border-neutral-200 rounded-full flex items-center justify-center shadow-[0_8px_24px_rgba(0,0,0,0.10)] hover:bg-neutral-200 hover:text-black transition-all hover:scale-110"
@@ -495,7 +494,6 @@ function DetailModal({
         </button>
 
         <div className="flex-1 overflow-y-auto pb-10 md:pb-12">
-          {/* Header: Title and Year */}
           <div className="mb-8 md:mb-10 px-5 md:px-10 pt-5 md:pt-5">
             <h1 className="text-3xl md:text-4xl font-bold text-black tracking-[-0.02em] leading-tight mb-4 text-left">
               {item.title}
@@ -511,7 +509,6 @@ function DetailModal({
             </div>
           </div>
 
-          {/* Block 1: Image full-width */}
           <div className="px-5 md:px-10 mb-8 md:mb-10">
             <div
               className={`w-full aspect-[2/1] rounded-2xl ${item.detailImage1 ? "bg-neutral-100" : "bg-gradient-to-br " + item.thumbnailBg} overflow-hidden relative`}
@@ -562,7 +559,6 @@ function DetailModal({
 
           <div className="h-px w-[40px] bg-neutral-400 mx-auto mb-8 md:mb-10" />
 
-          {/* Block 2: Secondary image / visual */}
           <div className="px-5 md:px-10 mb-8 md:mb-10">
             <div
               className={`w-full aspect-[2/1] rounded-2xl ${item.detailImage2 ? "bg-neutral-100" : "bg-gradient-to-tl " + item.thumbnailBg} overflow-hidden opacity-90 relative`}
@@ -597,7 +593,6 @@ function DetailModal({
 
           <div className="h-px w-[40px] bg-neutral-400 mx-auto mb-10 md:mb-12" />
 
-          {/* Conclusion/Summary Section */}
           <div className="mb-8 px-5 md:px-14 lg:px-20 text-center">
             <h3 className="text-[10px] font-bold tracking-[0.3em] text-neutral-400 mb-5 md:mb-6">
               SUMMARY
@@ -620,7 +615,6 @@ function DetailModal({
           </div>
         </div>
 
-        {/* Previous / Next Navigation */}
         <div className="mt-auto border-t border-neutral-200 grid grid-cols-2 bg-white">
           {prevCase ? (
             <button
@@ -698,6 +692,8 @@ export function TrackRecordView({
 }: {
   initialCategory?: string;
 }) {
+  const [expandedId, setExpandedId] = useState<string | null>(null);
+
   const activeCategory = VIEW_CATEGORIES.some(
     (cat) => cat.key === initialCategory,
   )
@@ -722,7 +718,7 @@ export function TrackRecordView({
               const href =
                 cat.key === "ALL"
                   ? "/all-work.html"
-                  : `/all-work?category=${encodeURIComponent(cat.key)}`;
+                  : `/all-work.html?category=${encodeURIComponent(cat.key)}`;
 
               return (
                 <Link
@@ -746,7 +742,7 @@ export function TrackRecordView({
             const href =
               cat.key === "ALL"
                 ? "/all-work.html"
-                : `/all-work?category=${encodeURIComponent(cat.key)}`;
+                : `/all-work.html?category=${encodeURIComponent(cat.key)}`;
 
             return (
               <Link
@@ -811,10 +807,11 @@ export function TrackRecordView({
             }
 
             return (
-              <Link
+              <button
                 key={item.id}
-                href={`/work/${item.id}.html`}
-                className={`group relative h-[300px] md:h-[400px] cursor-pointer overflow-hidden ${cornerClasses} ${isFullWidth ? "md:col-span-2" : "md:col-span-1"}`}
+                type="button"
+                onClick={() => setExpandedId(item.id)}
+                className={`group relative h-[300px] md:h-[400px] cursor-pointer overflow-hidden text-left ${cornerClasses} ${isFullWidth ? "md:col-span-2" : "md:col-span-1"}`}
               >
                 {/* Background Image/Gradient */}
                 {item.image ? (
@@ -886,11 +883,21 @@ export function TrackRecordView({
                     </div>
                   </div>
                 </div>
-              </Link>
+              </button>
             );
           })}
         </div>
       </div>
+
+      <AnimatePresence>
+        {expandedId ? (
+          <DetailModal
+            item={cases.find((item) => item.id === expandedId)!}
+            onClose={() => setExpandedId(null)}
+            onNavigate={(nextItem) => setExpandedId(nextItem.id)}
+          />
+        ) : null}
+      </AnimatePresence>
 
       <div className="px-5 md:px-8 lg:px-20 py-10 md:py-12 flex items-center justify-between border-t border-neutral-100 bg-neutral-50/50">
         <span className="text-[11px] tracking-[0.25em] text-neutral-400 font-mono">

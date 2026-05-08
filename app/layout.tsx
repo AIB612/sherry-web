@@ -15,11 +15,12 @@ const cardo = Cardo({
   variable: "--font-cardo",
 });
 
-const defaultTitle = "Chenxue Branny | AI & IT Expert";
+const defaultTitle =
+  "Chenxue Branny | Digitalization, AI & Process Automation for Swiss SMEs";
 const defaultDescription =
-  "Chenxue Branny helps ambitious companies turn AI, IT, and digital transformation into measurable business growth through sharper product strategy, scalable systems, and customer-centered execution.";
+  "Chenxue Branny helps Swiss SMEs, service businesses, and international teams in Switzerland turn digitalization, AI, and workflow automation into clearer operations, less manual work, and practical business growth. Based in Switzerland, available for local and cross-border projects across Europe and the US.";
 const defaultDescriptionDe =
-  "Chenxue Branny unterstützt ambitionierte Unternehmen dabei, KI, IT und digitale Transformation in messbares Geschäftswachstum, klare Produktstrategien und skalierbare Systeme zu übersetzen.";
+  "Chenxue Branny unterstützt Schweizer KMU, Dienstleistungsunternehmen und internationale Teams in der Schweiz dabei, Digitalisierung, KI und Prozessautomatisierung in klarere Abläufe, weniger manuelle Arbeit und praktisches Wachstum zu übersetzen. Sitz in der Schweiz, verfügbar für lokale und grenzüberschreitende Projekte in Europa und den USA.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
@@ -31,13 +32,17 @@ export const metadata: Metadata = {
   applicationName: "Chenxue Branny",
   keywords: [
     "Chenxue Branny",
-    "AI consultant",
-    "digital transformation expert",
-    "business growth",
-    "product strategist",
-    "UX strategist",
-    "business information systems",
-    "Switzerland",
+    "digitalization consultant Switzerland",
+    "process automation Switzerland",
+    "Swiss SME digitalization",
+    "workflow automation for service businesses",
+    "AI automation consultant Switzerland",
+    "digital transformation Switzerland",
+    "business workflow automation Europe",
+    "product strategy Switzerland",
+    "local business digitalization Switzerland",
+    "Europe",
+    "United States",
   ],
   authors: [{ name: "Chenxue Branny" }],
   creator: "Chenxue Branny",

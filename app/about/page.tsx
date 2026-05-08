@@ -337,27 +337,27 @@ const projectPreviewMap: Record<
   "2018": {
     title: "Master Wan × IKEA O2O / WeiYun",
     image: "/images/work/Master wan.png",
-    href: "/all-work?category=END-TO-END%20PROJECTS",
+    href: "/all-work.html?category=END-TO-END%20PROJECTS",
   },
   "2019": {
     title: "Jelly ERP",
     image: "/images/work/Jelly Grow.png",
-    href: "/all-work?category=E-COMMERCE%20%26%20LOGISTICS",
+    href: "/all-work.html?category=E-COMMERCE%20%26%20LOGISTICS",
   },
   "2020": {
     title: "TCL Smart Home App",
     image: "/images/work/TCL.png",
-    href: "/all-work?category=END-TO-END%20PROJECTS",
+    href: "/all-work.html?category=END-TO-END%20PROJECTS",
   },
   "2021": {
     title: "OPPO Mobile",
     image: "/images/work/OPPO.png",
-    href: "/all-work?category=IT%20PRODUCT%20CONSULTING",
+    href: "/all-work.html?category=IT%20PRODUCT%20CONSULTING",
   },
   "2022": {
     title: "Anjun Express",
     image: "/images/work/Anjun.png",
-    href: "/all-work?category=E-COMMERCE%20%26%20LOGISTICS",
+    href: "/all-work.html?category=E-COMMERCE%20%26%20LOGISTICS",
   },
   "2023": {
     title: "Selected Work",
@@ -367,17 +367,17 @@ const projectPreviewMap: Record<
   "2024": {
     title: "Hampelmann Shopify",
     image: "/images/work/Hampelmann.png",
-    href: "/all-work?category=SWISS%20PROJECTS",
+    href: "/all-work.html?category=SWISS%20PROJECTS",
   },
   "2025": {
     title: "Malim Mobility Website",
     image: "/images/work/Malim.png",
-    href: "/all-work?category=SWISS%20PROJECTS",
+    href: "/all-work.html?category=SWISS%20PROJECTS",
   },
   "2026": {
     title: "Malim Mobility Website",
     image: "/images/work/Malim.png",
-    href: "/all-work?category=SWISS%20PROJECTS",
+    href: "/all-work.html?category=SWISS%20PROJECTS",
   },
 };
 
@@ -451,6 +451,47 @@ export default function AboutPage() {
     (typeof experienceData)[0] | null
   >(null);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [travelMapOpen, setTravelMapOpen] = useState(false);
+  const [mapMode, setMapMode] = useState<"travel" | "education" | "tech-travel">("travel");
+  const [activePlace, setActivePlace] = useState<string>("Shenzhen");
+  const [hoveredPlace, setHoveredPlace] = useState<string | null>(null);
+
+  const travelPlaces = [
+    { name: "Shenzhen", x: "79%", y: "43%", mapX: 780, mapY: 258, emphasis: true, note: "From Shenzhen to Switzerland — a core part of my personal story." },
+    { name: "Zurich", x: "51%", y: "31%", mapX: 486, mapY: 196, emphasis: true, note: "Current Swiss base and part of my ongoing life and work in Switzerland." },
+    { name: "Basel", x: "50%", y: "30%", mapX: 481, mapY: 191, note: "A meaningful Swiss stop in my local journey and cultural experience." },
+    { name: "Paris", x: "49%", y: "30%", mapX: 463, mapY: 187, note: "A travel memory shaped by curiosity, design, and cultural exploration." },
+    { name: "Milan", x: "51%", y: "33%", mapX: 500, mapY: 208, note: "A city connected to style, movement, and observing how people live and work." },
+    { name: "Seoul", x: "84%", y: "40%", mapX: 797, mapY: 218, note: "Part of my East Asia perspective across product, work, and culture." },
+    { name: "Bangkok", x: "76%", y: "56%", mapX: 728, mapY: 311, note: "A travel point that reflects openness to different rhythms and cultures." },
+        { name: "Vietnam", x: "77%", y: "52%", mapX: 742, mapY: 284, labelDx: 16, labelDy: -24, note: "Travel highlight in Southeast Asia." },
+    { name: "Bali", x: "80%", y: "66%", mapX: 771, mapY: 374, labelDx: 18, labelDy: 8, note: "Indonesia · Bali travel highlight." },
+    { name: "France", x: "48%", y: "31%", mapX: 455, mapY: 190, labelDx: -62, labelDy: -24, note: "European travel highlight." },
+    { name: "Germany", x: "50%", y: "29%", mapX: 476, mapY: 180, labelDx: -6, labelDy: -34, note: "European travel highlight." },
+    { name: "Austria", x: "52%", y: "31%", mapX: 502, mapY: 194, labelDx: 28, labelDy: -26, note: "European travel highlight." },
+    { name: "Italy", x: "52%", y: "34%", mapX: 507, mapY: 214, labelDx: 24, labelDy: 8, note: "European travel highlight." },
+    { name: "United States", x: "22%", y: "34%", mapX: 210, mapY: 206, note: "Long-distance travel highlight." },
+    { name: "UAE", x: "61%", y: "41%", mapX: 590, mapY: 237, labelDx: 18, labelDy: -28, note: "Middle East travel highlight." },
+    { name: "Dubai", x: "61%", y: "41%", mapX: 594, mapY: 239, labelDx: 32, labelDy: 4, note: "City highlight in the UAE." },
+    { name: "Qatar", x: "60%", y: "41%", mapX: 582, mapY: 239, labelDx: -56, labelDy: 2, note: "Middle East travel highlight." },
+    { name: "Turkey", x: "55%", y: "34%", mapX: 531, mapY: 205, note: "Bridge between Europe and Asia in the travel map." },
+    { name: "Hungary", x: "53%", y: "31%", mapX: 512, mapY: 191, labelDx: 46, labelDy: -30, note: "Central Europe travel highlight." },
+    { name: "Spain", x: "45%", y: "35%", mapX: 430, mapY: 210, labelDx: -56, labelDy: 2, note: "Southern Europe travel highlight." },
+    { name: "Lisbon", x: "43%", y: "35%", mapX: 407, mapY: 208, labelDx: -74, labelDy: 22, note: "Portugal · Lisbon travel highlight." },
+    { name: "Croatia", x: "53%", y: "33%", mapX: 515, mapY: 203, labelDx: 44, labelDy: -8, note: "Adriatic travel highlight." },
+  ];
+
+  const educationPlaces = [
+    { name: "China · Research / Workshops", x: "78%", y: "42%", mapX: 770, mapY: 250, emphasis: true, note: "Child sexuality education related research and workshop context connected to China." },
+    { name: "Switzerland · Community Dialogue", x: "51%", y: "31%", mapX: 486, mapY: 196, emphasis: true, note: "Community dialogue and social education related work rooted in Switzerland." },
+    { name: "Online / Cross-border Advocacy", x: "61%", y: "23%", mapX: 570, mapY: 130, note: "Cross-border, digital-first public interest work beyond a single physical location." },
+  ];
+
+  const techTravelPlaces = [
+    { name: "Shenzhen · Tech Roots", x: "79%", y: "43%", mapX: 780, mapY: 258, emphasis: true, note: "Technology roots, product thinking, and the beginning of the Shenzhen to Switzerland journey." },
+    { name: "Zurich · Swiss Tech Life", x: "51%", y: "31%", mapX: 486, mapY: 196, emphasis: true, note: "Where technology, work, and life in Switzerland come together." },
+        { name: "Seoul · Product & Culture", x: "84%", y: "40%", mapX: 797, mapY: 218, note: "A city connecting digital culture, product inspiration, and East Asian perspective." },
+  ];
 
   const getDockWidth = (i: number) => {
     if (hoveredIndex === null) return 6;
@@ -521,16 +562,27 @@ export default function AboutPage() {
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
           >
-            <h1 className="text-2xl md:text-3xl font-bold tracking-tighter mb-5 md:mb-6">
-              About Chenxue Branny
-            </h1>
             <div className="w-16 h-[1px] bg-black mb-6 md:mb-8" />
-            <p className="text-neutral-500 leading-relaxed mb-8 md:mb-12 max-w-[620px]">
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-5 md:mb-6">
+              About
+            </h1>
+            <p className="text-neutral-500 leading-relaxed mb-6 md:mb-8 max-w-[620px]">
               Chenxue Branny is an AI & IT expert based in Switzerland,
               focused on digital transformation, AI automation, product
               strategy, and modern software systems that help businesses grow
               faster and operate more intelligently.
             </p>
+            <div className="flex flex-wrap items-center gap-3 mb-8 md:mb-12 text-sm">
+              <span className="text-neutral-400">
+                Want a closer look at how I approach projects?
+              </span>
+              <a
+                href="/my-methodology.html"
+                className="text-black underline underline-offset-4 hover:text-neutral-600 transition-colors"
+              >
+                Explore My Methodology ↗
+              </a>
+            </div>
 
             {/* 手机端: 资料块放在 About 文案下面 */}
             <motion.div
@@ -582,36 +634,6 @@ export default function AboutPage() {
                   className="hover:text-black transition-colors"
                 >
                   Sherryxuex@gmail.com
-                </a>
-                <a
-                  href="tel:+41762679796"
-                  className="hover:text-black transition-colors"
-                >
-                  +41 76 267 97 96
-                </a>
-              </div>
-              <div className="flex flex-wrap gap-4">
-                <a
-                  href="mailto:Sherryxuex@gmail.com"
-                  className="text-[10px] tracking-[0.2em] text-neutral-400 hover:text-black transition-colors"
-                >
-                  EMAIL ↗
-                </a>
-                <a
-                  href="https://github.com/AIB612"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[10px] tracking-[0.2em] text-neutral-400 hover:text-black transition-colors"
-                >
-                  GITHUB ↗
-                </a>
-                <a
-                  href="https://ch.linkedin.com/in/princessbranny"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[10px] tracking-[0.2em] text-neutral-400 hover:text-black transition-colors"
-                >
-                  LINKEDIN ↗
                 </a>
               </div>
             </motion.div>
@@ -728,23 +750,30 @@ export default function AboutPage() {
             <h2 className="text-2xl font-bold tracking-tight mb-1">
               Chenxue Branny
             </h2>
-            <p className="text-sm text-neutral-400 tracking-wider mb-6">
-              FULLSTACK DEVELOPER · SWITZERLAND
+            <p className="text-sm text-neutral-400 tracking-wider mb-5">
+              PART-TIME IT CONSULTANT · OPEN TO FULL-TIME OPPORTUNITIES
             </p>
-            <p className="text-sm text-neutral-500 leading-relaxed mb-8 max-w-sm">
-              Specializing in full-stack development and AI integration. From
-              software licensing to EV charging platforms and Swiss-compliant AI
-              infrastructure.
-            </p>
+            <div className="space-y-3 text-sm text-neutral-500 leading-relaxed mb-8 max-w-sm">
+              <p>An IT woman building her path from Shenzhen to Switzerland.</p>
+              <p>Passionate about innovation and new technology.</p>
+              <p>
+                Loves traveling and exploring different cultures around the
+                world. {" "}
+                <button
+                  type="button"
+                  onClick={() => setTravelMapOpen(true)}
+                  className="text-black underline underline-offset-4 hover:text-neutral-600 transition-colors"
+                >
+                  Places I’ve been
+                </button>
+              </p>
+              <p>Child sexuality education researcher.</p>
+            </div>
             <div className="flex flex-wrap gap-2 mb-8">
               {[
-                "React",
-                "Next.js",
-                "TypeScript",
-                "Node.js",
-                "Python",
-                "Azure",
-                "Docker",
+                "IT",
+                "AI",
+                "Agile life",
               ].map((skill) => (
                 <span
                   key={skill}
@@ -761,40 +790,345 @@ export default function AboutPage() {
               >
                 Sherryxuex@gmail.com
               </a>
-              <a
-                href="tel:+41762679796"
-                className="hover:text-black transition-colors"
-              >
-                +41 76 267 97 96
-              </a>
-            </div>
-            <div className="flex gap-5">
-              <a
-                href="mailto:Sherryxuex@gmail.com"
-                className="text-[10px] tracking-[0.2em] text-neutral-400 hover:text-black transition-colors"
-              >
-                EMAIL ↗
-              </a>
-              <a
-                href="https://github.com/AIB612"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[10px] tracking-[0.2em] text-neutral-400 hover:text-black transition-colors"
-              >
-                GITHUB ↗
-              </a>
-              <a
-                href="https://ch.linkedin.com/in/princessbranny"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[10px] tracking-[0.2em] text-neutral-400 hover:text-black transition-colors"
-              >
-                LINKEDIN ↗
-              </a>
             </div>
           </motion.div>
         </div>
       </motion.section>
+
+      {/* Travel / Research Map Modal */}
+      <AnimatePresence>
+        {travelMapOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[120] bg-black/40 backdrop-blur-sm"
+            onClick={() => setTravelMapOpen(false)}
+          >
+            <motion.div
+              initial={{ opacity: 0, x: 40 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 40 }}
+              transition={{ duration: 0.25 }}
+              className="absolute right-0 top-0 h-full w-full max-w-2xl bg-white shadow-2xl p-6 md:p-8 overflow-y-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-start justify-between gap-4 mb-6">
+                <div>
+                  <p className="text-[10px] tracking-[0.28em] uppercase text-neutral-400 mb-2">
+                    World Map
+                  </p>
+                  <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-2">
+                    Places I’ve Been
+                  </h2>
+                  <p className="text-sm text-neutral-500 max-w-lg leading-relaxed">
+                    Two layers of places are highlighted here: travel memories and child sexuality education related work.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setTravelMapOpen(false)}
+                  className="text-neutral-400 hover:text-black transition-colors text-sm"
+                >
+                  Close
+                </button>
+              </div>
+
+              <div className="flex flex-wrap gap-2 mb-6">
+                <button
+                  type="button"
+                  onClick={() => { setMapMode("travel"); setActivePlace("Shenzhen"); }}
+                  className={`px-3 py-1.5 rounded-full text-xs transition-colors ${
+                    mapMode === "travel"
+                      ? "bg-black text-white"
+                      : "bg-neutral-100 text-neutral-500 hover:text-black"
+                  }`}
+                >
+                  Travel highlights
+                </button>
+                <button
+                  type="button"
+                  onClick={() => { setMapMode("education"); setActivePlace("China · Research / Workshops"); }}
+                  className={`px-3 py-1.5 rounded-full text-xs transition-colors ${
+                    mapMode === "education"
+                      ? "bg-black text-white"
+                      : "bg-neutral-100 text-neutral-500 hover:text-black"
+                  }`}
+                >
+                  Child sexuality education
+                </button>
+                <button
+                  type="button"
+                  onClick={() => { setMapMode("tech-travel"); setActivePlace("Shenzhen · Tech Roots"); }}
+                  className={`px-3 py-1.5 rounded-full text-xs transition-colors ${
+                    mapMode === "tech-travel"
+                      ? "bg-black text-white"
+                      : "bg-neutral-100 text-neutral-500 hover:text-black"
+                  }`}
+                >
+                  Tech Travel
+                </button>
+              </div>
+
+              {(() => {
+                const currentPlaces =
+                  mapMode === "travel"
+                    ? travelPlaces
+                    : mapMode === "education"
+                      ? educationPlaces
+                      : techTravelPlaces;
+                const selectedPlace =
+                  currentPlaces.find((place) => place.name === activePlace) ||
+                  currentPlaces[0];
+
+                return (
+                  <>
+                    <div className="relative rounded-3xl border border-neutral-200 bg-[linear-gradient(180deg,#fafafa_0%,#f4f4f4_100%)] p-4 md:p-5 overflow-hidden">
+                      <div className="relative">
+                        <Image
+                          src="/maps/world-map.svg"
+                          alt="World map"
+                          width={950}
+                          height={620}
+                          className="w-full h-auto opacity-[0.95]"
+                          unoptimized
+                        />
+
+                        <svg
+                          viewBox="0 0 950 620"
+                          className="absolute inset-0 w-full h-full"
+                          aria-hidden="true"
+                        >
+                          {currentPlaces.map((place) => {
+                            const isActive = activePlace === place.name;
+                            const isHovered = hoveredPlace === place.name;
+                            const isEmphasis = Boolean(place.emphasis);
+                            const showCard = isHovered || isActive;
+                            const showLabel = false;
+                            const cardWidth = 180;
+                            const zoomWidth = 104;
+                            const zoomHeight = 72;
+                            const zoomScale = 3.1;
+                            const zoomX = place.mapX - zoomWidth / 2 - place.mapX * zoomScale;
+                            const zoomY = place.mapY - 88 - zoomHeight / 2 - place.mapY * zoomScale;
+                            const cardX = Math.min(
+                              Math.max(place.mapX + 18, 12),
+                              950 - cardWidth - 12
+                            );
+                            const cardY = Math.min(
+                              Math.max(place.mapY - 90, 12),
+                              620 - 86
+                            );
+
+                            return (
+                              <g
+                                key={place.name}
+                                transform={`translate(${place.mapX}, ${place.mapY})`}
+                                onMouseEnter={() => {
+                                  setHoveredPlace(place.name);
+                                  setActivePlace(place.name);
+                                }}
+                                onMouseLeave={() => setHoveredPlace(null)}
+                                onClick={() => setActivePlace(place.name)}
+                                className="cursor-pointer"
+                              >
+                                {isHovered && (
+                                  <g>
+                                    <defs>
+                                      <clipPath id={`hoverZoom-${place.name.replace(/\s+/g, "-")}`}>
+                                        <rect x={place.mapX - zoomWidth / 2} y={place.mapY - 88 - zoomHeight / 2} rx="14" ry="14" width={zoomWidth} height={zoomHeight} />
+                                      </clipPath>
+                                    </defs>
+                                    <rect
+                                      x={place.mapX - zoomWidth / 2 - 4}
+                                      y={place.mapY - 88 - zoomHeight / 2 - 4}
+                                      rx="16"
+                                      ry="16"
+                                      width={zoomWidth + 8}
+                                      height={zoomHeight + 8}
+                                      fill="rgba(255,255,255,0.96)"
+                                      stroke="#111111"
+                                      strokeWidth="1.2"
+                                    />
+                                    <image
+                                      href="/maps/world-map.svg"
+                                      x={zoomX}
+                                      y={zoomY}
+                                      width={950 * zoomScale}
+                                      height={620 * zoomScale}
+                                      clipPath={`url(#hoverZoom-${place.name.replace(/\s+/g, "-")})`}
+                                      opacity="0.98"
+                                    />
+                                    <rect
+                                      x={place.mapX - zoomWidth / 2}
+                                      y={place.mapY - 88 - zoomHeight / 2}
+                                      rx="14"
+                                      ry="14"
+                                      width={zoomWidth}
+                                      height={zoomHeight}
+                                      fill="none"
+                                      stroke="#111111"
+                                      strokeOpacity="0.08"
+                                    />
+                                    <rect
+                                      x={place.mapX - Math.max(34, place.name.length * 3.6)}
+                                      y={place.mapY - 146}
+                                      rx="10"
+                                      ry="10"
+                                      width={Math.max(68, place.name.length * 7.2)}
+                                      height="24"
+                                      fill="rgba(255,255,255,0.96)"
+                                      stroke="#111111"
+                                      strokeOpacity="0.12"
+                                    />
+                                    <text
+                                      x={place.mapX}
+                                      y={place.mapY - 130}
+                                      fontSize="11"
+                                      fill="#111111"
+                                      textAnchor="middle"
+                                      fontWeight="600"
+                                    >
+                                      {place.name}
+                                    </text>
+                                  </g>
+                                )}
+                                <circle
+                                  r={isHovered ? (isEmphasis ? 22 : 16) : isEmphasis ? 18 : 12}
+                                  fill={
+                                    isActive || isEmphasis
+                                      ? "rgba(0,0,0,0.18)"
+                                      : "rgba(163,163,163,0.14)"
+                                  }
+                                />
+                                <circle
+                                  r={isHovered ? (isEmphasis ? 8 : 6) : isEmphasis ? 6 : 4}
+                                  fill={
+                                    isActive || isEmphasis
+                                      ? "#111111"
+                                      : "#a3a3a3"
+                                  }
+                                />
+                                {showCard && (
+                                  <g transform={`translate(${cardX - place.mapX}, ${cardY - place.mapY})`}>
+                                    <defs>
+                                      <filter id="cardShadow" x="-50%" y="-50%" width="200%" height="200%">
+                                        <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+                                        <feOffset dx="0" dy="2" result="offsetblur"/>
+                                        <feComponentTransfer>
+                                          <feFuncA type="linear" slope="0.2"/>
+                                        </feComponentTransfer>
+                                        <feMerge>
+                                          <feMergeNode/>
+                                          <feMergeNode in="SourceGraphic"/>
+                                        </feMerge>
+                                      </filter>
+                                    </defs>
+                                    <rect
+                                      x={0}
+                                      y={0}
+                                      rx={20}
+                                      ry={20}
+                                      width={200}
+                                      height={84}
+                                      fill="rgba(255,255,255,0.96)"
+                                      stroke={isActive ? "#1f2937" : "#e5e7eb"}
+                                      strokeWidth="1.5"
+                                      filter="url(#cardShadow)"
+                                    />
+                                    <circle
+                                      cx={cardX - place.mapX + (place.mapX < cardX ? 12 : 188)}
+                                      cy={cardY - place.mapY + 48}
+                                      r="3"
+                                      fill={mapMode === "travel"
+                                      ? isActive || isEmphasis
+                                        ? "#111827"
+                                        : "#a3a3a3"
+                                      : isActive || isEmphasis
+                                        ? "#2563eb"
+                                        : "#a3a3a3"}
+                                    />
+                                    <line
+                                      x1={cardX - place.mapX + (place.mapX < cardX ? 12 : 188)}
+                                      y1={cardY - place.mapY + 48}
+                                      x2={place.mapX < cardX ? -8 : 8}
+                                      y2={0}
+                                      stroke={mapMode === "travel"
+                                      ? isActive || isEmphasis
+                                        ? "#111827"
+                                        : "#a3a3a3"
+                                      : isActive || isEmphasis
+                                        ? "#2563eb"
+                                        : "#a3a3a3"}
+                                      strokeWidth="1.5"
+                                      strokeDasharray="3 3"
+                                      opacity="0.4"
+                                    />
+                                    <text x={16} y={26} fontSize="10" fill="#a3a3a3" letterSpacing="2" fontWeight="500">
+                                      {mapMode === "travel" ? "ALL TRAVEL" : mapMode === "education" ? "EDUCATION" : "TECH TRAVEL"}
+                                    </text>
+                                    <text x={16} y={48} fontSize="15" fill="#111111" fontWeight="600">
+                                      {place.name}
+                                    </text>
+                                    <text x={16} y={68} fontSize="11" fill="#525252">
+                                      {mapMode === "travel" ? "Visited place" : mapMode === "education" ? "Education place" : "Tech travel place"}
+                                    </text>
+                                  </g>
+                                )}
+                              </g>
+                            );
+                          })}
+                        </svg>
+                      </div>
+                    </div>
+
+                    <div className="mt-4 rounded-2xl border border-neutral-200 bg-white px-4 py-4">
+                      <p className="text-[10px] tracking-[0.22em] uppercase text-neutral-400 mb-2">
+                        Selected place
+                      </p>
+                      <h3 className="text-lg font-semibold text-black">
+                        {selectedPlace?.name}
+                      </h3>
+                      <p className="text-sm text-neutral-500 leading-relaxed mt-2">
+                        {selectedPlace?.note}
+                      </p>
+                    </div>
+
+                    <div className="mt-4 rounded-2xl border border-neutral-200 bg-white px-4 py-4">
+                      <p className="text-[10px] tracking-[0.22em] uppercase text-neutral-400 mb-3">
+                        Places
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        {currentPlaces.map((place) => (
+                          <button
+                            key={place.name}
+                            type="button"
+                            onClick={() => setActivePlace(place.name)}
+                            className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs transition-colors ${
+                              activePlace === place.name
+                                ? "border-black text-black bg-neutral-50"
+                                : "border-neutral-200 text-neutral-500 hover:text-black hover:border-neutral-300"
+                            }`}
+                          >
+                            <span
+                              className={`h-2.5 w-2.5 rounded-full ${
+                                activePlace === place.name || place.emphasis
+                                  ? "bg-black"
+                                  : "bg-neutral-300"
+                              }`}
+                            />
+                            <span>{place.name}</span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  </>
+                );
+              })()}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Section 2: Education — 教育时间线 */}
       <motion.section
@@ -1223,7 +1557,7 @@ export default function AboutPage() {
                                   href={projectPreview.href}
                                   className="shrink-0 inline-flex items-center gap-2 text-sm font-medium text-black hover:gap-3 transition-all"
                                 >
-                                  View Project
+                                  Case Study
                                   <span>→</span>
                                 </Link>
                               </div>
