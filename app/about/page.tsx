@@ -276,7 +276,7 @@ const educationTimeline = [
   },
   {
     year: "Sep.2016 - Jun.2022",
-    title: "Bachelor's Degree (Part-time)",
+    title: "Bachelor's Degree",
     subtitle: "Art Design",
     institution: "Hunan Normal University",
     location: "China",
@@ -563,25 +563,46 @@ export default function AboutPage() {
             transition={{ duration: 0.7 }}
           >
             <div className="w-16 h-[1px] bg-black mb-6 md:mb-8" />
-            <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-5 md:mb-6">
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-5">
               About
             </h1>
-            <p className="text-neutral-500 leading-relaxed mb-6 md:mb-8 max-w-[620px]">
-              Chenxue Branny is an AI & IT expert based in Switzerland,
-              focused on digital transformation, AI automation, product
-              strategy, and modern software systems that help businesses grow
-              faster and operate more intelligently.
-            </p>
-            <div className="flex flex-wrap items-center gap-3 mb-8 md:mb-12 text-sm">
-              <span className="text-neutral-400">
-                Want a closer look at how I approach projects?
-              </span>
-              <a
-                href="/my-methodology.html"
-                className="text-black underline underline-offset-4 hover:text-neutral-600 transition-colors"
-              >
-                Explore My Methodology ↗
-              </a>
+            <div className="space-y-2 text-sm text-neutral-500 leading-relaxed mb-8 max-w-[620px] text-justify">
+              <p>A woman in tech building a path from Shenzhen, China, to Switzerland.</p>
+              <p>10 years of experience working in IT field in Shenzhen.</p>
+              <p>3 years in Switzerland, completing a Master's degree while working in IT field.</p>
+              <p>Passionate about innovation and new technologies.</p>
+              <p>
+                Love traveling and exploring diverse cultures around the world.{" "}
+                <button
+                  type="button"
+                  onClick={() => setTravelMapOpen(true)}
+                  className="text-black underline underline-offset-4 hover:text-neutral-600 transition-colors"
+                >
+                  Places I've been
+                </button>
+              </p>
+              <p>Having grown up as a "left-behind child" for 14 years with my grandpa, my vision is to empower society through new technology.</p>
+              <p>
+                Currently building an AI RAG application for child sexuality education{" "}
+                <a
+                  href="https://rag-chilren.onrender.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-black underline underline-offset-4 hover:text-neutral-600 transition-colors"
+                >
+                  Demo
+                </a>
+                . Learning German to C1 level. Currently reading{" "}
+                <a
+                  href="https://open.spotify.com/show/4kYCRYJ3yK5DQbP5tbfZby"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-black underline underline-offset-4 hover:text-neutral-600 transition-colors italic"
+                >
+                  The Little Prince
+                </a>
+                {" "}in German.
+              </p>
             </div>
 
             {/* 手机端: 资料块放在 About 文案下面 */}
@@ -603,22 +624,18 @@ export default function AboutPage() {
                 Chenxue Branny
               </h2>
               <p className="text-xs text-neutral-400 tracking-[0.18em] mb-5">
-                AI & IT EXPERT · SWITZERLAND
+                FULL-STACK IT
               </p>
-              <p className="text-sm text-neutral-500 leading-relaxed mb-6 max-w-sm">
-                Specializing in AI automation, full-stack product development,
-                RAG systems, Azure workflows, and digital transformation for
-                Swiss SMEs and modern growth-focused businesses.
-              </p>
+              <div className="space-y-3 text-sm text-neutral-500 leading-relaxed mb-6 max-w-sm">
+                <p>Focused on digital transformation, AI automation, product strategy, and modern software systems that help businesses grow faster and operate more intelligently.</p>
+                <p>Designed business services for 20+ SMEs.</p>
+                <p>Independently managed, developed, and deployed 8+ large-scale SaaS systems.</p>
+              </div>
               <div className="flex flex-wrap gap-2 mb-6">
                 {[
-                  "React",
-                  "Next.js",
-                  "TypeScript",
-                  "Node.js",
-                  "Python",
-                  "Azure",
-                  "Docker",
+                  "IT",
+                  "AI",
+                  "Agile life",
                 ].map((skill) => (
                   <span
                     key={skill}
@@ -751,30 +768,19 @@ export default function AboutPage() {
               Chenxue Branny
             </h2>
             <p className="text-sm text-neutral-400 tracking-wider mb-5">
-              PART-TIME IT CONSULTANT · OPEN TO FULL-TIME OPPORTUNITIES
+              FULL-STACK IT
             </p>
             <div className="space-y-3 text-sm text-neutral-500 leading-relaxed mb-8 max-w-sm">
-              <p>An IT woman building my path from China Shenzhen to Switzerland.</p>
-              <p>Passionate about innovation and new technology.</p>
+              <p>Focused on digital transformation, AI automation, product strategy, and modern software systems that help businesses grow faster and operate more intelligently.</p>
+              <p>Designed business services for 20+ SMEs.</p>
+              <p>Independently managed, developed, and deployed 8+ large-scale SaaS systems.</p>
               <p>
-                Loves traveling and exploring different cultures around the world.{" "}
-                <button
-                  type="button"
-                  onClick={() => setTravelMapOpen(true)}
-                  className="text-black underline underline-offset-4 hover:text-neutral-600 transition-colors"
-                >
-                  Places I've been
-                </button>
-              </p>
-              <p>
-                Building AI RAG for child sexuality education.{" "}
+                How I approach projects?{" "}
                 <a
-                  href="https://rag-chilren.onrender.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="/my-methodology"
                   className="text-black underline underline-offset-4 hover:text-neutral-600 transition-colors"
                 >
-                  [Application link]
+                  Explore My Methodology ↗
                 </a>
               </p>
             </div>
