@@ -592,16 +592,19 @@ export default function AboutPage() {
                 >
                   Demo
                 </a>
-                . Learning German to C1 level. Currently reading{" "}
+                .
+              </p>
+              <p>
+                Learning German to C1 level. Published and updated a podcast:{" "}
                 <a
-                  href="https://open.spotify.com/show/4kYCRYJ3yK5DQbP5tbfZby"
+                  href="https://podcasts.apple.com/ch/podcast/learn-german-with-the-little-prince/id1896780524?l=de-DE"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-black underline underline-offset-4 hover:text-neutral-600 transition-colors italic"
+                  className="text-black underline underline-offset-4 hover:text-neutral-600 transition-colors"
                 >
-                  The Little Prince
+                  Learn German with The Little Prince
                 </a>
-                {" "}in German.
+                .
               </p>
             </div>
 
