@@ -717,8 +717,8 @@ export function TrackRecordView({
             {VIEW_CATEGORIES.map((cat) => {
               const href =
                 cat.key === "ALL"
-                  ? "/all-work.html"
-                  : `/all-work.html?category=${encodeURIComponent(cat.key)}`;
+                  ? "/all-work"
+                  : `/all-work?category=${encodeURIComponent(cat.key)}`;
 
               return (
                 <Link
@@ -741,8 +741,8 @@ export function TrackRecordView({
           {VIEW_CATEGORIES.map((cat) => {
             const href =
               cat.key === "ALL"
-                ? "/all-work.html"
-                : `/all-work.html?category=${encodeURIComponent(cat.key)}`;
+                ? "/all-work"
+                : `/all-work?category=${encodeURIComponent(cat.key)}`;
 
             return (
               <Link
@@ -904,7 +904,7 @@ export function TrackRecordView({
           {filteredCases.length} PROJECTS
         </span>
         <Link
-          href="/about.html#contact"
+          href="/about#contact"
           className="text-[11px] tracking-[0.25em] font-medium text-neutral-500 hover:text-black transition-colors flex items-center gap-2"
         >
           LET'S COLLABORATE

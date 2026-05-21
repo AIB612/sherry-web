@@ -18,12 +18,12 @@ const sections = [
   { id: "contact", label: "Contact" },
 ];
 
-// 真实工作经历数据 — 每年一个柱子 2016-2026
+// 真实工作经历数据 - 每年一个柱子 2016-2026
 const experienceData = [
   {
     h: 25,
     year: "2016",
-    period: "Sep.2016 – Mar.2020",
+    period: "Sep.2016 - Mar.2020",
     company: "Lazada Tech",
     location: "China",
     role: "Lead UX Designer",
@@ -43,7 +43,7 @@ const experienceData = [
   {
     h: 35,
     year: "2017",
-    period: "Sep.2016 – Mar.2020",
+    period: "Sep.2016 - Mar.2020",
     company: "Lazada Tech",
     location: "China",
     role: "Lead UX Designer",
@@ -63,7 +63,7 @@ const experienceData = [
   {
     h: 45,
     year: "2018",
-    period: "Jan.2018 – Jun.2019",
+    period: "Jan.2018 - Jun.2019",
     company: "Master Wan / WeiYun",
     location: "China",
     role: "Product Designer",
@@ -83,7 +83,7 @@ const experienceData = [
   {
     h: 55,
     year: "2019",
-    period: "Jul.2019 – Sep.2020",
+    period: "Jul.2019 - Sep.2020",
     company: "Jelly ERP / Korea Project",
     location: "Korea / China",
     role: "Product Designer",
@@ -103,7 +103,7 @@ const experienceData = [
   {
     h: 60,
     year: "2020",
-    period: "Mar.2020 – Sep.2022",
+    period: "Mar.2020 - Sep.2022",
     company: "TCL New Tech",
     location: "China",
     role: "Senior Product Manager",
@@ -123,7 +123,7 @@ const experienceData = [
   {
     h: 70,
     year: "2021",
-    period: "Sep.2021 – Mar.2022",
+    period: "Sep.2021 - Mar.2022",
     company: "OPPO Mobile",
     location: "China",
     role: "Product Consultant",
@@ -143,7 +143,7 @@ const experienceData = [
   {
     h: 75,
     year: "2022",
-    period: "Mar.2022 – Jan.2023",
+    period: "Mar.2022 - Jan.2023",
     company: "Anjun Express",
     location: "Brazil / China",
     role: "Product Manager",
@@ -163,7 +163,7 @@ const experienceData = [
   {
     h: 80,
     year: "2023",
-    period: "Mar.2023 – Sep.2024",
+    period: "Mar.2023 - Sep.2024",
     company: "FHNW + Product Work",
     location: "Switzerland + China",
     role: "MSc Student + Product Owner",
@@ -183,7 +183,7 @@ const experienceData = [
   {
     h: 65,
     year: "2024",
-    period: "Mar.2024 – Mar.2025",
+    period: "Mar.2024 - Mar.2025",
     company: "Goldoak GmbH / Hampelmann",
     location: "Switzerland",
     role: "E-Commerce Consultant",
@@ -203,7 +203,7 @@ const experienceData = [
   {
     h: 50,
     year: "2025",
-    period: "Jun.2025 – Present",
+    period: "Jun.2025 - Present",
     company: "Malim Mobility",
     location: "Switzerland",
     role: "Founder & Developer",
@@ -223,7 +223,7 @@ const experienceData = [
   {
     h: 45,
     year: "2026",
-    period: "2026 – Now",
+    period: "2026 - Now",
     company: "Independent Products",
     location: "Switzerland",
     role: "Freelance & Products",
@@ -242,7 +242,7 @@ const experienceData = [
   },
 ];
 
-// 教育和证书时间线数据 — 从近到远排列
+// 教育和证书时间线数据 - 从近到远排列
 const educationTimeline = [
   {
     year: "2025",
@@ -254,10 +254,10 @@ const educationTimeline = [
     type: "certificate",
   },
   {
-    year: "Mar.2023 – Sep.2024",
+    year: "Mar.2023 - Sep.2024",
     title: "Master of Science",
     subtitle: "Business Information Systems",
-    institution: "FHNW – Hochschule für Wirtschaft",
+    institution: "FHNW - Hochschule für Wirtschaft",
     location: "Switzerland",
     icon: "🎓",
     type: "education",
@@ -275,7 +275,7 @@ const educationTimeline = [
     ],
   },
   {
-    year: "Sep.2016 – Jun.2022",
+    year: "Sep.2016 - Jun.2022",
     title: "Bachelor's Degree (Part-time)",
     subtitle: "Art Design",
     institution: "Hunan Normal University",
@@ -285,7 +285,7 @@ const educationTimeline = [
   },
 ];
 
-// 技能数据 — 瑞士招聘市场常见标签
+// 技能数据 - 瑞士招聘市场常见标签
 const skillsData = [
   {
     title: "Product & Business",
@@ -316,7 +316,7 @@ const skillsData = [
   },
   {
     title: "Languages",
-    items: ["English — Fluent", "Chinese — Native", "German — B2"],
+    items: ["English - Fluent", "Chinese - Native", "German - B2"],
   },
 ];
 
@@ -457,7 +457,7 @@ export default function AboutPage() {
   const [hoveredPlace, setHoveredPlace] = useState<string | null>(null);
 
   const travelPlaces = [
-    { name: "Shenzhen", x: "79%", y: "43%", mapX: 780, mapY: 258, emphasis: true, note: "From Shenzhen to Switzerland — a core part of my personal story." },
+    { name: "Shenzhen", x: "79%", y: "43%", mapX: 780, mapY: 258, emphasis: true, note: "From Shenzhen to Switzerland - a core part of my personal story." },
     { name: "Zurich", x: "51%", y: "31%", mapX: 486, mapY: 196, emphasis: true, note: "Current Swiss base and part of my ongoing life and work in Switzerland." },
     { name: "Basel", x: "50%", y: "30%", mapX: 481, mapY: 191, note: "A meaningful Swiss stop in my local journey and cultural experience." },
     { name: "Paris", x: "49%", y: "30%", mapX: 463, mapY: 187, note: "A travel memory shaped by curiosity, design, and cultural exploration." },
@@ -545,7 +545,7 @@ export default function AboutPage() {
         Download CV
       </a>
 
-      {/* Section 1: About + Experience — 和之前一样的布局 */}
+      {/* Section 1: About + Experience - 和之前一样的布局 */}
       <motion.section
         id="about"
         className="min-h-screen flex items-center px-5 md:px-8 lg:px-20 lg:pl-36 py-20 md:py-0"
@@ -754,20 +754,29 @@ export default function AboutPage() {
               PART-TIME IT CONSULTANT · OPEN TO FULL-TIME OPPORTUNITIES
             </p>
             <div className="space-y-3 text-sm text-neutral-500 leading-relaxed mb-8 max-w-sm">
-              <p>An IT woman building her path from Shenzhen to Switzerland.</p>
+              <p>An IT woman building my path from China Shenzhen to Switzerland.</p>
               <p>Passionate about innovation and new technology.</p>
               <p>
-                Loves traveling and exploring different cultures around the
-                world. {" "}
+                Loves traveling and exploring different cultures around the world.{" "}
                 <button
                   type="button"
                   onClick={() => setTravelMapOpen(true)}
                   className="text-black underline underline-offset-4 hover:text-neutral-600 transition-colors"
                 >
-                  Places I’ve been
+                  Places I've been
                 </button>
               </p>
-              <p>Child sexuality education researcher.</p>
+              <p>
+                Building AI RAG for child sexuality education.{" "}
+                <a
+                  href="https://rag-chilren.onrender.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-black underline underline-offset-4 hover:text-neutral-600 transition-colors"
+                >
+                  [Application link]
+                </a>
+              </p>
             </div>
             <div className="flex flex-wrap gap-2 mb-8">
               {[
@@ -819,7 +828,7 @@ export default function AboutPage() {
                     World Map
                   </p>
                   <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-2">
-                    Places I’ve Been
+                    Places I've Been
                   </h2>
                   <p className="text-sm text-neutral-500 max-w-lg leading-relaxed">
                     Two layers of places are highlighted here: travel memories and child sexuality education related work.
@@ -1130,7 +1139,7 @@ export default function AboutPage() {
         )}
       </AnimatePresence>
 
-      {/* Section 2: Education — 教育时间线 */}
+      {/* Section 2: Education - 教育时间线 */}
       <motion.section
         id="education"
         className="min-h-screen flex items-center px-5 md:px-8 lg:px-20 lg:pl-36"
@@ -1222,7 +1231,7 @@ export default function AboutPage() {
         </div>
       </motion.section>
 
-      {/* Section 3: Skills — 技能 */}
+      {/* Section 3: Skills - 技能 */}
       <motion.section
         id="skills"
         className="min-h-screen flex items-center px-5 md:px-8 lg:px-20 lg:pl-36"
@@ -1279,7 +1288,7 @@ export default function AboutPage() {
         </div>
       </motion.section>
 
-      {/* Section 4: Projects — 代表项目 */}
+      {/* Section 4: Projects - 代表项目 */}
       <motion.section
         id="projects"
         className="min-h-screen flex items-center px-5 md:px-8 lg:px-20 lg:pl-36"
@@ -1345,7 +1354,7 @@ export default function AboutPage() {
         </div>
       </motion.section>
 
-      {/* Section 5: Contact — 一起工作吧 */}
+      {/* Section 5: Contact - 一起工作吧 */}
       <motion.section
         id="contact"
         className="min-h-screen flex items-center px-5 md:px-8 lg:px-20 lg:pl-36 py-16 md:py-0"
@@ -1392,7 +1401,7 @@ export default function AboutPage() {
             </div>
           </motion.div>
 
-          {/* SVG 插画：手机端上方居中，桌面端右侧 */}
+          {/* SVG 插画:手机端上方居中,桌面端右侧 */}
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}

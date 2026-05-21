@@ -543,6 +543,183 @@ export default function HomePageClient() {
         </motion.div>
       </section>
 
+      {/* How It Works - 3 Steps */}
+      <section className="px-5 md:px-8 lg:px-20 py-2 md:py-4 bg-white">
+        <div className="max-w-6xl mx-auto">
+          {/* Section Header */}
+          <div className="mb-4 md:mb-6 text-center">
+            <p className="text-[10px] tracking-[0.35em] text-neutral-400 mb-4 font-medium">
+              HOW IT WORKS
+            </p>
+            <div className="flex flex-wrap justify-center gap-4 md:gap-6 text-xs md:text-sm text-neutral-500">
+              <span className="px-3 py-1 border border-neutral-200 rounded-full">Documents</span>
+              <span className="px-3 py-1 border border-neutral-200 rounded-full">Local system</span>
+              <span className="px-3 py-1 border border-neutral-200 rounded-full">Team channels</span>
+            </div>
+          </div>
+
+          {/* Steps */}
+          <div className="space-y-6 md:space-y-8">
+            {/* Step 01 */}
+            <div className="grid md:grid-cols-[120px_1fr] gap-6 md:gap-12 items-start">
+              <div className="text-5xl md:text-6xl font-bold text-neutral-100">01</div>
+              <div>
+                <h3 className="text-2xl md:text-3xl font-bold mb-3 flex items-center gap-3">
+                  <span>LEARN</span>
+                </h3>
+                <p className="text-neutral-600 text-base md:text-lg leading-relaxed mb-4">
+                  Reads your documents
+                </p>
+                <p className="text-sm text-neutral-500 leading-relaxed">
+                  Pulls from notes, files, FAQs, and internal context.
+                </p>
+              </div>
+            </div>
+
+            {/* Arrow */}
+            <div className="flex justify-center">
+              <div className="text-4xl text-neutral-200">↓</div>
+            </div>
+
+            {/* Step 02 */}
+            <div className="grid md:grid-cols-[120px_1fr] gap-6 md:gap-12 items-start">
+              <div className="text-5xl md:text-6xl font-bold text-neutral-100">02</div>
+              <div>
+                <h3 className="text-2xl md:text-3xl font-bold mb-3 flex items-center gap-3">
+                  <span>ASSIST</span>
+                </h3>
+                <p className="text-neutral-600 text-base md:text-lg leading-relaxed mb-4">
+                  Helps with replies, routing, recurring tasks
+                </p>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  <span className="px-3 py-1 bg-neutral-100 text-neutral-600 text-xs rounded-full">Document-trained</span>
+                  <span className="px-3 py-1 bg-neutral-100 text-neutral-600 text-xs rounded-full">Local-first</span>
+                  <span className="px-3 py-1 bg-neutral-100 text-neutral-600 text-xs rounded-full">Channel-ready</span>
+                  <span className="px-3 py-1 bg-neutral-100 text-neutral-600 text-xs rounded-full">Workflow-based</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Arrow */}
+            <div className="flex justify-center">
+              <div className="text-4xl text-neutral-200">↓</div>
+            </div>
+
+            {/* Step 03 */}
+            <div className="grid md:grid-cols-[120px_1fr] gap-6 md:gap-12 items-start">
+              <div className="text-5xl md:text-6xl font-bold text-neutral-100">03</div>
+              <div>
+                <h3 className="text-2xl md:text-3xl font-bold mb-3 flex items-center gap-3">
+                  <span>DELIVER</span>
+                </h3>
+                <p className="text-neutral-600 text-base md:text-lg leading-relaxed mb-4">
+                  Works in your channels
+                </p>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                  <div className="flex items-center gap-2 px-4 py-3 border border-neutral-200 rounded-lg text-sm text-neutral-700">
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                    </svg>
+                    Website
+                  </div>
+                  <div className="flex items-center gap-2 px-4 py-3 border border-neutral-200 rounded-lg text-sm text-neutral-700">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    Email
+                  </div>
+                  <div className="flex items-center gap-2 px-4 py-3 border border-neutral-200 rounded-lg text-sm text-neutral-700">
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                    </svg>
+                    WhatsApp
+                  </div>
+                  <div className="flex items-center gap-2 px-4 py-3 border border-neutral-200 rounded-lg text-sm text-neutral-700">
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                    </svg>
+                    Telegram
+                  </div>
+                  <div className="flex items-center gap-2 px-4 py-3 border border-neutral-200 rounded-lg text-sm text-neutral-700">
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                      <rect x="3" y="3" width="7" height="7" rx="1"/>
+                      <rect x="14" y="3" width="7" height="7" rx="1"/>
+                      <rect x="3" y="14" width="7" height="7" rx="1"/>
+                      <rect x="14" y="14" width="7" height="7" rx="1"/>
+                    </svg>
+                    Teams
+                  </div>
+                  <div className="flex items-center gap-2 px-4 py-3 border border-neutral-200 rounded-lg text-sm text-neutral-700">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    CRM/Forms
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* What It Helps With */}
+      <section className="px-5 md:px-8 lg:px-20 py-12 md:py-16 bg-neutral-50">
+        <div className="max-w-6xl mx-auto">
+          <div className="mb-8 md:mb-12 text-center">
+            <p className="text-[10px] tracking-[0.35em] text-neutral-400 mb-4 font-medium">
+              WHAT IT HELPS WITH
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            {/* Left: Use cases */}
+            <div className="space-y-8">
+              {/* Use case 01 */}
+              <div>
+                <div className="flex items-start gap-4 mb-3">
+                  <span className="text-3xl font-bold text-neutral-200">01</span>
+                  <h3 className="text-xl md:text-2xl font-bold pt-1">Customer support</h3>
+                </div>
+                <p className="text-neutral-600 leading-relaxed pl-14">
+                  Answer repeated questions faster
+                </p>
+              </div>
+
+              {/* Use case 02 */}
+              <div>
+                <div className="flex items-start gap-4 mb-3">
+                  <span className="text-3xl font-bold text-neutral-200">02</span>
+                  <h3 className="text-xl md:text-2xl font-bold pt-1">Sales follow-up</h3>
+                </div>
+                <p className="text-neutral-600 leading-relaxed pl-14">
+                  Keep leads moving with less manual work
+                </p>
+              </div>
+
+              {/* Use case 03 */}
+              <div>
+                <div className="flex items-start gap-4 mb-3">
+                  <span className="text-3xl font-bold text-neutral-200">03</span>
+                  <h3 className="text-xl md:text-2xl font-bold pt-1">Internal knowledge</h3>
+                </div>
+                <p className="text-neutral-600 leading-relaxed pl-14">
+                  Find answers and documents quickly
+                </p>
+              </div>
+            </div>
+
+            {/* Right: Image */}
+            <div className="lg:max-w-lg">
+              <img
+                src="/images/business-workflow.jpg"
+                alt="Business workflow"
+                className="w-full h-auto rounded-lg"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Hero Section - Refined */}
       <section className="hidden min-h-[45vh] md:min-h-[55vh] items-center relative overflow-hidden bg-white pt-8 md:pt-0">
         {/* Subtle animated gradient mesh */}
@@ -1397,7 +1574,7 @@ export default function HomePageClient() {
       )}
 
       <FadeInView>
-        <section className="px-5 md:px-8 lg:px-20 py-14 md:py-20 bg-neutral-50/60 border-y border-neutral-200/70">
+        <section className="hidden px-5 md:px-8 lg:px-20 py-14 md:py-20 bg-neutral-50/60 border-y border-neutral-200/70">
           <div className="grid gap-8 md:gap-10 lg:grid-cols-[0.9fr_1.1fr] items-center">
             <div className="max-w-md">
               <p className="text-[10px] tracking-[0.35em] text-neutral-400 mb-4 font-medium">

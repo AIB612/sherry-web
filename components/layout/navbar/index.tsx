@@ -8,20 +8,20 @@ import { Menu } from "lib/shopify/types";
 
 const defaultMenu: Menu[] = [
   { title: "Home", path: "/" },
-  { title: "All Work", path: "/all-work.html" },
-  { title: "My Methodology", path: "/my-methodology.html" },
-  { title: "Digital Tool", path: "/digital-tool.html" },
-  { title: "About", path: "/about.html" },
+  { title: "All Work", path: "/all-work" },
+  { title: "My Methodology", path: "/my-methodology" },
+  { title: "Digital Tool", path: "/digital-tool" },
+  { title: "About", path: "/about" },
 ];
 
 function NavbarContent() {
   const pathname = usePathname();
-  const menu = defaultMenu.filter((item) => item.title !== "About");
+  const menu = defaultMenu;
   const desktopMenu = menu.filter((item) => item.title !== "Home");
 
   const isActiveLink = (path: string) => {
     if (path === "/") return pathname === "/";
-    const normalizedPath = path.replace(/\.html$/, "");
+    const normalizedPath = path.replace(/\$/, "");
     return pathname === normalizedPath || pathname === path;
   };
 
