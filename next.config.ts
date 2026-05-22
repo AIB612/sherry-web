@@ -4,9 +4,6 @@ const nextConfig: NextConfig = {
   // 👈 核心修改 1：开启静态导出模式，生成 out 文件夹
   output: "export",
 
-  // 👈 子目录部署：所有路径前缀
-  basePath: "/it.swisspro.site",
-
   // 👈 核心修改 2：静态导出不支持 Image Optimization，必须关闭
   images: {
     unoptimized: true,
