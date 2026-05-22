@@ -38,9 +38,9 @@ interface CaseItem {
 
 const sections = [
   { id: "about", label: "About" },
+  { id: "projects", label: "Projects" },
   { id: "education", label: "Education" },
   { id: "skills", label: "Skills" },
-  { id: "projects", label: "Projects" },
   { id: "contact", label: "Contact" },
 ];
 
@@ -635,7 +635,7 @@ function DetailModal({
         </button>
 
         <div className="flex-1 overflow-y-auto pb-10 md:pb-12">
-          <div className="mb-8 md:mb-10 px-5 md:px-10 pt-5 md:pt-5">
+          <div className="mb-8 md:mb-10 px-6 md:px-10 pt-5 md:pt-5">
             <h1 className="text-3xl md:text-4xl font-bold text-black tracking-[-0.02em] leading-tight mb-4 text-left">
               {item.title}
             </h1>
@@ -650,7 +650,7 @@ function DetailModal({
             </div>
           </div>
 
-          <div className="px-5 md:px-10 mb-8 md:mb-10">
+          <div className="px-6 md:px-10 mb-8 md:mb-10">
             <div
               className={`w-full aspect-[2/1] rounded-2xl ${item.detailImage1 ? "bg-neutral-100" : "bg-gradient-to-br " + item.thumbnailBg} overflow-hidden relative`}
             >
@@ -692,7 +692,7 @@ function DetailModal({
             </div>
           </div>
 
-          <div className="flex justify-center mb-8 md:mb-10 px-5 md:px-14 lg:px-20">
+          <div className="flex justify-center mb-8 md:mb-10 px-6 md:px-14 lg:px-20">
             <p className="text-center text-neutral-600 text-sm leading-relaxed max-w-xl">
               {item.title} is a {item.subtitle.toLowerCase()}. {item.context}
             </p>
@@ -700,7 +700,7 @@ function DetailModal({
 
           <div className="h-px w-[40px] bg-neutral-400 mx-auto mb-8 md:mb-10" />
 
-          <div className="px-5 md:px-10 mb-8 md:mb-10">
+          <div className="px-6 md:px-10 mb-8 md:mb-10">
             <div
               className={`w-full aspect-[2/1] rounded-2xl ${item.detailImage2 ? "bg-neutral-100" : "bg-gradient-to-tl " + item.thumbnailBg} overflow-hidden opacity-90 relative`}
             >
@@ -726,7 +726,7 @@ function DetailModal({
             </div>
           </div>
 
-          <div className="flex justify-center mb-8 md:mb-10 px-5 md:px-14 lg:px-20">
+          <div className="flex justify-center mb-8 md:mb-10 px-6 md:px-14 lg:px-20">
             <p className="text-center text-neutral-600 text-sm leading-relaxed max-w-xl">
               {item.execution.architecture}
             </p>
@@ -734,7 +734,7 @@ function DetailModal({
 
           <div className="h-px w-[40px] bg-neutral-400 mx-auto mb-10 md:mb-12" />
 
-          <div className="mb-8 px-5 md:px-14 lg:px-20 text-center">
+          <div className="mb-8 px-6 md:px-14 lg:px-20 text-center">
             <h3 className="text-[10px] font-bold tracking-[0.3em] text-neutral-400 mb-5 md:mb-6">
               SUMMARY
             </h3>
@@ -973,7 +973,7 @@ export default function AboutPage() {
       {/* Section 1: About + Experience - 和之前一样的布局 */}
       <motion.section
         id="about"
-        className="min-h-screen flex items-center px-5 md:px-8 lg:px-20 lg:pl-36 py-20 md:py-0"
+        className="min-h-screen flex items-center px-6 md:px-8 lg:px-20 lg:pl-36 py-20 md:py-0"
         initial={{ opacity: 0, y: 80 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
@@ -991,55 +991,14 @@ export default function AboutPage() {
             <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-5">
               About
             </h1>
-            <div className="space-y-2 text-sm text-neutral-500 leading-relaxed mb-8 max-w-[620px] text-justify">
-              <p>A woman in tech building a path from Shenzhen, China, to Switzerland.</p>
-              <p>10 years of experience working in IT field in Shenzhen.</p>
-              <p>3 years in Switzerland, completing a Master's degree while working in IT field.</p>
-              <p>Passionate about innovation and new technologies.</p>
-              <p>
-                Love traveling and exploring diverse cultures around the world.{" "}
-                <button
-                  type="button"
-                  onClick={() => setTravelMapOpen(true)}
-                  className="text-black underline underline-offset-4 hover:text-neutral-600 transition-colors"
-                >
-                  Places I've been
-                </button>
-              </p>
-              <p>Having grown up as a "left-behind child" for 14 years with my grandpa, my vision is to empower society through new technology.</p>
-              <p>
-                Currently building an AI RAG application for child sexuality education{" "}
-                <a
-                  href="https://rag-chilren.onrender.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-black underline underline-offset-4 hover:text-neutral-600 transition-colors"
-                >
-                  Demo
-                </a>
-                .
-              </p>
-              <p>
-                Learning German to C1 level. Published and updated a podcast:{" "}
-                <a
-                  href="https://podcasts.apple.com/ch/podcast/learn-german-with-the-little-prince/id1896780524?l=de-DE"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-black underline underline-offset-4 hover:text-neutral-600 transition-colors"
-                >
-                  Learn German with The Little Prince
-                </a>
-                .
-              </p>
-            </div>
 
-            {/* 手机端: 资料块放在 About 文案下面 */}
+            {/* 手机端: 资料块放在 About 标题下面 */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: 0.1 }}
-              className="lg:hidden flex flex-col items-start mb-10"
+              className="lg:hidden flex flex-col items-start mb-8"
             >
               <div className="w-24 h-24 rounded-full bg-neutral-100 border border-neutral-200 mb-5 overflow-hidden">
                 <img
@@ -1082,6 +1041,46 @@ export default function AboutPage() {
                 </a>
               </div>
             </motion.div>
+
+            <div className="space-y-2 text-sm text-neutral-500 leading-relaxed mb-8 max-w-[620px] text-justify">
+              <p>A woman in tech building a path from Shenzhen, China, to Switzerland.</p>
+              <p>10 years of experience working in IT field.</p>
+              <p>3 years in Switzerland, completing a Master's degree while working in IT field.</p>
+              <p>Passionate about innovation and new technologies.</p>
+              <p>
+                Love traveling and exploring diverse cultures around the world.{" "}
+                <button
+                  type="button"
+                  onClick={() => setTravelMapOpen(true)}
+                  className="text-black underline underline-offset-4 hover:text-neutral-600 transition-colors"
+                >
+                  Places I've been
+                </button>
+              </p>
+              <p>From a 14-year 'left-behind child' to a tech innovator. This AI-RAG Child Sexuality Education{" "}
+                <a
+                  href="https://rag-chilren.onrender.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-black underline underline-offset-4 hover:text-neutral-600 transition-colors"
+                >
+                  Demo
+                </a>
+                {" "}is my vision for Lifelong Personal Sustainability.
+              </p>
+              <p>
+                Learning German to C1 level. Published and updated a podcast:{" "}
+                <a
+                  href="https://podcasts.apple.com/ch/podcast/learn-german-with-the-little-prince/id1896780524?l=de-DE"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-black underline underline-offset-4 hover:text-neutral-600 transition-colors"
+                >
+                  Learn German with The Little Prince
+                </a>
+                .
+              </p>
+            </div>
 
             {/* 时间轴 */}
             <div className="inline-flex flex-col items-start ml-0 md:ml-5 relative w-full max-w-[500px] overflow-x-auto pb-2">
@@ -1573,10 +1572,77 @@ export default function AboutPage() {
         )}
       </AnimatePresence>
 
-      {/* Section 2: Education - 教育时间线 */}
+      {/* Section 2: Projects - 代表项目 */}
+      <motion.section
+        id="projects"
+        className="min-h-screen flex items-center px-6 md:px-8 lg:px-20 lg:pl-36"
+        initial={{ opacity: 0, y: 80 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.8, ease: [0.33, 1, 0.68, 1] }}
+      >
+        <div className="w-full max-w-3xl">
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-[10px] tracking-[0.3em] text-neutral-400 mb-4"
+          >
+            FEATURED PROJECTS
+          </motion.p>
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tighter mb-12">
+            Selected Work
+          </h2>
+
+          <div className="space-y-0">
+            {featuredProjects.map((project, i) => (
+              <motion.div
+                key={project.title}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.08 }}
+                onClick={() => setSelectedProject(project.id)}
+                className="group border-b border-neutral-200 py-6 flex items-baseline justify-between hover:pl-2 transition-all duration-300 cursor-pointer"
+              >
+                <div>
+                  <h3 className="text-xl font-bold tracking-tight">
+                    {project.title}
+                  </h3>
+                  <p className="text-sm text-neutral-500 mt-1">
+                    {project.desc}
+                  </p>
+                </div>
+                <span className="text-[10px] tracking-[0.2em] text-neutral-400 shrink-0 ml-4">
+                  {project.type}
+                </span>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* View All Link */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4 }}
+            className="mt-8"
+          >
+            <Link
+              href="/all-work"
+              className="inline-flex items-center gap-2 text-sm font-medium hover:gap-3 transition-all"
+            >
+              View all projects
+              <span>→</span>
+            </Link>
+          </motion.div>
+        </div>
+      </motion.section>
+
+      {/* Section 3: Education - 教育时间线 */}
       <motion.section
         id="education"
-        className="min-h-screen flex items-center px-5 md:px-8 lg:px-20 lg:pl-36"
+        className="min-h-screen flex items-center px-6 md:px-8 lg:px-20 lg:pl-36"
         initial={{ opacity: 0, y: 80 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
@@ -1665,10 +1731,10 @@ export default function AboutPage() {
         </div>
       </motion.section>
 
-      {/* Section 3: Skills - 技能 */}
+      {/* Section 4: Skills - 技能 */}
       <motion.section
         id="skills"
-        className="min-h-screen flex items-center px-5 md:px-8 lg:px-20 lg:pl-36"
+        className="min-h-screen flex items-center px-6 md:px-8 lg:px-20 lg:pl-36"
         initial={{ opacity: 0, y: 80 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
@@ -1722,77 +1788,10 @@ export default function AboutPage() {
         </div>
       </motion.section>
 
-      {/* Section 4: Projects - 代表项目 */}
-      <motion.section
-        id="projects"
-        className="min-h-screen flex items-center px-5 md:px-8 lg:px-20 lg:pl-36"
-        initial={{ opacity: 0, y: 80 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.8, ease: [0.33, 1, 0.68, 1] }}
-      >
-        <div className="w-full max-w-3xl">
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-[10px] tracking-[0.3em] text-neutral-400 mb-4"
-          >
-            FEATURED PROJECTS
-          </motion.p>
-          <h2 className="text-2xl md:text-3xl font-bold tracking-tighter mb-12">
-            Selected Work
-          </h2>
-
-          <div className="space-y-0">
-            {featuredProjects.map((project, i) => (
-              <motion.div
-                key={project.title}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
-                onClick={() => setSelectedProject(project.id)}
-                className="group border-b border-neutral-200 py-6 flex items-baseline justify-between hover:pl-2 transition-all duration-300 cursor-pointer"
-              >
-                <div>
-                  <h3 className="text-xl font-bold tracking-tight">
-                    {project.title}
-                  </h3>
-                  <p className="text-sm text-neutral-500 mt-1">
-                    {project.desc}
-                  </p>
-                </div>
-                <span className="text-[10px] tracking-[0.2em] text-neutral-400 shrink-0 ml-4">
-                  {project.type}
-                </span>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* View All Link */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.4 }}
-            className="mt-8"
-          >
-            <Link
-              href="/all-work"
-              className="inline-flex items-center gap-2 text-sm font-medium hover:gap-3 transition-all"
-            >
-              View all projects
-              <span>→</span>
-            </Link>
-          </motion.div>
-        </div>
-      </motion.section>
-
       {/* Section 5: Contact - 一起工作吧 */}
       <motion.section
         id="contact"
-        className="min-h-screen flex items-center px-5 md:px-8 lg:px-20 lg:pl-36 py-16 md:py-0"
+        className="min-h-screen flex items-center px-6 md:px-8 lg:px-20 lg:pl-36 py-16 md:py-0"
         initial={{ opacity: 0, y: 80 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
@@ -1916,7 +1915,7 @@ export default function AboutPage() {
                   (hoveredIndex !== null ? experienceData[hoveredIndex] : null);
                 if (!activeExp) return null;
                 return (
-                  <div className="px-5 md:px-6 pb-8 pt-2">
+                  <div className="px-6 md:px-6 pb-8 pt-2">
                     <div className="flex items-start gap-4 mb-6">
                       <div className="h-14 w-14 flex-shrink-0 overflow-hidden rounded-xl border border-neutral-200 bg-neutral-50 flex items-center justify-center">
                         <span className="text-lg font-bold text-neutral-800">
