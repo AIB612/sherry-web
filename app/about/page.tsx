@@ -6,9 +6,35 @@ import {
   useMotionValueEvent,
   AnimatePresence,
 } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+
+// 尝试导入 track-record-view 的类型和数据
+interface CaseItem {
+  id: string;
+  no: string;
+  title: string;
+  subtitle: string;
+  category: string;
+  role: string;
+  year: string;
+  location: string;
+  tags: string[];
+  thumbnailBg: string;
+  image?: string;
+  detailImage1?: string;
+  detailImage2?: string;
+  isFullWidth?: boolean;
+  previewUrl: string;
+  videoUrl: string;
+  teamSize: string;
+  duration: string;
+  context: string;
+  execution: { architecture: string; compliance: string; leadership: string };
+  highlight: string;
+}
 
 const sections = [
   { id: "about", label: "About" },
@@ -381,28 +407,425 @@ const projectPreviewMap: Record<
   },
 };
 
+// 完整的项目数据（用于弹窗）
+const fullProjectData: CaseItem[] = [
+  {
+    id: "malim-mobility",
+    no: "01",
+    title: "Malim Mobility Website",
+    subtitle: "EV Subsidy Tracker & Consulting Platform",
+    category: "SWISS PROJECTS",
+    role: "Founder & Developer",
+    year: "Jun 2025 – Present",
+    location: "Switzerland",
+    tags: ["Next.js", "EV Subsidy", "Lead Gen"],
+    thumbnailBg: "from-emerald-900 to-emerald-950",
+    image: "/images/work/Malim.png",
+    detailImage1: "/images/work/malim1.png",
+    detailImage2: "/images/work/malim2.png",
+    isFullWidth: true,
+    previewUrl: "",
+    videoUrl: "",
+    teamSize: "1",
+    duration: "Ongoing",
+    context: "A cloud-based mobility consulting platform and official website dedicated to EV (Electric Vehicle) solutions.",
+    execution: {
+      architecture: "Architected and deployed the scalable platform based on comprehensive competitor analysis and cutting-edge charging tech research; built a robust PgvectorSQL database on the cloud. Engineered an innovative, integrated EV subsidy tracker and ROI calculator.",
+      compliance: "Architected and deployed the scalable platform based on comprehensive competitor analysis and cutting-edge charging tech research; built a robust PgvectorSQL database on the cloud. Engineered an innovative, integrated EV subsidy tracker and ROI calculator.",
+      leadership: "Successfully launched the platform online, significantly driving targeted lead generation and accelerating overall user acquisition.",
+    },
+    highlight: "Successfully launched the platform online, significantly driving targeted <strong>lead generation</strong> and accelerating overall user acquisition.",
+  },
+  {
+    id: "hampelmann",
+    no: "02",
+    title: "Hampelmann Shopify",
+    subtitle: "Sustainable Kids Toy E-Commerce Platform",
+    category: "SWISS PROJECTS",
+    role: "E-Commerce Consultant",
+    year: "Mar 2024 – Mar 2025",
+    location: "Netherlands / Switzerland",
+    tags: ["Shopify", "E-Commerce", "Dutch Market"],
+    thumbnailBg: "from-amber-900 to-amber-950",
+    image: "/images/work/Hampelmann.png",
+    detailImage1: "/images/work/Hamplemann1.png",
+    detailImage2: "/images/work/Hamplemann2.png",
+    isFullWidth: false,
+    previewUrl: "",
+    videoUrl: "",
+    teamSize: "3",
+    duration: "1 Year",
+    context: "It was positioned for the Dutch market with a focus on category strategy, customer engagement, and conversion growth.",
+    execution: {
+      architecture: "Conceptualized a visionary e-commerce strategy by segmenting toy categories based on achieving children's future dream jobs. Drove strategic expansion by optimizing product listings and pioneering new customer engagement models.",
+      compliance: "Conceptualized a visionary e-commerce strategy by segmenting toy categories based on achieving children's future dream jobs. Drove strategic expansion by optimizing product listings and pioneering new customer engagement models.",
+      leadership: "Reactivated legacy users through targeted holiday events and data-driven email marketing, leveraging complex Dutch market data to boost user experience and increase payment conversion rates by 20%.",
+    },
+    highlight: "Reactivated legacy users through targeted holiday events and data-driven email marketing, boosting user experience and increasing <strong>payment conversion rates by 20%</strong>.",
+  },
+  {
+    id: "anjun-express",
+    no: "03",
+    title: "Anjun Express",
+    subtitle: "Brazil Cross-Border Logistics System",
+    category: "E-COMMERCE & LOGISTICS",
+    role: "Product Manager",
+    year: "Mar 2022 – Jan 2023",
+    location: "Brazil / China",
+    tags: ["API Integration", "Mercado", "Data Modeling"],
+    thumbnailBg: "from-green-900 to-green-950",
+    image: "/images/work/Anjun.png",
+    detailImage1: "/images/work/Anjun1.png",
+    detailImage2: "/images/work/Anjun2.png",
+    isFullWidth: false,
+    previewUrl: "",
+    videoUrl: "",
+    teamSize: "10",
+    duration: "10 Months",
+    context: "A comprehensive logistics system integrating the Mercado E-commerce platform with the Correios last-mile service.",
+    execution: {
+      architecture: "Architected advanced data models for seamless, real-time API integrations. Designed innovative prototypes and intuitive interactions for backend systems and mobile operational software, efficiently managing cross-border agile development teams.",
+      compliance: "Architected advanced data models for seamless, real-time API integrations. Designed innovative prototypes and intuitive interactions for backend systems and mobile operational software, efficiently managing cross-border agile development teams.",
+      leadership: "Leveraged deep logistics status data analysis to monitor and optimize lead times from order to last-mile delivery, driving a remarkable 60% surge in overall operational efficiency.",
+    },
+    highlight: "Leveraged deep logistics status data analysis to monitor and optimize lead times from order to last-mile delivery, driving a remarkable <strong>60% surge</strong> in overall operational efficiency.",
+  },
+  {
+    id: "oppo-mobile",
+    no: "04",
+    title: "OPPO Mobile",
+    subtitle: "IT Product Consulting & Analysis",
+    category: "IT PRODUCT CONSULTING",
+    role: "Product Consultant",
+    year: "Sep 2021 – Mar 2022",
+    location: "China",
+    tags: ["NPS Analysis", "Product Strategy", "UX Research"],
+    thumbnailBg: "from-sky-900 to-sky-950",
+    image: "/images/work/OPPO.png",
+    detailImage1: "/images/work/Oppo1.png",
+    detailImage2: "/images/work/Oppo2.png",
+    isFullWidth: true,
+    previewUrl: "",
+    videoUrl: "",
+    teamSize: "8",
+    duration: "6 Months",
+    context: "Strategic IT product consulting for OPPO's digital product teams focusing on future product experience improvement.",
+    execution: {
+      architecture: "Orchestrated interactive workshops and synthesized quantitative and qualitative research. Formulated innovative user cases to seamlessly integrate cross-functional teams with emerging technical products like Cloud and NFC services.",
+      compliance: "Orchestrated interactive workshops and synthesized quantitative and qualitative research. Formulated innovative user cases to seamlessly integrate cross-functional teams with emerging technical products like Cloud and NFC services.",
+      leadership: "Delivered forward-thinking strategic guidance that elevated user engagement through optimized features, advanced NPS analysis, and dynamic KPI-tracking data dashboards.",
+    },
+    highlight: "Delivered forward-thinking strategic guidance that elevated user engagement through optimized features, advanced <strong>NPS analysis</strong>, and dynamic KPI-tracking data dashboards.",
+  },
+];
+
 // 代表项目
 const featuredProjects = [
   {
+    id: "malim-mobility",
     title: "Malim Mobility Website",
     desc: "EV Subsidy Tracker & Consulting Platform",
     type: "SWISS PROJECTS",
+    role: "Founder & Developer",
+    year: "Jun 2025 – Present",
+    location: "Switzerland",
+    tags: ["Next.js", "EV Subsidy", "Lead Gen"],
+    image: "/images/work/Malim.png",
+    context: "A cloud-based mobility consulting platform and official website dedicated to EV (Electric Vehicle) solutions.",
+    highlight: "Successfully launched the platform online, significantly driving targeted lead generation and accelerating overall user acquisition.",
   },
   {
+    id: "hampelmann",
     title: "Hampelmann Shopify",
     desc: "Sustainable Kids Toy E-Commerce Platform",
     type: "SWISS PROJECTS",
+    role: "E-Commerce Consultant",
+    year: "Mar 2024 – Mar 2025",
+    location: "Netherlands / Switzerland",
+    tags: ["Shopify", "E-Commerce", "Dutch Market"],
+    image: "/images/work/Hampelmann.png",
+    context: "A Shopify-based e-commerce platform for sustainable wooden toys targeting the Dutch market.",
+    highlight: "Delivered a complete Shopify store with localized payment and shipping, driving early sales growth.",
   },
   {
+    id: "anjun-express",
     title: "Anjun Express",
     desc: "Brazil Cross-Border Logistics System",
     type: "E-COMMERCE & LOGISTICS",
+    role: "Product Manager",
+    year: "Sep 2022 – Dec 2023",
+    location: "China / Brazil",
+    tags: ["Logistics", "Cross-Border", "Brazil Market"],
+    image: "/images/work/Anjun.png",
+    context: "A comprehensive cross-border logistics platform connecting Chinese suppliers with Brazilian retailers.",
+    highlight: "Streamlined international shipping operations and reduced delivery times by 30%.",
   },
   {
+    id: "oppo-mobile",
     title: "OPPO Mobile",
     desc: "IT Product Consulting & Analysis",
     type: "IT PRODUCT CONSULTING",
+    role: "Product Consultant",
+    year: "Jan 2021 – Aug 2022",
+    location: "China",
+    tags: ["Mobile", "Product Strategy", "Market Analysis"],
+    image: "/images/work/OPPO.png",
+    context: "Strategic product consulting for OPPO's mobile device ecosystem and market positioning.",
+    highlight: "Provided data-driven insights that influenced product roadmap decisions for key markets.",
   },
+];
+
+function DetailModal({
+  item,
+  onClose,
+  onNavigate,
+}: {
+  item: CaseItem;
+  onClose: () => void;
+  onNavigate: (item: CaseItem) => void;
+}) {
+  const currentIndex = fullProjectData.findIndex((c) => c.id === item.id);
+  const prevCase = currentIndex > 0 ? fullProjectData[currentIndex - 1] : null;
+  const nextCase =
+    currentIndex < fullProjectData.length - 1 ? fullProjectData[currentIndex + 1] : null;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-50 flex items-end md:items-stretch justify-end"
+      style={{ background: "rgba(0,0,0,0.6)", backdropFilter: "blur(4px)" }}
+      onClick={onClose}
+    >
+      <motion.div
+        initial={
+          typeof window !== "undefined" && window.innerWidth < 768
+            ? { y: "100%" }
+            : { x: "100%" }
+        }
+        animate={
+          typeof window !== "undefined" && window.innerWidth < 768
+            ? { y: 0 }
+            : { x: 0 }
+        }
+        exit={
+          typeof window !== "undefined" && window.innerWidth < 768
+            ? { y: "100%" }
+            : { x: "100%" }
+        }
+        transition={{ type: "spring", damping: 30, stiffness: 300 }}
+        className="relative bg-white w-full md:w-1/2 h-[88vh] md:h-full shadow-2xl ml-auto overflow-hidden flex flex-col rounded-t-3xl md:rounded-none"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 md:top-6 md:right-6 z-20 w-11 h-11 bg-neutral-100 text-neutral-600 border border-neutral-200 rounded-full flex items-center justify-center shadow-[0_8px_24px_rgba(0,0,0,0.10)] hover:bg-neutral-200 hover:text-black transition-all hover:scale-110"
+        >
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 14 14"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+          >
+            <path d="M1 13L13 1M1 1l12 12" strokeLinecap="round" />
+          </svg>
+        </button>
+
+        <div className="flex-1 overflow-y-auto pb-10 md:pb-12">
+          <div className="mb-8 md:mb-10 px-5 md:px-10 pt-5 md:pt-5">
+            <h1 className="text-3xl md:text-4xl font-bold text-black tracking-[-0.02em] leading-tight mb-4 text-left">
+              {item.title}
+            </h1>
+            <div className="flex items-center gap-4">
+              <span className="text-[11px] tracking-[0.25em] font-mono text-neutral-400">
+                {item.no}
+              </span>
+              <span className="h-px w-8 bg-neutral-200" />
+              <span className="text-[10px] tracking-[0.2em] font-mono text-neutral-400">
+                {item.year}
+              </span>
+            </div>
+          </div>
+
+          <div className="px-5 md:px-10 mb-8 md:mb-10">
+            <div
+              className={`w-full aspect-[2/1] rounded-2xl ${item.detailImage1 ? "bg-neutral-100" : "bg-gradient-to-br " + item.thumbnailBg} overflow-hidden relative`}
+            >
+              {item.detailImage1 ? (
+                <Image
+                  src={item.detailImage1}
+                  alt={`${item.title} detail 1`}
+                  fill
+                  sizes="(min-width: 768px) 700px, 100vw"
+                  quality={100}
+                  className="absolute inset-0 w-full h-full object-cover object-center"
+                />
+              ) : item.image && !item.previewUrl ? (
+                <Image
+                  src={item.image}
+                  alt={item.title}
+                  fill
+                  sizes="(min-width: 768px) 700px, 100vw"
+                  quality={100}
+                  className="absolute inset-0 w-full h-full object-cover object-center"
+                />
+              ) : null}
+              {item.previewUrl && (
+                <video
+                  src={item.previewUrl}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="absolute inset-0 w-full h-full object-cover opacity-80"
+                />
+              )}
+              <span
+                className="absolute bottom-4 right-6 text-[80px] font-bold leading-none"
+                style={{ color: "rgba(255,255,255,0.06)" }}
+              >
+                {item.no}
+              </span>
+            </div>
+          </div>
+
+          <div className="flex justify-center mb-8 md:mb-10 px-5 md:px-14 lg:px-20">
+            <p className="text-center text-neutral-600 text-sm leading-relaxed max-w-xl">
+              {item.title} is a {item.subtitle.toLowerCase()}. {item.context}
+            </p>
+          </div>
+
+          <div className="h-px w-[40px] bg-neutral-400 mx-auto mb-8 md:mb-10" />
+
+          <div className="px-5 md:px-10 mb-8 md:mb-10">
+            <div
+              className={`w-full aspect-[2/1] rounded-2xl ${item.detailImage2 ? "bg-neutral-100" : "bg-gradient-to-tl " + item.thumbnailBg} overflow-hidden opacity-90 relative`}
+            >
+              {item.detailImage2 ? (
+                <Image
+                  src={item.detailImage2}
+                  alt={`${item.title} detail 2`}
+                  fill
+                  sizes="(min-width: 768px) 700px, 100vw"
+                  quality={100}
+                  className="absolute inset-0 w-full h-full object-cover object-center"
+                />
+              ) : item.image ? (
+                <Image
+                  src={item.image}
+                  alt={`${item.title} alternate detail`}
+                  fill
+                  sizes="(min-width: 768px) 700px, 100vw"
+                  quality={100}
+                  className="absolute inset-0 w-full h-full object-cover object-center opacity-90"
+                />
+              ) : null}
+            </div>
+          </div>
+
+          <div className="flex justify-center mb-8 md:mb-10 px-5 md:px-14 lg:px-20">
+            <p className="text-center text-neutral-600 text-sm leading-relaxed max-w-xl">
+              {item.execution.architecture}
+            </p>
+          </div>
+
+          <div className="h-px w-[40px] bg-neutral-400 mx-auto mb-10 md:mb-12" />
+
+          <div className="mb-8 px-5 md:px-14 lg:px-20 text-center">
+            <h3 className="text-[10px] font-bold tracking-[0.3em] text-neutral-400 mb-5 md:mb-6">
+              SUMMARY
+            </h3>
+            <p
+              className="text-center text-neutral-600 text-sm leading-relaxed max-w-xl mx-auto"
+              dangerouslySetInnerHTML={{ __html: item.highlight }}
+            />
+
+            <div className="flex flex-wrap justify-center gap-2 mt-6 md:mt-8">
+              {item.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="text-[10px] tracking-widest border border-neutral-200 px-4 py-1.5 text-neutral-500"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-auto border-t border-neutral-200 grid grid-cols-2 bg-white">
+          {prevCase ? (
+            <button
+              className="p-5 md:p-8 flex flex-col items-start border-r border-neutral-200 hover:bg-neutral-50 transition-colors group"
+              onClick={() => onNavigate(prevCase)}
+            >
+              <span className="text-[9px] tracking-[0.2em] text-neutral-400 mb-2 flex items-center gap-2 group-hover:text-black transition-colors">
+                <svg
+                  className="w-3 h-3 rotate-180"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={1.5}
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  />
+                </svg>
+                PREV PROJECT
+              </span>
+              <span className="font-semibold text-sm truncate w-full text-left">
+                {prevCase.title}
+              </span>
+            </button>
+          ) : (
+            <div className="p-6 md:p-8 border-r border-neutral-200" />
+          )}
+
+          {nextCase ? (
+            <button
+              className="p-5 md:p-8 flex flex-col items-end hover:bg-neutral-50 transition-colors group text-right"
+              onClick={() => onNavigate(nextCase)}
+            >
+              <span className="text-[9px] tracking-[0.2em] text-neutral-400 mb-2 flex items-center gap-2 group-hover:text-black transition-colors">
+                NEXT PROJECT
+                <svg
+                  className="w-3 h-3"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={1.5}
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  />
+                </svg>
+              </span>
+              <span className="font-semibold text-sm truncate w-full">
+                {nextCase.title}
+              </span>
+            </button>
+          ) : (
+            <div className="p-6 md:p-8" />
+          )}
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+const VIEW_CATEGORIES = [
+  { key: "ALL", label: "All Projects" },
+  { key: "SWISS PROJECTS", label: "Swiss Projects" },
+  { key: "IT PRODUCT CONSULTING", label: "IT Product Consulting & Analysis" },
+  { key: "E-COMMERCE & LOGISTICS", label: "E-commerce & Logistics" },
+  { key: "END-TO-END PROJECTS", label: "End-to-End Projects" },
 ];
 
 function VerticalIndicator({ activeIndex }: { activeIndex: number }) {
@@ -444,6 +867,7 @@ function VerticalIndicator({ activeIndex }: { activeIndex: number }) {
 }
 
 export default function AboutPage() {
+  const router = useRouter();
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: containerRef });
   const [activeIndex, setActiveIndex] = useState(0);
@@ -452,6 +876,7 @@ export default function AboutPage() {
   >(null);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [travelMapOpen, setTravelMapOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<string | null>(null);
   const [mapMode, setMapMode] = useState<"travel" | "education" | "tech-travel">("travel");
   const [activePlace, setActivePlace] = useState<string>("Shenzhen");
   const [hoveredPlace, setHoveredPlace] = useState<string | null>(null);
@@ -1327,6 +1752,7 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.08 }}
+                onClick={() => setSelectedProject(project.id)}
                 className="group border-b border-neutral-200 py-6 flex items-baseline justify-between hover:pl-2 transition-all duration-300 cursor-pointer"
               >
                 <div>
@@ -1353,7 +1779,7 @@ export default function AboutPage() {
             className="mt-8"
           >
             <Link
-              href="/all-work.html"
+              href="/all-work"
               className="inline-flex items-center gap-2 text-sm font-medium hover:gap-3 transition-all"
             >
               View all projects
@@ -1590,6 +2016,22 @@ export default function AboutPage() {
             </motion.div>
           </>
         )}
+      </AnimatePresence>
+
+      {/* Project Detail Modal */}
+      <AnimatePresence>
+        {selectedProject && (() => {
+          const project = fullProjectData.find(p => p.id === selectedProject);
+          if (!project) return null;
+          
+          return (
+            <DetailModal
+              item={project}
+              onClose={() => setSelectedProject(null)}
+              onNavigate={(nextItem) => setSelectedProject(nextItem.id)}
+            />
+          );
+        })()}
       </AnimatePresence>
     </div>
   );
