@@ -1570,9 +1570,39 @@ export default function ProtocolPage() {
   };
 
   return (
-    <div className="min-h-screen">
+    <>
+      {/* Structured Data for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "My Methodology: AI Transformation & Digital Product Strategy",
+            "description": "Comprehensive methodology for AI transformation, digital product strategy, UX research, and workflow automation for Swiss SMEs",
+            "author": {
+              "@type": "Person",
+              "name": "Chenxue Branny",
+              "jobTitle": "Full-Stack IT Consultant",
+              "url": "https://chenxue-branny.vercel.app"
+            },
+            "publisher": {
+              "@type": "Person",
+              "name": "Chenxue Branny"
+            },
+            "datePublished": "2026-01-01",
+            "dateModified": "2026-05-22",
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": "https://chenxue-branny.vercel.app/my-methodology"
+            },
+            "keywords": "AI transformation, digital product strategy, supply chain analytics, customer lifecycle management, agile development, UX research"
+          })
+        }}
+      />
+      <div className="min-h-screen">
       {/* Hero Section */}
-      <div className="relative px-5 md:px-8 lg:px-20 pt-7 md:pt-10 pb-0">
+      <div className="relative px-6 md:px-8 lg:px-20 pt-7 md:pt-10 pb-0">
         {/* Background Image - Right Side - Fixed Position */}
         <img
           src="/protocol-hero.jpg"
@@ -1593,7 +1623,7 @@ export default function ProtocolPage() {
       </div>
 
       {/* Main: Left Sidebar + Right Content */}
-      <section className="px-5 md:px-8 lg:px-20 mt-7 md:mt-10 pb-16 md:pb-24 relative z-10">
+      <section className="px-6 md:px-8 lg:px-20 mt-7 md:mt-10 pb-16 md:pb-24 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-[280px_1fr] gap-6 md:gap-10 items-start">
           {/* Left: Category Tree */}
           <div className="md:hidden mb-5">
@@ -2058,7 +2088,7 @@ export default function ProtocolPage() {
               className="relative bg-white w-full max-h-[82vh] rounded-t-3xl shadow-2xl overflow-hidden flex flex-col"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="sticky top-0 z-10 bg-white px-5 pt-4 pb-3 border-b border-neutral-100">
+              <div className="sticky top-0 z-10 bg-white px-6 pt-4 pb-3 border-b border-neutral-100">
                 <div className="w-10 h-1 rounded-full bg-neutral-200 mx-auto mb-4" />
                 <div className="flex items-center justify-between gap-4">
                   <div>
@@ -2085,7 +2115,7 @@ export default function ProtocolPage() {
                 </div>
               </div>
 
-              <div className="overflow-y-auto px-5 pb-6">
+              <div className="overflow-y-auto px-6 pb-6">
                 {categories.map((cat) => (
                   <div
                     key={cat.id}
@@ -2256,5 +2286,6 @@ export default function ProtocolPage() {
         )}
       </AnimatePresence>
     </div>
+    </>
   );
 }

@@ -1,34 +1,49 @@
 import { baseUrl } from "lib/utils";
 
-const pageUrl = `${baseUrl}/all-work.html`;
-const imageUrl = `${baseUrl}/social-share-cover.jpg`;
-const description =
-  "Explore high-impact case studies by Chenxue Branny spanning AI, IT, digital transformation, enterprise platforms, UX strategy, and growth-focused product execution.";
-const descriptionDe =
-  "Entdecken Sie wirkungsstarke Fallstudien von Chenxue Branny aus den Bereichen KI, IT, digitale Transformation, Enterprise-Plattformen, UX-Strategie und wachstumsorientierte Produktumsetzung.";
-
 export default function Head() {
+  const title = "All Work | Portfolio & Case Studies";
+  const description =
+    "Explore high-impact case studies by Chenxue Branny spanning AI transformation, digital product strategy, enterprise platforms, UX research, and growth-focused execution. From Swiss SMEs to international projects.";
+  const ogDescription =
+    "Portfolio of AI transformation, digital product strategy, and enterprise platform projects. Real-world case studies from Swiss SMEs and international clients.";
+  const url = `${baseUrl}/all-work`;
+  const image = `${baseUrl}/images/og/all-work.jpg`;
+
   return (
     <>
-      <title>All Work | Chenxue Branny</title>
+      <title>{title}</title>
       <meta name="description" content={description} />
-      <meta name="description:de" content={descriptionDe} />
-      <link rel="canonical" href={pageUrl} />
-      <link rel="alternate" hrefLang="en-US" href={pageUrl} />
-      <link rel="alternate" hrefLang="de-CH" href={pageUrl} />
-      <link rel="alternate" hrefLang="de-DE" href={pageUrl} />
-      <meta property="og:title" content="All Work | Chenxue Branny" />
-      <meta property="og:description" content={description} />
+      <meta name="keywords" content="portfolio, case studies, AI transformation projects, digital product strategy, enterprise platforms, UX research, Swiss SME projects, international projects, product execution" />
+      
+      {/* Open Graph / Facebook */}
       <meta property="og:type" content="website" />
-      <meta property="og:url" content={pageUrl} />
+      <meta property="og:url" content={url} />
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content={ogDescription} />
+      <meta property="og:image" content={image} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
       <meta property="og:locale" content="en_US" />
-      <meta property="og:locale:alternate" content="de_CH" />
-      <meta property="og:locale:alternate" content="de_DE" />
-      <meta property="og:image" content={imageUrl} />
+      <meta property="og:site_name" content="Chenxue Branny" />
+      
+      {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content="All Work | Chenxue Branny" />
-      <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={imageUrl} />
+      <meta name="twitter:url" content={url} />
+      <meta name="twitter:title" content={title} />
+      <meta name="twitter:description" content={ogDescription} />
+      <meta name="twitter:image" content={image} />
+      <meta name="twitter:creator" content="@Gloombubu" />
+      
+      {/* Canonical & Alternates */}
+      <link rel="canonical" href={url} />
+      <link rel="alternate" hrefLang="en" href={url} />
+      <link rel="alternate" hrefLang="de-CH" href={url} />
+      <link rel="alternate" hrefLang="x-default" href={url} />
+      
+      {/* Additional SEO */}
+      <meta name="robots" content="index, follow" />
+      <meta name="author" content="Chenxue Branny" />
+      <meta name="language" content="English" />
     </>
   );
 }
