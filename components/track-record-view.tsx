@@ -689,10 +689,12 @@ const VIEW_CATEGORIES = [
 
 export function TrackRecordView({
   initialCategory = "ALL",
+  initialProjectId,
 }: {
   initialCategory?: string;
+  initialProjectId?: string | null;
 }) {
-  const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [expandedId, setExpandedId] = useState<string | null>(initialProjectId || null);
 
   const activeCategory = VIEW_CATEGORIES.some(
     (cat) => cat.key === initialCategory,

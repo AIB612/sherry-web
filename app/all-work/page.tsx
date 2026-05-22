@@ -7,8 +7,9 @@ import { TrackRecordView } from "components/track-record-view";
 function TrackRecordContent() {
   const searchParams = useSearchParams();
   const category = searchParams.get("category") || "ALL";
+  const projectId = searchParams.get("project");
 
-  return <TrackRecordView initialCategory={category} />;
+  return <TrackRecordView initialCategory={category} initialProjectId={projectId} />;
 }
 
 export default function TrackRecordPage() {

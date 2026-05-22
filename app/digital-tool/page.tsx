@@ -450,7 +450,7 @@ function RadarChart({
 export default function DigitalToolPage() {
   const [step, setStep] = useState<
     "booking" | "digitalization" | "assessment" | "results"
-  >("booking");
+  >("assessment");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, number>>({});
 
@@ -526,11 +526,40 @@ export default function DigitalToolPage() {
     (Object.keys(answers).length / allQuestions.length) * 100;
 
   return (
-    <div className="min-h-screen bg-white flex flex-col font-serif">
+    <>
+      {/* Structured Data for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "Digital Maturity Assessment Tool",
+            "description": "Free digital maturity assessment tool for Swiss SMEs to evaluate digital transformation readiness",
+            "url": "https://chenxue-branny.vercel.app/digital-tool",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Any",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "CHF"
+            },
+            "author": {
+              "@type": "Person",
+              "name": "Chenxue Branny",
+              "jobTitle": "Full-Stack IT Consultant",
+              "url": "https://chenxue-branny.vercel.app"
+            },
+            "provider": {
+              "@type": "Person",
+              "name": "Chenxue Branny"
+            }
+          })
+        }}
+      />
+      <div className="min-h-screen bg-white flex flex-col font-serif">
       <div className="hidden xl:flex fixed left-6 top-1/2 -translate-y-1/2 z-40 flex-col items-start gap-3">
         {[
-          { key: "booking", label: "Booking Setup" },
-          { key: "digitalization", label: "Digitalization" },
           { key: "assessment", label: "Assessment Tool" },
         ].map((item) => {
           const isActive = step === item.key;
@@ -599,209 +628,6 @@ export default function DigitalToolPage() {
       )}
 
       <div className="flex-grow flex items-center justify-center px-5 py-12 md:px-8 lg:px-20 bg-white">
-        {/* STEP 1A: DIGITALIZATION ARTICLE */}
-        {step === "digitalization" && (
-          <motion.article
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="max-w-4xl w-full text-left"
-          >
-            <header className="max-w-3xl mb-10 md:mb-14">
-              <p className="text-[10px] tracking-[0.35em] text-neutral-500 font-medium uppercase font-sans mb-4">
-                Article
-              </p>
-              <h2 className="text-[1.9rem] sm:text-[2.4rem] md:text-[3rem] font-bold tracking-[-0.03em] leading-[1.08] text-black mb-5">
-                How to Start Digitalization as a Small Company
-              </h2>
-              <p className="text-sm md:text-base text-neutral-500 leading-relaxed font-sans max-w-2xl">
-                Many small companies want to digitalize, but the real question
-                is where to begin. The best first step is usually not a large
-                system. It is one repeated workflow that already costs time,
-                creates confusion, or depends too much on manual follow-up.
-              </p>
-            </header>
-
-            <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_220px] gap-10 lg:gap-14 items-start">
-              <div className="space-y-10 md:space-y-12">
-                <section className="border-t border-neutral-200 pt-7 max-w-3xl">
-                  <p className="text-[10px] tracking-[0.25em] uppercase text-neutral-400 font-medium font-sans mb-3">
-                    01 · Start point
-                  </p>
-                  <h3 className="text-xl md:text-2xl font-bold text-black mb-3">
-                    Start with one repeated workflow
-                  </h3>
-                  <p className="text-sm md:text-[15px] text-neutral-600 leading-relaxed font-sans">
-                    Booking, follow-up, invoicing, internal handoffs, and client
-                    communication are often better places to start than large
-                    platform changes. If a task happens again and again, it is a
-                    strong candidate for digitalization.
-                  </p>
-                </section>
-
-                <section className="border-t border-neutral-200 pt-7 max-w-3xl">
-                  <p className="text-[10px] tracking-[0.25em] uppercase text-neutral-400 font-medium font-sans mb-3">
-                    02 · Practical rule
-                  </p>
-                  <h3 className="text-xl md:text-2xl font-bold text-black mb-3">
-                    Reduce friction before adding complexity
-                  </h3>
-                  <p className="text-sm md:text-[15px] text-neutral-600 leading-relaxed font-sans">
-                    Before buying new systems, first identify where people copy
-                    information manually, miss steps, or lose time switching
-                    between tools. Good digitalization removes friction instead
-                    of creating another layer of admin work.
-                  </p>
-                </section>
-
-                <section className="border-t border-b border-neutral-200 py-7 max-w-3xl">
-                  <p className="text-[10px] tracking-[0.25em] uppercase text-neutral-400 font-medium font-sans mb-3">
-                    03 · Long-term view
-                  </p>
-                  <h3 className="text-xl md:text-2xl font-bold text-black mb-3">
-                    Build step by step
-                  </h3>
-                  <p className="text-sm md:text-[15px] text-neutral-600 leading-relaxed font-sans">
-                    A simple workflow that works consistently is more valuable
-                    than an ambitious setup nobody actually uses. Once one part
-                    of the process is clear and stable, the same logic can be
-                    extended into other areas of the business.
-                  </p>
-                </section>
-              </div>
-
-              <aside className="lg:sticky lg:top-28 border border-neutral-200 rounded-2xl p-6 bg-neutral-50/70">
-                <p className="text-[10px] tracking-[0.25em] uppercase text-neutral-400 font-medium font-sans mb-4">
-                  Good first areas
-                </p>
-                <div className="space-y-2 mb-5">
-                  {[
-                    "Booking",
-                    "Follow-ups",
-                    "Customer tracking",
-                    "Invoices",
-                    "Internal handoffs",
-                  ].map((item) => (
-                    <div
-                      key={item}
-                      className="text-sm text-neutral-700 font-sans border-b border-neutral-200 last:border-b-0 pb-2 last:pb-0"
-                    >
-                      {item}
-                    </div>
-                  ))}
-                </div>
-                <p className="text-sm text-neutral-500 leading-relaxed font-sans">
-                  These are usually the easiest places to reduce manual work
-                  without overcomplicating the business.
-                </p>
-              </aside>
-            </div>
-          </motion.article>
-        )}
-
-        {/* STEP 1B: BOOKING TOOL */}
-        {step === "booking" && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="max-w-6xl w-full"
-          >
-            <div className="border border-neutral-200 rounded-2xl overflow-hidden bg-white">
-              <div className="grid grid-cols-1 xl:grid-cols-[1.1fr_0.9fr]">
-                <div className="p-8 md:p-10 lg:p-12 border-b xl:border-b-0 xl:border-r border-neutral-200">
-                  <p className="text-[10px] tracking-[0.35em] text-neutral-500 font-medium uppercase font-sans mb-4">
-                    Tool
-                  </p>
-                  <h2 className="text-[1.9rem] sm:text-[2.4rem] md:text-[3rem] font-bold tracking-[-0.03em] leading-[1.08] text-black mb-5 max-w-2xl">
-                    Free Booking Workflow Setup
-                  </h2>
-                  <p className="text-sm md:text-base text-neutral-500 leading-relaxed font-sans max-w-2xl mb-8">
-                    A simple setup for service businesses that want to collect
-                    booking requests in one place, keep customer details
-                    organized, and reduce manual follow-up.
-                  </p>
-
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                    {[
-                      {
-                        label: "Input",
-                        text: "Booking requests from a form, website, WhatsApp, or direct message.",
-                      },
-                      {
-                        label: "Process",
-                        text: "Store details in one tracker and prepare confirmations or reminders.",
-                      },
-                      {
-                        label: "Outcome",
-                        text: "Fewer missed requests, clearer follow-up, and less admin work.",
-                      },
-                    ].map((item) => (
-                      <div
-                        key={item.label}
-                        className="border border-neutral-200 rounded-2xl p-5 bg-neutral-50"
-                      >
-                        <p className="text-[10px] tracking-[0.25em] uppercase text-neutral-400 font-medium font-sans mb-3">
-                          {item.label}
-                        </p>
-                        <p className="text-sm text-neutral-600 leading-relaxed font-sans">
-                          {item.text}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="border-t border-neutral-200 pt-6">
-                    <p className="text-[10px] tracking-[0.25em] uppercase text-neutral-400 font-medium font-sans mb-3">
-                      Typical stack
-                    </p>
-                    <p className="text-sm text-neutral-600 leading-relaxed font-sans">
-                      Google Forms · Google Sheets · Google Calendar · Email
-                      Templates · Simple Automation
-                    </p>
-                  </div>
-                </div>
-
-                <div className="p-8 md:p-10 lg:p-12 bg-neutral-50/70">
-                  <p className="text-[10px] tracking-[0.25em] uppercase text-neutral-400 font-medium font-sans mb-5">
-                    How it works
-                  </p>
-                  <div className="space-y-4">
-                    {[
-                      {
-                        title: "1. Receive the request",
-                        text: "A client sends a booking or inquiry through one clear entry point.",
-                      },
-                      {
-                        title: "2. Save the details",
-                        text: "Client information is stored in one shared tracker instead of scattered chats or inboxes.",
-                      },
-                      {
-                        title: "3. Send confirmation",
-                        text: "A standard confirmation or reminder can be sent quickly with less manual work.",
-                      },
-                      {
-                        title: "4. Keep follow-up consistent",
-                        text: "Everyone can see what happened, what is pending, and what needs to happen next.",
-                      },
-                    ].map((item) => (
-                      <div
-                        key={item.title}
-                        className="border border-neutral-200 rounded-2xl bg-white p-5"
-                      >
-                        <h3 className="text-base md:text-lg font-bold text-black mb-2">
-                          {item.title}
-                        </h3>
-                        <p className="text-sm text-neutral-600 leading-relaxed font-sans">
-                          {item.text}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        )}
-
         {/* STEP 2: ASSESSMENT INTRO */}
         {step === "assessment" && (
           <motion.div
@@ -1284,5 +1110,6 @@ export default function DigitalToolPage() {
         )}
       </div>
     </div>
+    </>
   );
 }
