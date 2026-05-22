@@ -1,3 +1,27 @@
+interface CaseItem {
+  id: string;
+  no: string;
+  title: string;
+  subtitle: string;
+  category: string;
+  role: string;
+  year: string;
+  location: string;
+  tags: string[];
+  thumbnailBg: string;
+  image?: string;
+  detailImage1?: string;
+  detailImage2?: string;
+  isFullWidth?: boolean;
+  previewUrl: string;
+  videoUrl: string;
+  teamSize: string;
+  duration: string;
+  context: string;
+  execution: { architecture: string; compliance: string; leadership: string };
+  highlight: string;
+}
+
 const cases: CaseItem[] = [
   {
     id: "malim-mobility",
@@ -325,81 +349,5 @@ const cases: CaseItem[] = [
   },
 ];
 
-function VideoThumbnail({
-  item,
-  onClick,
-}: {
-  item: CaseItem;
-  onClick: () => void;
-}) {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [isHovered, setIsHovered] = useState(false);
-
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-    if (videoRef.current && item.previewUrl) {
-      videoRef.current.play().catch(() => {});
-    }
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-    if (videoRef.current && item.previewUrl) {
-      videoRef.current.pause();
-      videoRef.current.currentTime = 0;
-    }
-  };
-
-  return (
-    <div
-      className="relative w-full lg:w-[52%] h-[400px] overflow-hidden cursor-pointer shrink-0 rounded-2xl"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      onClick={onClick}
-    >
-      <div
-        className={`absolute inset-0 bg-gradient-to-br ${item.thumbnailBg} transition-transform duration-700 ${isHovered ? "scale-[1.03]" : "scale-100"}`}
-      />
-
-      {item.previewUrl && (
-        <video
-          ref={videoRef}
-          src={item.previewUrl}
-          muted
-          loop
-          playsInline
-          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${isHovered ? "opacity-100" : "opacity-0"}`}
-        />
-      )}
-
-      <span
-        className="absolute bottom-4 right-5 text-[80px] font-bold leading-none select-none pointer-events-none"
-        style={{ color: "rgba(255,255,255,0.06)" }}
-      >
-        {item.no}
-      </span>
-
-      <span
-        className="absolute top-5 left-5 text-[9px] tracking-widest font-medium"
-        style={{ color: "rgba(255,255,255,0.5)" }}
-      >
-        {item.role.toUpperCase()}
-      </span>
-
-      <div
-        className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${isHovered ? "opacity-100" : "opacity-60"}`}
-      >
-        <div
-          className="w-12 h-12 rounded-full flex items-center justify-center text-white text-xs tracking-widest"
-          style={{
-            background: "rgba(255,255,255,0.15)",
-            border: "1px solid rgba(255,255,255,0.25)",
-            backdropFilter: "blur(8px)",
-          }}
-        >
-          VIEW
-        </div>
-      </div>
-    </div>
-  );
-}
+export type { CaseItem };
+export default cases;
