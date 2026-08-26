@@ -7,11 +7,10 @@ import MobileMenu from "./mobile-menu";
 import { Menu } from "lib/shopify/types";
 
 const defaultMenu: Menu[] = [
-  { title: "Home", path: "/" },
+  { title: "About", path: "/" },
   { title: "All Work", path: "/all-work" },
   { title: "My Methodology", path: "/my-methodology" },
   { title: "Digital Tool", path: "/digital-tool" },
-  { title: "About", path: "/about" },
 ];
 
 function NavbarContent() {
