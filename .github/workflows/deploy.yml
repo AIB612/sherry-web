@@ -47,4 +47,4 @@ jobs:
           protocol: ftps
           port: 21
           local-dir: ./out/
-          server-dir: ./it.swisspro.site/
+          server-dir: ./
