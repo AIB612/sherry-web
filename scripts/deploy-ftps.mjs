@@ -27,15 +27,6 @@ async function walk(dir) {
   return out;
 }
 
-async function hasFile(client, remote) {
-  try {
-    await client.size(remote);
-    return true;
-  } catch {
-    return false;
-  }
-}
-
 const host = hostOnly(process.env.FTP_SERVER || "");
 const user = process.env.FTP_USERNAME || "";
 const password = process.env.FTP_PASSWORD || "";
@@ -62,25 +53,22 @@ try {
   const names = listing.filter((item) => item.isDirectory).map((item) => item.name);
   console.log(`login dir entries: ${listing.length}, directories: ${names.join(", ") || "(none)"}`);
 
-  const candidates = ["", ...names];
-  let docroot = null;
-  for (const name of candidates) {
-    const base = name ? `${loginDir === "/" ? "" : loginDir}/${name}` : loginDir;
-    const indexPath = `${base}/index.html`.replace(/\/{2,}/g, "/");
-    const noblePath = `${base}/noble-families/index.html`.replace(/\/{2,}/g, "/");
-    const index = await hasFile(client, indexPath);
-    const noble = await hasFile(client, noblePath);
-    console.log(`candidate ${name || "(login)"} index=${index} noble=${noble}`);
-    // The live site still has index.html and does not have the new map yet.
-    // The previous upload already dropped noble-families into the login directory.
-    if (index && !noble) docroot = base || "/";
+  // pwd is the LiteSpeed document root for https://it.swisspro.site/.
+  // Do not pick a child. noble-families/index.html is the map page, so the
+  // old "index.html and no nested noble-families" test selected that child
+  // and the whole export overwrote the map.
+  const docroot = loginDir;
+  try {
+    const parent = loginDir === "/" ? null : loginDir.replace(/\/[^/]+$/, "") || "/";
+    if (parent && parent !== loginDir) {
+      const parentList = await client.list(parent);
+      const parentDirs = parentList.filter((item) => item.isDirectory).map((item) => item.name);
+      console.log(`parent entries: ${parentList.length}, directories: ${parentDirs.join(", ") || "(none)"}`);
+    }
+  } catch {
+    console.log("parent directory is not listable");
   }
-
-  if (!docroot) {
-    console.error("Could not find the document root (index.html without noble-families).");
-    process.exit(1);
-  }
-  console.log(`uploading into document root candidate with ${docroot.split("/").filter(Boolean).length} path segments`);
+  console.log(`uploading into document root: ${docroot}`);
 
   const files = await walk(localRoot);
   let uploaded = 0;
@@ -96,7 +84,8 @@ try {
     } catch {
       remoteSize = -1;
     }
-    if (remoteSize === info.size) {
+    const force = rel.endsWith(".html") || rel.startsWith("noble-families/") || rel === ".htaccess";
+    if (!force && remoteSize === info.size) {
       skipped += 1;
       continue;
     }

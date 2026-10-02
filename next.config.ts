@@ -3,6 +3,9 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   // 👈 核心修改 1：开启静态导出模式，生成 out 文件夹
   output: "export",
+  // LiteSpeed redirects /digital-tool to /digital-tool/ because the export
+  // also creates that directory. Without an index.html the directory 404s.
+  trailingSlash: true,
 
   // 👈 核心修改 2：静态导出不支持 Image Optimization，必须关闭
   images: {
