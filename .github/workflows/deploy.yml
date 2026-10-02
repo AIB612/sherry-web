@@ -46,6 +46,7 @@ jobs:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
           FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_REMOTE_DIR: /it.swisspro.site
         run: |
           set -euo pipefail
           npm install --prefix /tmp/ftps-deploy basic-ftp@5
