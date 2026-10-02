@@ -596,14 +596,6 @@ export default function DigitalToolPage() {
             </>
           );
 
-          if ("href" in item && item.href) {
-            return (
-              <a key={item.key} href={item.href} className={className}>
-                {content}
-              </a>
-            );
-          }
-
           return (
             <button
               key={item.key}
