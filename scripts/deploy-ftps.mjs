@@ -1,5 +1,5 @@
 import { Client } from "basic-ftp";
-import { readdir, stat } from "node:fs/promises";
+import { readdir, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 function hostOnly(value) {
@@ -59,14 +59,71 @@ try {
   });
   const loginDir = (await client.pwd()).replace(/\/$/, "") || "/";
   const listing = await client.list(loginDir);
-  const names = listing.filter((item) => item.isDirectory).map((item) => item.name);
-  console.log(`login dir entries: ${listing.length}, directories: ${names.join(", ") || "(none)"}`);
+  const names = listing.map((item) => `${item.name}${item.isDirectory ? "/" : ""}`);
+  console.log(`login dir entries: ${listing.length}: ${names.join(", ") || "(none)"}`);
+  try {
+    await client.cd("..");
+    const parent = await client.pwd();
+    const parentList = await client.list();
+    console.log(`parent path: ${parent}`);
+    console.log(`parent entries: ${parentList.map((item) => item.name).join(", ") || "(none)"}`);
+    await client.cd(loginDir);
+  } catch (error) {
+    console.log(`parent not listable: ${error.message}`);
+    try { await client.cd(loginDir); } catch { /* stay */ }
+  }
 
-  // The FTPS session is chrooted. Its root is the LiteSpeed document root:
-  // uploads into /noble-families are what https://it.swisspro.site/noble-families serves.
-  // Never pick the noble-families child; that folder is the map, and a previous
-  // run unpacked the whole export there and replaced the map index.
-  const docroot = loginDir || "/";
+  const stamp = Date.now().toString();
+  const probeLocal = "/tmp/zz-docroot-probe.txt";
+  await writeFile(probeLocal, stamp);
+  const candidates = [
+    loginDir,
+    ...listing.filter((item) => item.isDirectory).map((item) => `${loginDir === "/" ? "" : loginDir}/${item.name}`),
+    "/public_html",
+    "/www",
+    "/htdocs",
+    "/it.swisspro.site",
+    "/public_html/it.swisspro.site",
+    "/domains/it.swisspro.site/public_html",
+  ];
+  let docroot = null;
+  const seen = new Set();
+  for (const dir of candidates) {
+    const normalized = (dir || "/").replace(/\/+$/, "") || "/";
+    if (seen.has(normalized)) continue;
+    seen.add(normalized);
+    const label = normalized.replace(/[^A-Za-z0-9]+/g, "_").replace(/^_+|_+$/g, "") || "root";
+    const fileName = `zz-probe-${stamp}-${label}.txt`;
+    try {
+      await client.cd(normalized);
+      await client.uploadFrom(probeLocal, fileName);
+    } catch (error) {
+      console.log(`probe skip ${normalized}: ${error.message}`);
+      continue;
+    }
+    const url = `https://it.swisspro.site/${fileName}`;
+    let status = 0;
+    let match = false;
+    for (let attempt = 0; attempt < 3 && !match; attempt += 1) {
+      try {
+        const res = await fetch(url, { cache: "no-store" });
+        status = res.status;
+        const text = (await res.text()).trim();
+        match = status === 200 && text === stamp;
+      } catch (error) {
+        console.log(`probe fetch ${normalized} attempt ${attempt}: ${error.message}`);
+      }
+    }
+    console.log(`probe ${normalized} status=${status} match=${match}`);
+    if (match) {
+      docroot = normalized;
+      break;
+    }
+  }
+  if (!docroot) {
+    console.error("No FTP directory is the LiteSpeed document root for https://it.swisspro.site/.");
+    process.exit(1);
+  }
   const joinRemote = (rel) => {
     const base = docroot === "/" ? "" : docroot.replace(/\/$/, "");
     return `${base}/${rel}`.replace(/\/{2,}/g, "/");
