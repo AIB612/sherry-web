@@ -27,6 +27,14 @@ async function walk(dir) {
   return out;
 }
 
+async function remoteSize(client, remote) {
+  try {
+    return await client.size(remote);
+  } catch {
+    return -1;
+  }
+}
+
 const host = hostOnly(process.env.FTP_SERVER || "");
 const user = process.env.FTP_USERNAME || "";
 const password = process.env.FTP_PASSWORD || "";
@@ -36,6 +44,7 @@ if (!host || !user || !password) {
 }
 
 const localRoot = path.resolve("out");
+const mapRoot = path.resolve("Noble Families");
 const client = new Client(60_000);
 client.ftp.verbose = false;
 
@@ -53,22 +62,39 @@ try {
   const names = listing.filter((item) => item.isDirectory).map((item) => item.name);
   console.log(`login dir entries: ${listing.length}, directories: ${names.join(", ") || "(none)"}`);
 
-  // pwd is the LiteSpeed document root for https://it.swisspro.site/.
-  // Do not pick a child. noble-families/index.html is the map page, so the
-  // old "index.html and no nested noble-families" test selected that child
-  // and the whole export overwrote the map.
-  const docroot = loginDir;
-  try {
-    const parent = loginDir === "/" ? null : loginDir.replace(/\/[^/]+$/, "") || "/";
-    if (parent && parent !== loginDir) {
-      const parentList = await client.list(parent);
-      const parentDirs = parentList.filter((item) => item.isDirectory).map((item) => item.name);
-      console.log(`parent entries: ${parentList.length}, directories: ${parentDirs.join(", ") || "(none)"}`);
-    }
-  } catch {
-    console.log("parent directory is not listable");
-  }
+  // The FTPS session is chrooted. Its root is the LiteSpeed document root:
+  // uploads into /noble-families are what https://it.swisspro.site/noble-families serves.
+  // Never pick the noble-families child; that folder is the map, and a previous
+  // run unpacked the whole export there and replaced the map index.
+  const docroot = loginDir || "/";
+  const joinRemote = (rel) => {
+    const base = docroot === "/" ? "" : docroot.replace(/\/$/, "");
+    return `${base}/${rel}`.replace(/\/{2,}/g, "/");
+  };
   console.log(`uploading into document root: ${docroot}`);
+
+  async function put(local, remote) {
+    const remoteDir = remote.slice(0, remote.lastIndexOf("/")) || "/";
+    await client.ensureDir(remoteDir);
+    await client.uploadFrom(local, remote);
+  }
+
+  const probes = [
+    "index.html",
+    "digital-tool.html",
+    "digital-tool/index.html",
+    "noble-families/index.html",
+  ];
+  for (const rel of probes) {
+    let localBytes = -1;
+    try {
+      localBytes = (await stat(path.join(localRoot, rel))).size;
+    } catch {
+      localBytes = -1;
+    }
+    const remoteBytes = await remoteSize(client, joinRemote(rel));
+    console.log(`before ${rel} local=${localBytes} remote=${remoteBytes}`);
+  }
 
   const files = await walk(localRoot);
   let uploaded = 0;
@@ -76,25 +102,55 @@ try {
   for (const local of files) {
     const rel = path.relative(localRoot, local).split(path.sep).join("/");
     if (rel === ".ftp-deploy-sync-state.json") continue;
-    const remote = `${docroot.replace(/\/$/, "")}/${rel}`;
     const info = await stat(local);
-    let remoteSize = -1;
-    try {
-      remoteSize = await client.size(remote);
-    } catch {
-      remoteSize = -1;
-    }
-    const force = rel.endsWith(".html") || rel.startsWith("noble-families/") || rel === ".htaccess";
-    if (!force && remoteSize === info.size) {
+    const remote = joinRemote(rel);
+    const existing = await remoteSize(client, remote);
+    const force =
+      rel.endsWith(".html") || rel.startsWith("noble-families/") || rel === ".htaccess";
+    if (!force && existing === info.size) {
       skipped += 1;
-      continue;
+    } else {
+      await put(local, remote);
+      uploaded += 1;
+      if (uploaded % 25 === 0) console.log(`uploaded ${uploaded}`);
     }
-    const remoteDir = remote.slice(0, remote.lastIndexOf("/")) || docroot;
-    await client.ensureDir(remoteDir);
-    await client.uploadFrom(local, remote);
-    uploaded += 1;
-    if (uploaded % 25 === 0) console.log(`uploaded ${uploaded}`);
+    // LiteSpeed redirects /digital-tool to /digital-tool/ because the export
+    // also creates that directory, which then 404s without an index.html.
+    if (rel.endsWith(".html") && path.posix.basename(rel) !== "index.html") {
+      const mirror = joinRemote(rel.slice(0, -".html".length) + "/index.html");
+      await put(local, mirror);
+      uploaded += 1;
+    }
   }
+
+  // Restore the map from the repo folder. public/noble-families is only a symlink,
+  // and the last deploy overwrote /noble-families/index.html with the homepage.
+  let mapFiles = [];
+  try {
+    mapFiles = await walk(mapRoot);
+  } catch (error) {
+    console.error(`map folder missing: ${error.message}`);
+    process.exit(1);
+  }
+  for (const local of mapFiles) {
+    const rel = path.relative(mapRoot, local).split(path.sep).join("/");
+    await put(local, joinRemote(`noble-families/${rel}`));
+    uploaded += 1;
+  }
+  const mapIndex = joinRemote("noble-families/index.html");
+  const mapBytes = await remoteSize(client, mapIndex);
+  console.log(`after noble-families/index.html remote=${mapBytes}`);
+  if (mapBytes < 1000 || mapBytes > 100000) {
+    console.error("Map index.html was not restored on the document root.");
+    process.exit(1);
+  }
+  const toolIndex = await remoteSize(client, joinRemote("digital-tool/index.html"));
+  console.log(`after digital-tool/index.html remote=${toolIndex}`);
+  if (toolIndex < 0) {
+    console.error("digital-tool/index.html is missing on the document root.");
+    process.exit(1);
+  }
+
   console.log(`upload complete: ${uploaded} sent, ${skipped} unchanged, ${files.length} local files`);
   if (uploaded === 0) {
     console.error("No files were uploaded; the site would stay unchanged.");
