@@ -38,10 +38,9 @@ jobs:
           SHOPIFY_STOREFRONT_ACCESS_TOKEN: "123456"
         run: pnpm build
 
-      # FTP-Deploy-Action@v4.3.5 returns FTP 553 (Can't open that file) on the
-      # first new file under an existing directory after it MKDs other folders
-      # (seen on _next/static/chunks/*.css). lftp creates each directory and
-      # uploads from inside it, so nested chunk paths actually land.
+      # basic-ftp uploads by absolute path. FTP-Deploy-Action 553'd on
+      # _next/static/chunks/*.css after ensureDir left the session in another
+      # folder, and lftp's mirror target did not update the document root.
       - name: 通过 FTPS 部署 (Bereitstellung über FTPS)
         env:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
@@ -49,38 +48,6 @@ jobs:
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
         run: |
           set -euo pipefail
-          sudo apt-get update -qq
-          sudo apt-get install -y -qq lftp
-          python3 - <<'PY'
-          import os
-          from pathlib import Path
-          host = os.environ["FTP_SERVER"].strip()
-          for prefix in ("ftps://", "ftp://"):
-              if host.lower().startswith(prefix):
-                  host = host[len(prefix):]
-          host = host.split("/")[0]
-          user = os.environ["FTP_USERNAME"]
-          password = os.environ["FTP_PASSWORD"]
-          # lftp only fills the user from netrc when open has no protocol.
-          # open ftp://host skips netrc and logs in anonymously (530).
-          path = Path.home() / ".netrc"
-          path.write_text(f"machine {host}\nlogin {user}\npassword {password}\n")
-          path.chmod(0o600)
-          script = """set cmd:fail-exit true
-          set net:max-retries 2
-          set net:timeout 40
-          set ftp:ssl-force true
-          set ftp:ssl-protect-data true
-          set ssl:verify-certificate no
-          set ftp:passive-mode true
-          set mirror:parallel-transfer-count 1
-          open {host}
-          mirror --reverse --verbose --no-perms --ignore-time --parallel=1 ./out/ ./
-          quit
-          """.format(host=host)
-          Path("/tmp/deploy.lftp").write_text(script)
-          print("netrc ready")
-          PY
-          # Explicit FTPS on port 21 (ChemiCloud).
-          lftp -f /tmp/deploy.lftp
-          rm -f "$HOME/.netrc" /tmp/deploy.lftp
+          npm install --prefix /tmp/ftps-deploy basic-ftp@5
+          cp scripts/deploy-ftps.mjs /tmp/ftps-deploy/deploy-ftps.mjs
+          node /tmp/ftps-deploy/deploy-ftps.mjs
