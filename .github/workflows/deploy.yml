@@ -55,15 +55,17 @@ jobs:
           import os
           from pathlib import Path
           host = os.environ["FTP_SERVER"].strip()
+          for prefix in ("ftps://", "ftp://"):
+              if host.lower().startswith(prefix):
+                  host = host[len(prefix):]
+          host = host.split("/")[0]
           user = os.environ["FTP_USERNAME"]
           password = os.environ["FTP_PASSWORD"]
-          def q(value: str) -> str:
-              return '"' + value.replace('\\', '\\\\').replace('"', '\\"') + '"'
+          # lftp only fills the user from netrc when open has no protocol.
+          # open ftp://host skips netrc and logs in anonymously (530).
           path = Path.home() / ".netrc"
-          path.write_text(f"machine {host}\nlogin {q(user)}\npassword {q(password)}\n")
+          path.write_text(f"machine {host}\nlogin {user}\npassword {password}\n")
           path.chmod(0o600)
-          # -f cannot be combined with an open URL, so the host goes in the script.
-          # Credentials stay in netrc and are not written here.
           script = """set cmd:fail-exit true
           set net:max-retries 2
           set net:timeout 40
@@ -72,7 +74,7 @@ jobs:
           set ssl:verify-certificate no
           set ftp:passive-mode true
           set mirror:parallel-transfer-count 1
-          open ftp://{host}
+          open {host}
           mirror --reverse --verbose --no-perms --ignore-time --parallel=1 ./out/ ./
           quit
           """.format(host=host)
