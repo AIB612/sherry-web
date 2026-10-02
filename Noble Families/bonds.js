@@ -1,0 +1,50 @@
+/* 谁嫁谁、为何相连。只写有依据的关系，不编造人名。 */
+const BONDS = [
+  { a: "khorchin", b: "qing", who: "孝庄文皇后", verb: "嫁给", whom: "皇太极", year: 1625, why: "科尔沁与后金结盟，博尔济吉特的女儿进入爱新觉罗" },
+  { a: "khorchin", b: "qing", who: "海兰珠", verb: "嫁给", whom: "皇太极", year: 1634, why: "同一黄金家族，巩固满蒙军事同盟" },
+  { a: "tang", b: "tubo", who: "文成公主", verb: "嫁给", whom: "松赞干布", year: 641, why: "唐蕃和亲，换来驿路与边境间歇的和平" },
+  { a: "han", b: "xiongnu", who: "刘细君 / 王昭君一线", verb: "嫁给", whom: "匈奴单于", year: -33, why: "汉匈和亲：用宗室女换边境休战" },
+  { a: "habsburg", b: "burgundy", who: "马克西米利安一世（皇帝）", verb: "娶了", whom: "勃艮第的玛丽", year: 1477, why: "尼德兰成为哈布斯堡的嫁妆。这位不是后来去墨西哥的那位大公。" },
+  { a: "habsburg", b: "habsburg", who: "弗朗茨·约瑟夫", verb: "娶了", whom: "巴伐利亚的伊丽莎白（茜茜）", year: 1854, why: "在巴特伊施尔一见钟情，原定新娘是姐姐海伦。茜茜终生不喜霍夫堡的礼仪。" },
+  { a: "habsburg", b: "aztec", who: "费迪南德·马克西米利安", verb: "在墨西卡故地接受一顶法国扶植的王冠", whom: "墨西哥城", year: 1864, why: "不是与阿兹特克联姻。是哈布斯堡大公去当墨西哥皇帝，1867年被共和国枪毙。" },
+  { a: "habsburg", b: "castile", who: "腓力一世", verb: "娶了", whom: "胡安娜", year: 1496, why: "卡斯蒂利亚王位进入哈布斯堡" },
+  { a: "habsburg", b: "bourbon", who: "路易十四", verb: "娶了", whom: "西班牙的玛丽-特蕾莎", year: 1660, why: "法西联姻，后来又变成西班牙王位争夺" },
+  { a: "habsburg", b: "bourbon-spain", who: "腓力五世", verb: "入主", whom: "西班牙王位", year: 1700, why: "哈布斯堡西班牙支系绝嗣，波旁接过马德里" },
+  { a: "habsburg", b: "hanover", who: "维多利亚的孙辈", verb: "与", whom: "奥地利支系表亲通婚", year: 1860, why: "19世纪欧洲宫廷的表亲网" },
+  { a: "hanover", b: "hohenzollern", who: "维多利亚长女维琪", verb: "嫁给", whom: "腓特烈三世", year: 1858, why: "外孙是德皇威廉二世" },
+  { a: "hanover", b: "romanov", who: "阿丽克斯（亚历山德拉）", verb: "嫁给", whom: "尼古拉二世", year: 1894, why: "维多利亚外孙女成为俄国皇后" },
+  { a: "hanover", b: "oldenburg", who: "爱德华七世", verb: "娶了", whom: "丹麦的亚历山德拉", year: 1863, why: "英国王室与奥尔登堡联姻" },
+  { a: "oldenburg", b: "romanov", who: "达格玛（玛丽亚·费奥多罗芙娜）", verb: "嫁给", whom: "亚历山大三世", year: 1866, why: "尼古拉二世的母亲来自哥本哈根" },
+  { a: "oldenburg", b: "hohenzollern", who: "丹麦公主", verb: "嫁入", whom: "德意志宫廷", year: 1860, why: "克里斯蒂安九世把女儿送进多座王宫" },
+  { a: "yamato", b: "baekje", who: "百济王族与工匠", verb: "进入", whom: "大和宫廷", year: 552, why: "佛教与联姻使节把半岛和列岛连上" },
+  { a: "yamato", b: "tang", who: "遣唐使与皇族", verb: "往来于", whom: "长安", year: 630, why: "不是单次嫁娶，是长期的制度性往来" },
+  { a: "qing", b: "joseon", who: "朝鲜世子 / 宗室", verb: "接受", whom: "清帝册封", year: 1637, why: "丙子之后李氏成为爱新觉罗的藩属，不是平等婚约" },
+  { a: "qing", b: "ryukyu", who: "尚氏国王", verb: "同时朝贡", whom: "明清与萨摩", year: 1429, why: "海岛王统靠册封存活，不是嫁娶" },
+  { a: "ming", b: "joseon", who: "李成桂一系", verb: "接受", whom: "朱明册封", year: 1392, why: "事大：朝鲜用明朝年号换正统" },
+  { a: "bourbon", b: "medici", who: "亨利四世", verb: "娶了", whom: "玛丽·德·美第奇", year: 1600, why: "佛罗伦萨银行家的女儿成为法兰西王后" },
+  { a: "plantagenet", b: "capet", who: "亨利二世", verb: "娶了", whom: "阿基坦的埃莉诺", year: 1152, why: "埃莉诺先嫁法王路易七世，再嫁安茹的亨利" },
+  { a: "normandy", b: "plantagenet", who: "玛蒂尔达", verb: "嫁给", whom: "安茹的若弗鲁瓦", year: 1128, why: "诺曼血统经此变成金雀花" },
+  { a: "ayyubid", b: "plantagenet", who: "萨拉丁", verb: "对峙并议和于", whom: "狮心王理查", year: 1192, why: "第三次十字军：战场上的对手，不是姻亲" },
+  { a: "rome", b: "ptolemy", who: "凯撒 / 安东尼", verb: "与", whom: "克娄巴特拉七世结盟", year: -48, why: "罗马内战里的埃及婚约与政治同盟" },
+  { a: "macedonia", b: "achaemenid", who: "亚历山大", verb: "娶了", whom: "罗克珊娜与大流士之女", year: -327, why: "用波斯公主把征服写成一家" },
+  { a: "ottoman", b: "byzantium", who: "奥斯曼苏丹", verb: "征服并取代", whom: "君士坦丁堡的罗马人", year: 1453, why: "不是联姻收场，是攻城" },
+  { a: "romanov", b: "habsburg", who: "俄奥宫廷", verb: "互嫁", whom: "大公与公主", year: 1740, why: "反拿破仑前后的同盟婚，后来在巴尔干破裂" },
+  { a: "silla", b: "tang", who: "金春秋（武烈王）", verb: "遣子入唐并结盟于", whom: "唐太宗 / 高宗", year: 648, why: "罗唐联盟灭百济、高句丽" },
+  { a: "goguryeo", b: "tang", who: "高句丽王室", verb: "与", whom: "唐军开战", year: 645, why: "这是战争线，不是婚书" },
+  { a: "tokugawa", b: "yamato", who: "德川将军", verb: "迎娶", whom: "皇族与公家女", year: 1603, why: "武家用朝廷的血缘给幕府镀金" },
+  { a: "fujiwara", b: "yamato", who: "藤原氏女", verb: "嫁给", whom: "历代天皇", year: 850, why: "摄关政治的核心：把女儿送进后宫" },
+  { a: "mughal", b: "safavid", who: "胡马雍", verb: "流亡并联姻于", whom: "萨法维宫廷", year: 1544, why: "波斯庇护换来复国" },
+  { a: "timurid", b: "mughal", who: "巴布尔", verb: "自称后裔于", whom: "帖木儿", year: 1526, why: "血缘正统，不是当世嫁娶" },
+  { a: "yuan", b: "mongol", who: "忽必烈", verb: "继承", whom: "成吉思汗的大汗名号", year: 1260, why: "同一孛儿只斤家族的分裂与建国" },
+  { a: "golden-horde", b: "rurik", who: "罗斯诸公", verb: "娶", whom: "金帐汗国宗女", year: 1250, why: "藩属婚：用姻亲换册封与安全" },
+  { a: "crimean", b: "ottoman", who: "格来家族", verb: "与", whom: "奥斯曼联姻并称藩", year: 1475, why: "克里米亚汗是苏丹的同盟兼姻亲" },
+  { a: "savoy", b: "bourbon", who: "萨伏依公主", verb: "嫁入", whom: "凡尔赛", year: 1660, why: "阿尔卑斯家族靠婚约挤进大国餐桌" },
+  { a: "aviz", b: "habsburg", who: "曼努埃尔一世子女", verb: "嫁入", whom: "西班牙哈布斯堡", year: 1498, why: "葡萄牙王位一度并入西班牙" },
+  { a: "jagiellon", b: "habsburg", who: "安娜·雅盖洛", verb: "嫁给", whom: "斐迪南一世", year: 1521, why: "匈牙利与波希米亚经此进入哈布斯堡" },
+  { a: "lithuania", b: "jagiellon", who: "雅盖沃", verb: "娶了", whom: "波兰的雅德维加", year: 1386, why: "立陶宛大公成为波兰国王" }
+];
+
+function bondsFor(id) {
+  const extra = typeof MORE_BONDS !== "undefined" ? MORE_BONDS : [];
+  return BONDS.concat(extra).filter(b => b.a === id || b.b === id);
+}

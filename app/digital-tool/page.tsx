@@ -449,7 +449,7 @@ function RadarChart({
 
 export default function DigitalToolPage() {
   const [step, setStep] = useState<
-    "booking" | "digitalization" | "assessment" | "results"
+    "booking" | "digitalization" | "assessment" | "results" | "noble-families"
   >("assessment");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, number>>({});
@@ -460,6 +460,7 @@ export default function DigitalToolPage() {
         case "booking":
         case "digitalization":
         case "assessment":
+        case "noble-families":
           return hash;
         case "assessment-run":
         case "results":
@@ -480,7 +481,16 @@ export default function DigitalToolPage() {
     return () => window.removeEventListener("hashchange", handleHashChange);
   }, []);
 
-  const updateStepWithHash = (nextStep: "booking" | "digitalization" | "assessment") => {
+  useEffect(() => {
+    if (step !== "noble-families") return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [step]);
+
+  const updateStepWithHash = (nextStep: "booking" | "digitalization" | "assessment" | "noble-families") => {
     setStep(nextStep);
     window.location.hash = nextStep;
   };
@@ -558,19 +568,19 @@ export default function DigitalToolPage() {
         }}
       />
       <div className="min-h-screen bg-white flex flex-col font-serif">
-      <div className="hidden xl:flex fixed left-6 top-1/2 -translate-y-1/2 z-40 flex-col items-start gap-3">
+      <div className={`hidden xl:flex fixed left-6 top-1/2 -translate-y-1/2 z-[45] flex-col items-start gap-3 pointer-events-auto ${
+        step === "noble-families"
+          ? "rounded-2xl bg-white/90 px-4 py-4 shadow-[0_8px_30px_rgba(0,0,0,0.28)] backdrop-blur-md"
+          : ""
+      }`}>
         {[
+          { key: "noble-families", label: "Noble Families in One Map" },
           { key: "assessment", label: "Assessment Tool" },
         ].map((item) => {
           const isActive = step === item.key;
-
-          return (
-            <button
-              key={item.key}
-              onClick={() => updateStepWithHash(item.key as "booking" | "digitalization" | "assessment")}
-              className="group flex items-center gap-3 text-left"
-              type="button"
-            >
+          const className = "group flex items-center gap-3 text-left";
+          const content = (
+            <>
               <span
                 className={`h-[1px] transition-all duration-300 ${
                   isActive ? "w-10 bg-black" : "w-6 bg-neutral-300 group-hover:w-8 group-hover:bg-neutral-500"
@@ -583,6 +593,25 @@ export default function DigitalToolPage() {
               >
                 {item.label}
               </span>
+            </>
+          );
+
+          if ("href" in item && item.href) {
+            return (
+              <a key={item.key} href={item.href} className={className}>
+                {content}
+              </a>
+            );
+          }
+
+          return (
+            <button
+              key={item.key}
+              onClick={() => updateStepWithHash(item.key as "booking" | "digitalization" | "assessment" | "noble-families")}
+              className={className}
+              type="button"
+            >
+              {content}
             </button>
           );
         })}
@@ -627,7 +656,26 @@ export default function DigitalToolPage() {
         </div>
       )}
 
-      <div className="flex-grow flex items-center justify-center px-5 py-12 md:px-8 lg:px-20 bg-white">
+      <div
+        className={`flex-grow flex bg-white ${
+          step === "noble-families"
+            ? "items-stretch justify-stretch p-0"
+            : "items-center justify-center px-5 py-12 md:px-8 lg:px-20"
+        }`}
+      >
+        {step === "noble-families" && (
+          <section
+            id="noble-families"
+            className="fixed inset-x-0 bottom-0 top-14 z-30 md:top-16"
+          >
+            <iframe
+              title="Imperial Bloodlines"
+              src="/noble-families/index.html"
+              className="absolute inset-0 h-full w-full border-0"
+            />
+          </section>
+        )}
+
         {/* STEP 2: ASSESSMENT INTRO */}
         {step === "assessment" && (
           <motion.div
