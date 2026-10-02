@@ -4,6 +4,7 @@ import { Navbar } from "components/layout/navbar";
 import Footer from "components/layout/footer";
 import { WelcomeToast } from "components/welcome-toast";
 import { Cardo } from "next/font/google";
+import Script from "next/script";
 import { ReactNode } from "react";
 import { Toaster } from "sonner";
 import "./globals.css";
@@ -109,6 +110,18 @@ export default async function RootLayout({
           backgroundColor: "white",
         }}
       >
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-B2L8Q2SY2P"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-B2L8Q2SY2P');
+          `}
+        </Script>
         <CartProvider cartPromise={mockCart}>
           <Navbar />
           <main className="mt-0 pt-0">
