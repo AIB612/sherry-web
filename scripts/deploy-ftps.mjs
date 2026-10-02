@@ -2,12 +2,16 @@ import { Client } from "basic-ftp";
 import { readdir, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
 
-function hostOnly(value) {
-  let host = value.trim();
+function splitServer(value) {
+  let raw = value.trim();
   for (const prefix of ["ftps://", "ftp://"]) {
-    if (host.toLowerCase().startsWith(prefix)) host = host.slice(prefix.length);
+    if (raw.toLowerCase().startsWith(prefix)) raw = raw.slice(prefix.length);
   }
-  return host.split("/")[0];
+  const slash = raw.indexOf("/");
+  const hostPort = slash === -1 ? raw : raw.slice(0, slash);
+  const remotePath = slash === -1 ? "" : raw.slice(slash);
+  const host = hostPort.includes("@") ? hostPort.slice(hostPort.lastIndexOf("@") + 1) : hostPort;
+  return { host, remotePath };
 }
 
 async function walk(dir) {
@@ -35,7 +39,8 @@ async function remoteSize(client, remote) {
   }
 }
 
-const host = hostOnly(process.env.FTP_SERVER || "");
+const server = splitServer(process.env.FTP_SERVER || "");
+const host = server.host;
 const user = process.env.FTP_USERNAME || "";
 const password = process.env.FTP_PASSWORD || "";
 if (!host || !user || !password) {
@@ -57,6 +62,16 @@ try {
     secure: true,
     secureOptions: { rejectUnauthorized: false },
   });
+  if (server.remotePath) {
+    console.log(`FTP_SERVER includes a path with ${server.remotePath.split("/").filter(Boolean).length} segments: ${server.remotePath}`);
+    try {
+      await client.cd(server.remotePath);
+    } catch (error) {
+      console.log(`could not cd to FTP_SERVER path: ${error.message}`);
+    }
+  } else {
+    console.log("FTP_SERVER has no directory path");
+  }
   const loginDir = (await client.pwd()).replace(/\/$/, "") || "/";
   const listing = await client.list(loginDir);
   const names = listing.map((item) => `${item.name}${item.isDirectory ? "/" : ""}`);
